@@ -3,6 +3,7 @@ class ghe:
         self.chan_ghe = chan_ghe
         self.cho_ngoi = cho_ngoi
         self.ghe_tua = ghe_tua
+        
     def XuatThongTin(self):
         print("Chan ghe:", self.chan_ghe)
         print("Cho ngoi:", self.cho_ngoi)
