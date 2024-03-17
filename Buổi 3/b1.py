@@ -1,4 +1,4 @@
-class Object():
+class Information():
     def __init__(self, id, img, title, date, rating):
         self.id = id
         self.img = img
@@ -14,5 +14,5 @@ class Object():
         print(self.rating)
 
 
-a = Object(input('id: '), input('img: '), input('title: '), input('date: '), input('rating: '))
+a = Information(input('id: '), input('img: '), input('title: '), input('date: '), input('rating: '))
 a.print()
