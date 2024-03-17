@@ -1,4 +1,4 @@
-class Information():
+class Information:
     def __init__(self, id, img, title, date, rating):
         self.id = id
         self.img = img
