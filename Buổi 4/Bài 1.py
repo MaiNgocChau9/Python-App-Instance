@@ -10,7 +10,7 @@ a = float(input("a: "))
 b = float(input("b: "))
 c = float(input("c: "))
 
-print(def_max(a, b, c))
+print("Số lớn nhất trong 3 số a, b, c là:", def_max(a, b, c))
 
 
 """ 
