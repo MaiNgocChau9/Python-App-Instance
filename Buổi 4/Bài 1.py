@@ -1,7 +1,7 @@
 def def_max(a, b, c): 
     
     max_num = a
-    if b > max_num: max_num = b # [Dành cho ai chưa viết] Nếu chỉ có 1 dòng sau điều kiện (if) thì viết liền cũng được
+    if b > max_num: max_num = b # [Dành cho ai chưa biết] Nếu chỉ có 1 dòng sau điều kiện (if) thì viết liền cũng được
     if c > max_num: max_num = c
 
     return max_num
