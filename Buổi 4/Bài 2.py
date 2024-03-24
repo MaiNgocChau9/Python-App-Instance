@@ -44,3 +44,26 @@ def update_student():
         else:
             print("Not found")
             break
+
+# Main program
+while True:
+    print("1. Add student")
+    print("2. Remove student")
+    print("3. Display student")
+    print("4. Update student")
+    print("5. Exit")
+    choice = int(input("Enter your choice: "))
+    if choice == 1:
+        name = input("Enter name: ")
+        age = int(input("Enter age: "))
+        grade = int(input("Enter grade: "))
+        add_student(name, age, grade)
+    elif choice == 2:
+        name = input("Enter name: ")
+        remove_student(name)
+    elif choice == 3:
+        display_student()
+    elif choice == 4:
+        update_student()
+    elif choice == 5:
+        break
