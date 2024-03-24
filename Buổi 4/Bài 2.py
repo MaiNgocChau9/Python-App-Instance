@@ -1,9 +1,8 @@
 class Student:
-    def __init__(self):
+    def __init__(self, name, age, grade, danh_sach):
         
-        self.name = "Chau"
-        self.age = 12
-        self.grade = 7
-        # self.danh_sach = list()
+        self.name = name
+        self.age = age
+        self.grade = grade
+        self.danh_sach = danh_sach
 
-print(Student.grade)
