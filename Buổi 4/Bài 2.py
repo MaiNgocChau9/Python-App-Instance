@@ -29,3 +29,18 @@ def display_student():
         print(student.name, student.age, student.grade)
 
 # Update students in student_list
+def update_student():
+    update = input("Enter the name of the student you want to update: ")
+    for student in student_list:
+        if student.name == update:
+            new_name = input("Enter new name: ")
+            new_age = int(input("Enter new age: "))
+            new_grade = int(input("Enter new grade: "))
+            student.name = new_name
+            student.age = new_age
+            student.grade = new_grade
+            print("Updated successfully")
+            break
+        else:
+            print("Not found")
+            break
