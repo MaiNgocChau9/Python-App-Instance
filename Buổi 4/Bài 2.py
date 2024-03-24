@@ -13,9 +13,8 @@ def add_student(name, age, grade):
 
 # Remove students from student_list
 def remove_student(name):
-    delete_student = input("Enter the name of the student you want to delete: ")
     for student in student_list:
-        if student.name == delete_student:
+        if student.name == name:
             student_list.remove(student)
             print("Deleted successfully")
             break
@@ -26,7 +25,7 @@ def remove_student(name):
 # Display students in student_list
 def display_student():
     for student in student_list:
-        print(student.name, student.age, student.grade)
+        print(f"Name: {student.name}, Age: {student.age}, Grade: {student.grade}")
 
 # Update students in student_list
 def update_student():
@@ -47,11 +46,13 @@ def update_student():
 
 # Main program
 while True:
+    print("=== MENU ===")
     print("1. Add student")
     print("2. Remove student")
     print("3. Display student")
     print("4. Update student")
     print("5. Exit")
+    print("\n")
     choice = int(input("Enter your choice: "))
     if choice == 1:
         name = input("Enter name: ")
