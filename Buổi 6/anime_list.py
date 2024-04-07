@@ -8,7 +8,7 @@ def read_to_anime():
 
 # Lưu file
 def write_to_anime(data_anime):
-    with open("Buoi 6\data.json", "w") as f:
+    with open("Buổi 6\\anime.json", "w") as f:
         json.dump(data_anime, f, indent=4)
 
 class AnimeItem:
@@ -53,13 +53,27 @@ class AnimeList:
         anime_delete = self.get_item_by_title(delete_title)
         self.anime_item_list.remove(anime_delete)
 
-danhsach = []
-AnimeList.add_item(
-    {
-        "id": 0,
-        "title": "Naruto",
-        "date": "1999-09-21",
-        "image": "2",
-        "rating": 8.6
-    }
-)
+danhsach = AnimeList()
+
+# main program to run anime app
+while True:
+    print("PHẦN MỀM QUẢN LÍ ANIME")
+    print("1. Thêm anime")
+    print("2. Xem anime")
+    print("3. Thoát")
+    choice = int(input("\nChọn chức năng: "))
+    if choice == 1:
+        new_anime = {
+            "id": len(danhsach.anime_item_list),
+            "title": input("\nTên anime: "),
+            "date": input("Ngày phát hành: "),
+            "image": input("Hình ảnh: "),
+            "rating": float(input("Đánh giá: ")),
+        }
+        danhsach.add_item(new_anime)
+    elif choice == 2:
+        print("\nDanh sách anime:")
+        for anime in danhsach.anime_item_list:
+            print(anime.title)
+    elif choice == 3:
+        break
