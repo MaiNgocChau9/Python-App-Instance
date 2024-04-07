@@ -8,7 +8,7 @@ class AnimeItem:
         self.image = image
         self.rating = rating
 
-# Đọc và in
+# Read and print
 with open ('Buổi 6\data.json', "r") as f:
     data = json.load(f)
 print(data)
