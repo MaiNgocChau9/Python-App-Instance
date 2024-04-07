@@ -4,7 +4,7 @@ import json
 def read_to_anime():
     with open ('Buổi 6\data.json', "r") as f:
         data = json.load(f)
-    print(data)
+    return data
 
 # Lưu file
 def write_to_anime(data_anime):
@@ -37,7 +37,7 @@ class AnimeList:
         anime_dict["id"] = len(self.anime_item_list)
         new_item = AnimeItem(anime_id=anime_dict["id"],
                              title=anime_dict["title"],
-                             date=anime_dict["release_date"],  # Sử dụng 'date' thay vì 'release_date'
+                             date=anime_dict["date"],
                              image=anime_dict["image"],
                              rating=anime_dict["rating"])
         self.anime_item_list.append(new_item)
@@ -50,3 +50,11 @@ class AnimeList:
         anime_delete = self.get_item_by_title(delete_title)
         self.anime_item_list.remove(anime_delete)
 
+danhsach_anime = read_to_anime()
+print(danhsach_anime)
+danhsach = []
+for item in danhsach_anime:
+    print(item)
+    # anime = AnimeItem(item["id"], item["title"], item["date"], item["image"], item["rating"])
+    danhsach.append(AnimeList.add_item(item))
+print(danhsach)
