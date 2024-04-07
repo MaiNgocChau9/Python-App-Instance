@@ -27,6 +27,7 @@ class AnimeItem:
 class AnimeList:
     def __init__(self):
         self.anime_item_list = list()
+        self.anime_item_dict = list()
     
     def get_item_by_title(self, anime_title) -> AnimeItem:
         for anime_item in self.anime_item_list:
@@ -41,6 +42,8 @@ class AnimeList:
                              image=anime_dict["image"],
                              rating=anime_dict["rating"])
         self.anime_item_list.append(new_item)
+        self.anime_item_dict.append(anime_dict)
+        write_to_anime(self.anime_item_dict)
     
     def edit_item_from_dict(self, edit_title, anime_dict: AnimeItem):
         anime_edit = self.get_item_by_title(edit_title)
@@ -50,11 +53,13 @@ class AnimeList:
         anime_delete = self.get_item_by_title(delete_title)
         self.anime_item_list.remove(anime_delete)
 
-danhsach_anime = read_to_anime()
-print(danhsach_anime)
 danhsach = []
-for item in danhsach_anime:
-    print(item)
-    # anime = AnimeItem(item["id"], item["title"], item["date"], item["image"], item["rating"])
-    danhsach.append(AnimeList.add_item(item))
-print(danhsach)
+AnimeList.add_item(
+    {
+        "id": 0,
+        "title": "Naruto",
+        "date": "1999-09-21",
+        "image": "2",
+        "rating": 8.6
+    }
+)
