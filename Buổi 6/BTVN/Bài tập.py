@@ -22,8 +22,9 @@ for animal in animals:
 with open("Buổi 6\\BTVN\\animals.json", "w", encoding="utf-8") as f:
     json.dump(animal_data, f, indent=4, ensure_ascii=False)
 
-"""
-Tham số ensure_ascii
+""" 
+Giải thích: THAM SỐ ENSURE_ASCII
+
 Tham số ensure_ascii xác định liệu các ký tự Unicode trong dữ liệu JSON có được mã hóa thành các ký tự ASCII hay không.
 
 Nếu ensure_ascii được đặt thành True (mặc định), thì tất cả các ký tự Unicode trong dữ liệu JSON sẽ được mã hóa thành các ký tự ASCII.
