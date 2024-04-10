@@ -48,7 +48,8 @@ class AnimeList:
     def edit_item_from_dict(self, edit_title, anime_dict: AnimeItem):
         anime_edit = self.get_item_by_title(edit_title)
         anime_edit.update(anime_dict)
-
+        # Cập nhật file JSON
+        write_to_anime(self.anime_item_dict)
     
     def delete_item(self, delete_title):
         anime_delete = self.get_item_by_title(delete_title)
@@ -78,10 +79,10 @@ while True:
     elif choice == 2:
         print("\nDanh sách anime:")
         for anime in danhsach.anime_item_list:
-            print(f"{anime.id}. {anime.title}")
+            print(f"{str(anime.id)}. {anime.title}")
     elif choice == 3:
-        print("\nSửa:")
-        edit_title = input("Nhập tên anime để sửa:")
+        print("\nSửa: ")
+        edit_title = input("Nhập tên anime để sửa: ")
         edit_anime = {
             "title": input("Tên anime: "),
             "date": input("Ngày phát hành: "),
@@ -89,8 +90,5 @@ while True:
             "rating": float(input("Đánh giá: ")),
         }
         danhsach.edit_item_from_dict(edit_title, edit_anime)
-        # Update to anime.json :v
-        write_to_anime(danhsach.anime_item_dict)
-    
     elif choice == 4:
         break
