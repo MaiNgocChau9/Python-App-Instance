@@ -14,6 +14,15 @@ animals = [
 ]
     
 sorted_animals = sorted(animals, key=lambda animal: animal.weight)
+"""
+Giải thích: Sắp xếp danh sách động vật theo trọng lượng
+
+Hàm sorted() thường yêu cầu hai giá trị:
+- Danh sách hoặc chuỗi cần sắp xếp: Trong trường hợp này là danh sách animals.
+- Hàm khóa (key function): Hàm này xác định cách sắp xếp các phần tử. Trong trường hợp này, hàm lambda được sử dụng để truy xuất trọng lượng của mỗi động vật và sắp xếp chúng theo thứ tự tăng dần.
+
+Cú pháp: sorted(string/list], key=key_function)
+"""
 
 animal_data = []
 for animal in animals:
