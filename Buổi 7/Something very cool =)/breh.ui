@@ -125,7 +125,7 @@ QPushButton:pressed{
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>../Image/search_d.png</normaloff>../Image/search_d.png</iconset>
+              <normaloff>Image/search_d.png</normaloff>Image/search_d.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -192,26 +192,11 @@ QListWidget::item::selected{
 }</string>
             </property>
             <property name="verticalScrollBarPolicy">
-             <enum>Qt::ScrollBarAlwaysOff</enum>
+             <enum>Qt::ScrollBarAlwaysOn</enum>
             </property>
             <property name="horizontalScrollBarPolicy">
              <enum>Qt::ScrollBarAlwaysOff</enum>
             </property>
-            <item>
-             <property name="text">
-              <string>Abc</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>DEFF</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Brehhh</string>
-             </property>
-            </item>
            </widget>
           </item>
           <item>
