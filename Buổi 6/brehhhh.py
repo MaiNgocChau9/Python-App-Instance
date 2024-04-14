@@ -90,4 +90,4 @@ danhsach.edit_item_from_dict("One Piece",{
 
 danhsach.delete_item("One Piece 1")
 
-print(danhsach.anime_item_list)
+print(danhsach.anime_item_list[0].__dict__)
