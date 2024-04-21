@@ -23,6 +23,11 @@ class Login(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('GUI\\Login.ui', self)
+
+        # Font
+        font = QFont("Segoe UI", 10)
+        font.setBold(True)
+        self.label_7.setFont(font)
     
         # Captcha
         self.label.setPixmap(QtGui.QPixmap("Image\\captcha.png"))
@@ -30,6 +35,7 @@ class Login(QMainWindow):
 
         # Action
         self.pushButton_2.clicked.connect(self.regenerate_captcha)
+        self.pushButton.clicked.connect(self.the_button_was_clicked)
         self.pushButton.clicked.connect(self.the_button_was_clicked)
         self.label_7.mousePressEvent = lambda event: self.register()
     
@@ -66,8 +72,6 @@ class Register(QMainWindow):
         super().__init__()
         uic.loadUi('GUI\\Register.ui', self)
     
-        self.setStyleSheet("background-color: white; color: black")
-        self.setWindowTitle("Eclahtee - Register")
         font = QFont("Segoe UI", 10)
         font.setBold(True)
         self.pushButton.clicked.connect(self.the_button_was_clicked)
@@ -122,5 +126,5 @@ login_ui = Login()
 register_ui = Register()
 
 # Setup
-register_ui.show()
+login_ui.show()
 app.exec()
