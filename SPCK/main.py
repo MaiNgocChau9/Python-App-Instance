@@ -85,7 +85,7 @@ class Register(QMainWindow):
     def the_button_was_clicked(self):
         if self.lineEdit.text().replace(" ", "") == "" or self.lineEdit_2.text().replace(" ", "") == "" or self.lineEdit_3.text().replace(" ", "") == "" or self.lineEdit_4.text().replace(" ", "") == "":
             msg_box = QMessageBox()
-            msg_box.setWindowTitle("Error")
+            msg_box.setWindowTitle("Lỗi")
             msg_box.setIcon(QMessageBox.Icon.Warning)
             msg_text = "Vui lòng điền vào tất cả các ô thông tin"
             msg_box.setText(msg_text)
