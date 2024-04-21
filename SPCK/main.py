@@ -117,6 +117,15 @@ class Main(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('GUI\\main.ui', self)
+        self.stackedWidget.setCurrentIndex(0)
+
+        # Action
+        self.pushButton_13.clicked.connect(self.home_screen)
+        self.pushButton_14.clicked.connect(self.shopping_screen)
+    
+    # Switch screen
+    def home_screen(self): self.stackedWidget.setCurrentIndex(0)
+    def shopping_screen(self): self.stackedWidget.setCurrentIndex(1)
 
 app = QApplication(sys.argv)
 
@@ -126,5 +135,5 @@ login_ui = Login()
 register_ui = Register()
 
 # Setup
-login_ui.show()
+main_ui.show()
 app.exec()
