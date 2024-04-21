@@ -120,12 +120,43 @@ class Main(QMainWindow):
         self.stackedWidget.setCurrentIndex(0)
 
         # Action
-        self.pushButton_13.clicked.connect(self.home_screen)
-        self.pushButton_14.clicked.connect(self.shopping_screen)
+        self.btn_home.clicked.connect(self.go_to_home_screen)
+        self.btn_shopping.clicked.connect(self.go_to_shopping_screen)
+        self.btn_cart.clicked.connect(self.go_to_cart_screen)
+        self.btn_setting.clicked.connect(self.go_to_setting_screen)
+        self.btn_log_out.clicked.connect(self.log_out)
     
     # Switch screen
-    def home_screen(self): self.stackedWidget.setCurrentIndex(0)
-    def shopping_screen(self): self.stackedWidget.setCurrentIndex(1)
+    def go_to_home_screen(self): 
+        self.stackedWidget.setCurrentIndex(0)
+        self.btn_home.setIcon(QIcon("Image\\home_a.png"))
+        self.btn_shopping.setIcon(QIcon("Image\\shopping_d.png"))
+        self.btn_cart.setIcon(QIcon("Image\\cart_d.png"))
+        self.btn_setting.setIcon(QIcon("Image\\setting_d.png"))
+
+    def go_to_shopping_screen(self): 
+        self.stackedWidget.setCurrentIndex(1)
+        self.btn_home.setIcon(QIcon("Image\\home_d.png"))
+        self.btn_shopping.setIcon(QIcon("Image\\shopping_a.png"))
+        self.btn_cart.setIcon(QIcon("Image\\cart_d.png"))
+        self.btn_setting.setIcon(QIcon("Image\\setting_d.png"))
+
+    def go_to_cart_screen(self): 
+        self.stackedWidget.setCurrentIndex(2)
+        self.btn_home.setIcon(QIcon("Image\\home_d.png"))
+        self.btn_shopping.setIcon(QIcon("Image\\shopping_d.png"))
+        self.btn_cart.setIcon(QIcon("Image\\cart_a.png"))
+        self.btn_setting.setIcon(QIcon("Image\\setting_d.png"))
+
+    def go_to_setting_screen(self): 
+        self.stackedWidget.setCurrentIndex(3)
+        self.btn_home.setIcon(QIcon("Image\\home_d.png"))
+        self.btn_shopping.setIcon(QIcon("Image\\shopping_d.png"))
+        self.btn_cart.setIcon(QIcon("Image\\cart_d.png"))
+        self.btn_setting.setIcon(QIcon("Image\\setting_a.png"))
+    def log_out(self):
+        login_ui.show()
+        main_ui.hide()
 
 app = QApplication(sys.argv)
 
