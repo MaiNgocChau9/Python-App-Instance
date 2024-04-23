@@ -26,7 +26,7 @@ class Login(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        uic.loadUi('GUI\\Login.ui', self)
+        uic.loadUi('GUI\\login.ui', self)
 
         # Font
         font = QFont("Segoe UI", 10)
@@ -74,7 +74,7 @@ class Login(QMainWindow):
 class Register(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('GUI\\Register.ui', self)
+        uic.loadUi('GUI\\register.ui', self)
     
         font = QFont("Segoe UI", 10)
         font.setBold(True)
@@ -120,7 +120,7 @@ class Register(QMainWindow):
 class User(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('GUI\\User.ui', self)
+        uic.loadUi('GUI\\user.ui', self)
         self.stackedWidget.setCurrentIndex(0)
 
         # Action
@@ -166,7 +166,7 @@ class User(QMainWindow):
 class Admin(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('GUI\\Admin.ui', self)
+        uic.loadUi('GUI\\admin.ui', self)
         self.stackedWidget.setCurrentIndex(0)
 
 
