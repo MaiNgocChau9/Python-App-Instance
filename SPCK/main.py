@@ -213,6 +213,7 @@ class Admin(QMainWindow):
 
 
 ############################################# ACTION #############################################
+
         self.btn_home.clicked.connect(self.go_to_home_screen)
         self.btn_product.clicked.connect(self.go_to_product_screen)
         self.btn_statistic.clicked.connect(self.go_to_statistic_screen)
