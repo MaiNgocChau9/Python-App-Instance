@@ -3,6 +3,7 @@ from PyQt6.QtWidgets import *
 from PyQt6 import *
 from PyQt6.QtGui import *
 from PyQt6.QtCore import *
+from PyQt6.QtCharts import *
 from PyQt6 import uic
 import sys
 
@@ -11,6 +12,9 @@ from captcha.image import ImageCaptcha
 from PIL import Image
 import random
 import string
+
+# Data
+import json
 
 class Login(QMainWindow):
     # Setup
@@ -163,8 +167,48 @@ class Admin(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('GUI\\Admin.ui', self)
-
         self.stackedWidget.setCurrentIndex(0)
+
+############################################# PIE CHART #############################################
+
+        # Import json
+        with open("Data\\json.json", "r") as f:
+            data = json.load(f)
+        
+        # Tạo dữ liệu cho biểu đồ Pie Chart
+        self.series = QPieSeries()
+        for item in data:
+            self.series.append(item['name'], item['quantity'])
+
+        # Tạo biểu đồ từ dữ liệu
+        self.chart = QChart()
+        self.chart.addSeries(self.series)
+        self.chart.setTitle("Bảng thống kê tỷ lệ sản phẩm bán ra theo từng nhóm")
+        self.chart.legend().setFont(QFont("Arial", 12))
+        self.chart.setTitleFont(QFont("Arial", 15))
+        self.chart.legend().setVisible(True)
+        self.chart.legend().setAlignment(Qt.AlignmentFlag.AlignLeft)
+
+        # Tạo QChartView để hiển thị biểu đồ
+        self.chartView = QChartView(self.chart)
+        self.chartView.setRenderHint(QPainter.RenderHint.Antialiasing)
+
+        # Tạo QVBoxLayout để chứa QChartView
+        layout = QVBoxLayout()
+        layout.addWidget(self.chartView)
+
+        # Hiển thị biểu đồ trong graphicsView
+        self.pie_chart.setLayout(layout)
+        
+        # Thuộc tính của biểu đồ Pie Chart
+        for i in range(len(self.series.slices())):
+            slice = QPieSlice()
+            slice = self.series.slices()[i]
+            # slice.setExploded(True)
+            slice.setLabelVisible(True)
+    
+
+############################################# ACTION #############################################
         self.btn_home.clicked.connect(self.go_to_home_screen)
         self.btn_product.clicked.connect(self.go_to_product_screen)
         self.btn_statistic.clicked.connect(self.go_to_statistic_screen)

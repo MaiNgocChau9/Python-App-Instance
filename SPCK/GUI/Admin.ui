@@ -772,7 +772,7 @@ QPushButton:pressed{
          <widget class="QWidget" name="widget_9" native="true">
           <property name="styleSheet">
            <string notr="true">QWidget{
-	background-color: #FBFBFA;
+	background-color: white;
 	border-radius: 20px;
 }</string>
           </property>
@@ -811,20 +811,10 @@ margin-left: 10px;</string>
             </widget>
            </item>
            <item>
-            <widget class="QWidget" name="widget_20" native="true">
+            <widget class="QGraphicsView" name="pie_chart">
              <property name="styleSheet">
-              <string notr="true">border-radius: 20px;
-background-color: #F4F4F4;</string>
+              <string notr="true"/>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_10">
-              <item>
-               <widget class="QGraphicsView" name="graphicsView">
-                <property name="styleSheet">
-                 <string notr="true">background-color: transparent;</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
             </widget>
            </item>
           </layout>
