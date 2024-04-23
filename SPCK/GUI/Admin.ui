@@ -16,14 +16,15 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_7">
     <item>
-     <widget class="QWidget" name="widget" native="true">
+     <widget class="QWidget" name="widget_3" native="true">
       <property name="styleSheet">
        <string notr="true">QWidget{
 	max-width: 170px;
 	background-color: #FBFBFA;
 	border-right: 2px solid #FBFBFA;
 	padding: 0px;
-	margin: 0px;
+	margin: 10px;
+	margin-right: 0px;
 	border-radius: 20px;
 }</string>
       </property>
@@ -31,9 +32,9 @@
        <item>
         <widget class="QWidget" name="widget_4" native="true">
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">margin: 5px;</string>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
            <widget class="QLabel" name="label_12">
             <property name="font">
@@ -100,6 +101,8 @@ border-radius: 18px;</string>
 	border-right: 2px #FBFBFA solid;
 	min-width: 140px;
 	max-width: 140px;
+	margin-bottom: 0px;
+	margin-top: 0px;
 }
 
 QPushButton::hover{
@@ -110,6 +113,8 @@ QPushButton::hover{
 	border-right: 2px #d2d2d2 solid;
 	min-width: 140px;
 	max-width: 140px;
+	margin-bottom: 0px;
+	margin-top: 0px;
 }</string>
          </property>
          <property name="text">
@@ -128,7 +133,7 @@ QPushButton::hover{
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="btn_shopping">
+        <widget class="QPushButton" name="btn_product">
          <property name="font">
           <font>
            <family>Segoe UI</family>
@@ -144,6 +149,8 @@ QPushButton::hover{
 	border-right: 2px #FBFBFA solid;
 	min-width: 140px;
 	max-width: 140px;
+	margin-bottom: 0px;
+	margin-top: 0px;
 }
 
 QPushButton::hover{
@@ -154,10 +161,12 @@ QPushButton::hover{
 	border-right: 2px #d2d2d2 solid;
 	min-width: 140px;
 	max-width: 140px;
+	margin-bottom: 0px;
+	margin-top: 0px;
 }</string>
          </property>
          <property name="text">
-          <string> Mua sắm   </string>
+          <string> Sản phẩm  </string>
          </property>
          <property name="icon">
           <iconset>
@@ -172,7 +181,7 @@ QPushButton::hover{
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="btn_cart">
+        <widget class="QPushButton" name="btn_statistic">
          <property name="font">
           <font>
            <family>Segoe UI</family>
@@ -188,6 +197,8 @@ QPushButton::hover{
 	border-right: 2px #FBFBFA solid;
 	min-width: 140px;
 	max-width: 140px;
+	margin-bottom: 0px;
+	margin-top: 0px;
 }
 
 QPushButton::hover{
@@ -198,14 +209,16 @@ QPushButton::hover{
 	border-right: 2px #d2d2d2 solid;
 	min-width: 140px;
 	max-width: 140px;
+	margin-bottom: 0px;
+	margin-top: 0px;
 }</string>
          </property>
          <property name="text">
-          <string> Giỏ hàng   </string>
+          <string> Thống kê   </string>
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>../Image/cart_d.png</normaloff>../Image/cart_d.png</iconset>
+           <normaloff>../Image/chart_bar_d.png</normaloff>../Image/chart_bar_d.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -245,6 +258,8 @@ QPushButton::hover{
 	border-right: 2px #FBFBFA solid;
 	min-width: 140px;
 	max-width: 140px;
+	margin-bottom: 0px;
+	margin-top: 0px;
 }
 
 QPushButton::hover{
@@ -255,6 +270,8 @@ QPushButton::hover{
 	border-right: 2px #d2d2d2 solid;
 	min-width: 140px;
 	max-width: 140px;
+	margin-bottom: 0px;
+	margin-top: 0px;
 }</string>
          </property>
          <property name="text">
@@ -289,6 +306,7 @@ QPushButton::hover{
 	border-right: 2px #FBFBFA solid;
 	min-width: 140px;
 	max-width: 140px;
+	margin-top: 0px;
 }
 
 QPushButton::hover{
@@ -299,6 +317,7 @@ QPushButton::hover{
 	border-right: 2px #d2d2d2 solid;
 	min-width: 140px;
 	max-width: 140px;
+	margin-top: 0px;
 }</string>
          </property>
          <property name="text">
@@ -322,7 +341,7 @@ QPushButton::hover{
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="home_screen">
        <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -541,7 +560,7 @@ QPushButton:pressed{
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="shopping_screen">
+      <widget class="QWidget" name="product_screen">
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="QWidget" name="widget_6" native="true">
@@ -747,7 +766,7 @@ QPushButton:pressed{
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="cart_screen">
+      <widget class="QWidget" name="statistic_screen">
        <layout class="QHBoxLayout" name="horizontalLayout_6">
         <item>
          <widget class="QWidget" name="widget_9" native="true">
@@ -777,7 +796,7 @@ margin-top: 10px;
 margin-left: 10px;</string>
              </property>
              <property name="text">
-              <string>Giỏ hàng</string>
+              <string> Thống kê</string>
              </property>
              <property name="icon">
               <iconset>
@@ -799,159 +818,10 @@ background-color: #F4F4F4;</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_10">
               <item>
-               <widget class="QListWidget" name="listWidget_2">
-                <property name="font">
-                 <font>
-                  <pointsize>13</pointsize>
-                 </font>
-                </property>
+               <widget class="QGraphicsView" name="graphicsView">
                 <property name="styleSheet">
-                 <string notr="true">QListWidget{
-	border: 0px;
-	margin-top: 0px;
-}
-
-QListWidget::item {
-	background-color: white;
-	height: 60px;
-	margin: 5px;
-	margin-bottom: 10px;
-	border-radius: 15px;
-	padding-left: 15px;
-	padding-right: 15px;
-}
-
-QListWidget::item::hover{
-	background-color: rgb(250, 250, 250);
-	color: black;
-	height: 60px;
-	margin: 5px;
-	margin-bottom: 10px;
-	border-radius: 15px;
-	padding-left: 15px;
-	padding-right: 15px;
-}
-
-QListWidget::item::selected{
-	background-color: rgb(250, 250, 250);
-	color: black;
-	height: 60px;
-	margin: 5px;
-	margin-bottom: 10px;
-	border-radius: 15px;
-	padding-left: 15px;
-	padding-right: 15px;
-	border: 2px solid gray;
-}</string>
+                 <string notr="true">background-color: transparent;</string>
                 </property>
-                <property name="verticalScrollBarPolicy">
-                 <enum>Qt::ScrollBarAlwaysOff</enum>
-                </property>
-                <property name="horizontalScrollBarPolicy">
-                 <enum>Qt::ScrollBarAlwaysOff</enum>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QWidget" name="widget_21" native="true">
-                <layout class="QHBoxLayout" name="horizontalLayout_13">
-                 <item>
-                  <widget class="QPushButton" name="pushButton_27">
-                   <property name="font">
-                    <font>
-                     <family>Segoe UI</family>
-                     <pointsize>10</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QPushButton{
-	border: 1px solid black;
-	height: 30px;
-	border-radius: 10px;
-	background-color: #FFCE41;
-	color: white;
-}
-
-QPushButton::hover{
-	border: 2px solid black;
-	height: 30px;
-	border-radius: 10px;
-	background-color: #FFCE41;
-}
-
-QPushButton::pressed{
-	border: 2px solid black;
-	height: 30px;
-	border-radius: 10px;
-	background-color: rgb(234, 188, 59);
-}</string>
-                   </property>
-                   <property name="text">
-                    <string>Chi tiết</string>
-                   </property>
-                   <property name="icon">
-                    <iconset>
-                     <normaloff>../../../Python-App-A-/SPCK/Windows/Image/all_note_view.png</normaloff>../../../Python-App-A-/SPCK/Windows/Image/all_note_view.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>16</width>
-                     <height>16</height>
-                    </size>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="pushButton_29">
-                   <property name="font">
-                    <font>
-                     <family>Segoe UI</family>
-                     <pointsize>10</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QPushButton{
-	border: 1px solid black;
-	height: 30px;
-	border-radius: 10px;
-	background-color: #FFCE41;
-	color: white;
-}
-
-QPushButton::hover{
-	border: 2px solid black;
-	height: 30px;
-	border-radius: 10px;
-	background-color: #FFCE41;
-}
-
-QPushButton::pressed{
-	border: 2px solid black;
-	height: 30px;
-	border-radius: 10px;
-	background-color: rgb(234, 188, 59);
-}</string>
-                   </property>
-                   <property name="text">
-                    <string> Remove</string>
-                   </property>
-                   <property name="icon">
-                    <iconset>
-                     <normaloff>../../../Python-App-A-/SPCK/Windows/Image/remove.png</normaloff>../../../Python-App-A-/SPCK/Windows/Image/remove.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>16</width>
-                     <height>16</height>
-                    </size>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
                </widget>
               </item>
              </layout>

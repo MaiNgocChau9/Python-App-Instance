@@ -59,7 +59,7 @@ class Login(QMainWindow):
             msg_box.setText("Đăng nhập thành công")
             msg_box.exec()
             self.close()
-            main_ui.show()
+            user_ui.show()
         else:
             msg_box = QMessageBox()
             msg_box.setWindowTitle("Cảnh báo")
@@ -99,7 +99,7 @@ class Register(QMainWindow):
                     msg_box.setText(msg_text)
                     msg_box.exec()
                     self.close()
-                    main_ui.show()
+                    user_ui.show()
                 else:
                     msg_box = QMessageBox()
                     msg_box.setWindowTitle("Cảnh báo")
@@ -113,10 +113,10 @@ class Register(QMainWindow):
                     msg_box.setText("Mật khẩu không trùng khớp")
                     msg_box.exec()
 
-class Main(QMainWindow):
+class User(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('GUI\\main.ui', self)
+        uic.loadUi('GUI\\User.ui', self)
         self.stackedWidget.setCurrentIndex(0)
 
         # Action
@@ -154,17 +154,65 @@ class Main(QMainWindow):
         self.btn_shopping.setIcon(QIcon("Image\\shopping_d.png"))
         self.btn_cart.setIcon(QIcon("Image\\cart_d.png"))
         self.btn_setting.setIcon(QIcon("Image\\setting_a.png"))
+
     def log_out(self):
         login_ui.show()
-        main_ui.hide()
+        self.hide()
+    
+class Admin(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi('GUI\\Admin.ui', self)
+
+        self.stackedWidget.setCurrentIndex(0)
+        self.btn_home.clicked.connect(self.go_to_home_screen)
+        self.btn_product.clicked.connect(self.go_to_product_screen)
+        self.btn_statistic.clicked.connect(self.go_to_statistic_screen)
+        self.btn_setting.clicked.connect(self.go_to_setting_screen)
+        self.btn_log_out.clicked.connect(self.log_out)
+    
+    # Switch screen
+    def go_to_home_screen(self): 
+        self.stackedWidget.setCurrentIndex(0)
+        self.btn_home.setIcon(QIcon("Image\\home_a.png"))
+        self.btn_product.setIcon(QIcon("Image\\shopping_d.png"))
+        self.btn_statistic.setIcon(QIcon("Image\\chart_bar_d.png"))
+        self.btn_setting.setIcon(QIcon("Image\\setting_d.png"))
+
+    def go_to_product_screen(self): 
+        self.stackedWidget.setCurrentIndex(1)
+        self.btn_home.setIcon(QIcon("Image\\home_d.png"))
+        self.btn_product.setIcon(QIcon("Image\\shopping_a.png"))
+        self.btn_statistic.setIcon(QIcon("Image\\chart_bar_d.png"))
+        self.btn_setting.setIcon(QIcon("Image\\setting_d.png"))
+
+    def go_to_statistic_screen(self): 
+        self.stackedWidget.setCurrentIndex(2)
+        self.btn_home.setIcon(QIcon("Image\\home_d.png"))
+        self.btn_product.setIcon(QIcon("Image\\shopping_d.png"))
+        self.btn_statistic.setIcon(QIcon("Image\\chart_bar_a.png"))
+        self.btn_setting.setIcon(QIcon("Image\\setting_d.png"))
+
+    def go_to_setting_screen(self): 
+        self.stackedWidget.setCurrentIndex(3)
+        self.btn_home.setIcon(QIcon("Image\\home_d.png"))
+        self.btn_product.setIcon(QIcon("Image\\shopping_d.png"))
+        self.btn_statistic.setIcon(QIcon("Image\\chart_bar_d.png"))
+        self.btn_setting.setIcon(QIcon("Image\\setting_a.png"))
+
+    def log_out(self):
+        login_ui.show()
+        self.hide()
 
 app = QApplication(sys.argv)
 
 # UI
-main_ui = Main()
 login_ui = Login()
 register_ui = Register()
 
+user_ui = User()
+admin_ui = Admin()
+
 # Setup
-main_ui.show()
+admin_ui.show()
 app.exec()
