@@ -206,7 +206,6 @@ class Admin(QMainWindow):
             slice = self.series.slices()[i]
             # slice.setExploded(True)
             slice.setLabelVisible(True)
-    
 
 ############################################# ACTION #############################################
         self.btn_home.clicked.connect(self.go_to_home_screen)
@@ -215,7 +214,7 @@ class Admin(QMainWindow):
         self.btn_setting.clicked.connect(self.go_to_setting_screen)
         self.btn_log_out.clicked.connect(self.log_out)
     
-    # Switch screen
+######################################### SWITCH SCREEN #########################################
     def go_to_home_screen(self): 
         self.stackedWidget.setCurrentIndex(0)
         self.btn_home.setIcon(QIcon("Image\\home_a.png"))
