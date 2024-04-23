@@ -179,6 +179,10 @@ class Admin(QMainWindow):
         self.series = QPieSeries()
         for item in data:
             self.series.append(item['name'], item['quantity'])
+        
+        # Đặt label của các slices là phần trăm
+        # for slice in self.series.slices():
+            # slice.setLabel("{:.2f}%".format(100 * slice.percentage()))
 
         # Tạo biểu đồ từ dữ liệu
         self.chart = QChart()
