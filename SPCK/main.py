@@ -169,8 +169,8 @@ class Admin(QMainWindow):
         uic.loadUi('GUI\\Admin.ui', self)
         self.stackedWidget.setCurrentIndex(0)
 
-############################################# PIE CHART #############################################
 
+############################################# PIE CHART #############################################
         # Import json
         with open("Data\\json.json", "r") as f:
             data = json.load(f)
@@ -210,6 +210,7 @@ class Admin(QMainWindow):
             slice = self.series.slices()[i]
             # slice.setExploded(True)
             slice.setLabelVisible(True)
+
 
 ############################################# ACTION #############################################
         self.btn_home.clicked.connect(self.go_to_home_screen)

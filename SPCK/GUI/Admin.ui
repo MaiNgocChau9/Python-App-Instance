@@ -800,7 +800,7 @@ margin-left: 10px;</string>
              </property>
              <property name="icon">
               <iconset>
-               <normaloff>../Image/cart_a.png</normaloff>../Image/cart_a.png</iconset>
+               <normaloff>../Image/chart_bar_a.png</normaloff>../Image/chart_bar_a.png</iconset>
              </property>
              <property name="iconSize">
               <size>
