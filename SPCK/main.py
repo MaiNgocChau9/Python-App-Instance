@@ -12,6 +12,7 @@ from captcha.image import ImageCaptcha
 from PIL import Image
 import random
 import string
+import os
 
 # Data
 import json
@@ -265,3 +266,4 @@ admin_ui = Admin()
 # Setup
 admin_ui.show()
 app.exec()
+os.remove("Image\\captcha.png")
