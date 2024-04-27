@@ -3,14 +3,16 @@ from PyQt6.QtCharts import *
 from PyQt6.QtGui import *
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import Qt
+import qdarktheme
+import sys
 import json
 
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
         super(Ui, self).__init__()
-        uic.loadUi('UI.ui', self)
+        uic.loadUi('Test/pie_chart/UI.ui', self)
         # import json
-        with open('json.json', 'r') as f:
+        with open('Test/pie_chart/json.json', 'r') as f:
             data = json.load(f)
 
         # Tạo dữ liệu cho biểu đồ Pie Chart
@@ -66,5 +68,6 @@ class Ui(QtWidgets.QMainWindow):
         self.chartView.update()
 
 app = QtWidgets.QApplication([])
+app.setStyleSheet(qdarktheme.load_stylesheet("dark"))
 window = Ui()
 app.exec()
