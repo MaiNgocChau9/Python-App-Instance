@@ -5,7 +5,7 @@ from PyQt6.QtGui import *
 from PyQt6.QtCore import *
 from PyQt6.QtCharts import *
 from PyQt6 import uic
-import qdarktheme
+# import qdarktheme
 import sys
 
 # Captcha
@@ -257,7 +257,7 @@ class Admin(QMainWindow):
         self.hide()
 
 app = QApplication(sys.argv)
-app.setStyleSheet(qdarktheme.load_stylesheet("light"))
+# app.setStyleSheet(qdarktheme.load_stylesheet("light"))
 
 # UI
 login_ui = Login()
