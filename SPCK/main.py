@@ -260,6 +260,116 @@ class Add_Product(QMainWindow):
         super().__init__()
         uic.loadUi('GUI//addproduct.ui', self)
 
+
+        # Font
+        label_font = QFont("Segoe UI", 18)
+        label_font.setBold(True)
+
+        title_font = QFont("Segoe UI", 14)
+        title_font.setBold(True)
+
+        btn_font = QFont("Segoe UI", 11)
+        btn_font.setBold(True)
+
+        bold = QFont("Times New Roman", 11)
+        bold.setBold(True)
+
+        italic = QFont("Times New Roman", 11)
+        italic.setItalic(True)
+
+        underline = QFont("Times New Roman", 11)
+        underline.setUnderline(True)
+
+        increase_and_decrease = QFont("Times New Roman", 11)
+        increase_and_decrease.setBold(True)
+
+        # UI set font
+        self.l_title.setFont(label_font)
+        self.name.setFont(title_font)
+        self.price.setFont(title_font)
+        self.tag.setFont(title_font)
+        self.discription.setFont(title_font)
+
+        self.bold.setFont(bold)
+        self.italic.setFont(italic)
+        self.underline.setFont(underline)
+        self.increase.setFont(increase_and_decrease)
+        self.decrease.setFont(increase_and_decrease)
+
+        self.cancel.setFont(btn_font)
+        self.add.setFont(btn_font)
+        self.choose_image.setFont(btn_font)
+
+        # Action
+        self.bold.clicked.connect(self.setBold)
+        self.italic.clicked.connect(self.setItalic)
+        self.underline.clicked.connect(self.setUnderline)
+        self.increase.clicked.connect(self.setIncrease)
+        self.decrease.clicked.connect(self.setDecrease)
+
+    def setBold(self):
+        cursor = self.textEdit.textCursor()
+        format_bold = QTextCharFormat()
+
+        if cursor.hasSelection():
+            current_format = cursor.charFormat()
+            if current_format.fontWeight() == QFont.Weight.Normal:
+                format_bold.setFontWeight(QFont.Weight.Bold)
+                cursor.mergeCharFormat(format_bold)
+            else:
+                format_bold.setFontWeight(QFont.Weight.Normal)
+                cursor.mergeCharFormat(format_bold)
+        self.textEdit.setTextCursor(cursor)
+        
+    def setItalic(self):
+        cursor = self.textEdit.textCursor() # Lấy chuỗi đang được chọn
+        format_italic = QTextCharFormat() # QTextCharFormat để thay đổi độ dày, in đậm, nghiêng chữ
+
+        if cursor.hasSelection():
+            current_format = cursor.charFormat()
+            if current_format.fontItalic() == False:
+                format_italic.setFontItalic(True)
+                cursor.mergeCharFormat(format_italic) # Thay đổi chuỗi đang được chọn
+            elif current_format.fontItalic() == True:
+                format_italic.setFontItalic(False)
+                cursor.mergeCharFormat(format_italic) # Thay đổi chuỗi đang được chọn
+        self.textEdit.setTextCursor(cursor)
+
+    def setUnderline(self):
+        cursor = self.textEdit.textCursor()
+        format_underline = QTextCharFormat()
+
+        if cursor.hasSelection():
+            current_format = cursor.charFormat()
+            if not current_format.fontUnderline():
+                format_underline.setFontUnderline(True)
+                cursor.mergeCharFormat(format_underline)
+            else:
+                format_underline.setFontUnderline(False)
+                cursor.mergeCharFormat(format_underline)
+        self.textEdit.setTextCursor(cursor)
+
+    def setIncrease(self):
+        current_font = self.textEdit.currentFont()
+        font_size = current_font.pointSize()
+        if font_size < 73:
+            font_size += 1
+            new_font = QFont(current_font)
+            new_font.setPointSize(font_size)
+            self.textEdit.setFont(new_font)
+
+    def setDecrease(self):
+        current_font = self.textEdit.currentFont()
+        font_size = current_font.pointSize()
+        if font_size > 6:
+            font_size -= 1
+            new_font = QFont(current_font)
+            new_font.setPointSize(font_size)
+            self.textEdit.setFont(new_font)
+
+
+
+
 app = QApplication(sys.argv)
 # app.setStyleSheet(qdarktheme.load_stylesheet("light"))
 

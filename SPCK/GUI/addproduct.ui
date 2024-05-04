@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>638</width>
-    <height>507</height>
+    <width>974</width>
+    <height>553</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,474 +16,28 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QLabel" name="label">
-      <property name="font">
-       <font>
-        <family>Segoe UI</family>
-        <pointsize>22</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
+     <widget class="QWidget" name="widget" native="true">
       <property name="styleSheet">
-       <string notr="true">max-height: 60px;
-min-height: 60px;</string>
+       <string notr="true">max-height: 60px;</string>
       </property>
-      <property name="text">
-       <string>Thêm sản phẩm</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QWidget" name="widget_3" native="true">
-      <layout class="QHBoxLayout" name="horizontalLayout">
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QStackedWidget" name="stackedWidget">
-         <property name="currentIndex">
-          <number>1</number>
+        <widget class="QLabel" name="l_title">
+         <property name="font">
+          <font>
+           <family>Segoe UI</family>
+           <pointsize>18</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
          </property>
-         <widget class="QWidget" name="page">
-          <layout class="QVBoxLayout" name="verticalLayout_3">
-           <item>
-            <widget class="QWidget" name="widget" native="true">
-             <property name="styleSheet">
-              <string notr="true">background-color: white;
-color: black;
-border-radius: 20px;
-border: 2px solid black;</string>
-             </property>
-             <layout class="QGridLayout" name="gridLayout">
-              <item row="2" column="0">
-               <widget class="QLabel" name="label_4">
-                <property name="text">
-                 <string>Hình ảnh sản phẩm</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_3">
-                <property name="text">
-                 <string>Giá tiền</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_2">
-                <property name="text">
-                 <string>Tên sản phẩm</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0">
-               <widget class="QLabel" name="label_5">
-                <property name="text">
-                 <string>Danh mục</string>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="0">
-               <widget class="QLabel" name="label_6">
-                <property name="text">
-                 <string>Thương hiệu</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QLineEdit" name="lineEdit"/>
-              </item>
-              <item row="1" column="1">
-               <widget class="QLineEdit" name="lineEdit_2"/>
-              </item>
-              <item row="4" column="1">
-               <widget class="QLineEdit" name="lineEdit_5"/>
-              </item>
-              <item row="2" column="1">
-               <widget class="QPushButton" name="pushButton">
-                <property name="text">
-                 <string>Thêm hình ảnh</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="1">
-               <widget class="QComboBox" name="comboBox">
-                <item>
-                 <property name="text">
-                  <string>New Item</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>New Item</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>New Item</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>New Item</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="page_2">
-          <layout class="QHBoxLayout" name="horizontalLayout_2">
-           <item>
-            <widget class="QWidget" name="widget_2" native="true">
-             <property name="styleSheet">
-              <string notr="true">background-color: white;
-color: black;
-border-radius: 20px;
-border: 2px solid black;
-margin: 10px;</string>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_2">
-              <item>
-               <widget class="QLabel" name="label_7">
-                <property name="font">
-                 <font>
-                  <family>Segoe UI</family>
-                  <pointsize>14</pointsize>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">border: 0px;
-padding-top: 10px;</string>
-                </property>
-                <property name="text">
-                 <string>Mô tả sản phẩm</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QTextEdit" name="textEdit">
-                <property name="font">
-                 <font>
-                  <family>Segoe UI</family>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">padding: 5px;
-border: 2px solid black;
-margin: 15px;
-margin-top: 0px;
-margin-bottom: 5px;
-border-radius: 30px;
-border-top-left-radius: 12px;
-border-bottom-right-radius: 12px;</string>
-                </property>
-                <property name="html">
-                 <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="placeholderText">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QWidget" name="widget_4" native="true">
-                <property name="styleSheet">
-                 <string notr="true">margin: 0px;
-margin-left: 1px;
-margin-right: 1px;
-border: 2px solid black;
-min-height: 35px;
-max-height: 35px;
-padding-bottom: 5px;
-border-top-left-radius: 0px;
-border-top-right-radius: 0px;</string>
-                </property>
-                <layout class="QHBoxLayout" name="horizontalLayout_4">
-                 <item>
-                  <widget class="QPushButton" name="pushButton_3">
-                   <property name="font">
-                    <font>
-                     <family>Times New Roman</family>
-                     <pointsize>11</pointsize>
-                     <weight>75</weight>
-                     <italic>false</italic>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QPushButton{
-	margin: 0px;
-	border: 0px;
-	min-height: 25px;
-	max-height: 25px;
-	min-width: 25px;
-	max-width: 25px;
-	background-color: white;
-	border-radius: 8px;
-	padding: 0px;
-}
-QPushButton::hover{
-	margin: 0px;
-	border: 0px;
-	min-height: 25px;
-	max-height: 25px;
-	min-width: 25px;
-	max-width: 25px;
-	background-color: #eeeeee;	
-	border-radius: 8px;
-	padding: 0px;
-}
-QPushButton::pressed{
-	margin: 0px;
-	border: 0px;
-	min-height: 25px;
-	max-height: 25px;
-	min-width: 25px;
-	max-width: 25px;
-	background-color: gray;	
-	border-radius: 8px;
-	padding: 0px;
-}</string>
-                   </property>
-                   <property name="text">
-                    <string>B</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="pushButton_4">
-                   <property name="font">
-                    <font>
-                     <family>Times New Roman</family>
-                     <pointsize>11</pointsize>
-                     <italic>true</italic>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QPushButton{
-	margin: 0px;
-	border: 0px;
-	min-height: 25px;
-	max-height: 25px;
-	min-width: 25px;
-	max-width: 25px;
-	background-color: white;
-	border-radius: 8px;
-	padding: 0px;
-}
-QPushButton::hover{
-	margin: 0px;
-	border: 0px;
-	min-height: 25px;
-	max-height: 25px;
-	min-width: 25px;
-	max-width: 25px;
-	background-color: #eeeeee;	
-	border-radius: 8px;
-	padding: 0px;
-}
-QPushButton::pressed{
-	margin: 0px;
-	border: 0px;
-	min-height: 25px;
-	max-height: 25px;
-	min-width: 25px;
-	max-width: 25px;
-	background-color: gray;	
-	border-radius: 8px;
-	padding: 0px;
-}</string>
-                   </property>
-                   <property name="text">
-                    <string>I</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="pushButton_5">
-                   <property name="font">
-                    <font>
-                     <family>Times New Roman</family>
-                     <pointsize>11</pointsize>
-                     <italic>false</italic>
-                     <underline>true</underline>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QPushButton{
-	margin: 0px;
-	border: 0px;
-	min-height: 25px;
-	max-height: 25px;
-	min-width: 25px;
-	max-width: 25px;
-	background-color: white;
-	border-radius: 8px;
-	padding: 0px;
-}
-QPushButton::hover{
-	margin: 0px;
-	border: 0px;
-	min-height: 25px;
-	max-height: 25px;
-	min-width: 25px;
-	max-width: 25px;
-	background-color: #eeeeee;	
-	border-radius: 8px;
-	padding: 0px;
-}
-QPushButton::pressed{
-	margin: 0px;
-	border: 0px;
-	min-height: 25px;
-	max-height: 25px;
-	min-width: 25px;
-	max-width: 25px;
-	background-color: gray;	
-	border-radius: 8px;
-	padding: 0px;
-}</string>
-                   </property>
-                   <property name="text">
-                    <string>U</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="pushButton_7">
-                   <property name="font">
-                    <font>
-                     <family>Times New Roman</family>
-                     <pointsize>11</pointsize>
-                     <weight>75</weight>
-                     <italic>false</italic>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QPushButton{
-	margin: 0px;
-	border: 0px;
-	min-height: 25px;
-	max-height: 25px;
-	min-width: 25px;
-	max-width: 25px;
-	background-color: white;
-	border-radius: 8px;
-	padding: 0px;
-}
-QPushButton::hover{
-	margin: 0px;
-	border: 0px;
-	min-height: 25px;
-	max-height: 25px;
-	min-width: 25px;
-	max-width: 25px;
-	background-color: #eeeeee;	
-	border-radius: 8px;
-	padding: 0px;
-}
-QPushButton::pressed{
-	margin: 0px;
-	border: 0px;
-	min-height: 25px;
-	max-height: 25px;
-	min-width: 25px;
-	max-width: 25px;
-	background-color: gray;	
-	border-radius: 8px;
-	padding: 0px;
-}</string>
-                   </property>
-                   <property name="text">
-                    <string>+</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="pushButton_8">
-                   <property name="font">
-                    <font>
-                     <family>Times New Roman</family>
-                     <pointsize>11</pointsize>
-                     <weight>75</weight>
-                     <italic>false</italic>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QPushButton{
-	margin: 0px;
-	border: 0px;
-	min-height: 25px;
-	max-height: 25px;
-	min-width: 25px;
-	max-width: 25px;
-	background-color: white;
-	border-radius: 8px;
-	padding: 0px;
-}
-QPushButton::hover{
-	margin: 0px;
-	border: 0px;
-	min-height: 25px;
-	max-height: 25px;
-	min-width: 25px;
-	max-width: 25px;
-	background-color: #eeeeee;	
-	border-radius: 8px;
-	padding: 0px;
-}
-QPushButton::pressed{
-	margin: 0px;
-	border: 0px;
-	min-height: 25px;
-	max-height: 25px;
-	min-width: 25px;
-	max-width: 25px;
-	background-color: gray;	
-	border-radius: 8px;
-	padding: 0px;
-}</string>
-                   </property>
-                   <property name="text">
-                    <string>-</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-          </layout>
-         </widget>
+         <property name="text">
+          <string>  Thêm sản phẩm</string>
+         </property>
         </widget>
        </item>
-      </layout>
-     </widget>
-    </item>
-    <item>
-     <widget class="QWidget" name="widget_5" native="true">
-      <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
-        <widget class="QPushButton" name="pushButton_6">
+        <widget class="QPushButton" name="cancel">
          <property name="font">
           <font>
            <family>Segoe UI</family>
@@ -527,7 +81,7 @@ QPushButton::pressed{
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="add">
          <property name="font">
           <font>
            <family>Segoe UI</family>
@@ -566,8 +120,594 @@ QPushButton::pressed{
 }</string>
          </property>
          <property name="text">
-          <string>Tiếp tục</string>
+          <string>Thêm</string>
          </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QWidget" name="widget_2" native="true">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QWidget" name="widget_5" native="true">
+         <property name="styleSheet">
+          <string notr="true">QWidget{
+	/*max-height: 380px;*/
+	background-color: white;
+	color: black;
+	border-radius: 20px;
+	border: 2px solid black;
+	margin: 10px;
+}</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <widget class="QWidget" name="widget_3" native="true">
+            <property name="styleSheet">
+             <string notr="true">background-color: transparent;
+border: 0px;
+margin: 0px;
+padding: 0px;
+min-height: 15px;
+max-height: 15px;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="name">
+            <property name="font">
+             <font>
+              <family>Segoe UI</family>
+              <pointsize>14</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border: 0px;</string>
+            </property>
+            <property name="text">
+             <string>Tên sản phẩm</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="line_name">
+            <property name="font">
+             <font>
+              <family>Segoe UI</family>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">padding: 5px;
+border: 2px solid black;
+border-radius: 15px;
+height: 30px;
+margin: 10px;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="price">
+            <property name="font">
+             <font>
+              <family>Segoe UI</family>
+              <pointsize>14</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border: 0px;</string>
+            </property>
+            <property name="text">
+             <string>Giá thành sản phẩm (VND)</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="price_name">
+            <property name="styleSheet">
+             <string notr="true">padding: 5px;
+border: 2px solid black;
+border-radius: 15px;
+height: 30px;
+margin: 10px;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="tag">
+            <property name="font">
+             <font>
+              <family>Segoe UI</family>
+              <pointsize>14</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border: 0px;</string>
+            </property>
+            <property name="text">
+             <string>Danh mục</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="tag_name">
+            <property name="styleSheet">
+             <string notr="true">QComboBox{
+	height: 30px;
+	padding: 3px;
+	border: 2px solid black;
+	margin-top: 0px;
+	border-radius: 12px;
+	padding-left: 15px;
+}
+
+QComboBox::drop-down {
+    border-color: transparent;
+}
+
+QComboBox QAbstractItemView {
+    border: 1px solid gray;
+    box-shadow: transparent;
+	border-radius: 0px;
+	margin: 0px;
+}</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>Linh kiện</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget_6" native="true">
+         <property name="styleSheet">
+          <string notr="true">background-color: white;
+color: black;
+border-radius: 20px;
+border: 2px solid black;
+margin: 10px;</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_8">
+          <item>
+           <widget class="QLabel" name="discription">
+            <property name="font">
+             <font>
+              <family>Segoe UI</family>
+              <pointsize>14</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border: 0px;
+padding-top: 10px;</string>
+            </property>
+            <property name="text">
+             <string>Mô tả sản phẩm</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTextEdit" name="textEdit">
+            <property name="font">
+             <font>
+              <family>Segoe UI</family>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">padding: 5px;
+border: 2px solid black;
+margin: 15px;
+margin-top: 0px;
+margin-bottom: 5px;
+border-radius: 30px;
+border-top-left-radius: 12px;
+border-bottom-right-radius: 12px;</string>
+            </property>
+            <property name="verticalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
+            </property>
+            <property name="horizontalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
+            </property>
+            <property name="html">
+             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="placeholderText">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget_9" native="true">
+            <property name="styleSheet">
+             <string notr="true">margin: 0px;
+margin-left: 1px;
+margin-right: 1px;
+border: 2px solid black;
+min-height: 35px;
+max-height: 35px;
+padding-bottom: 5px;
+border-top-left-radius: 0px;
+border-top-right-radius: 0px;</string>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <item>
+              <widget class="QPushButton" name="bold">
+               <property name="font">
+                <font>
+                 <family>Times New Roman</family>
+                 <pointsize>11</pointsize>
+                 <weight>75</weight>
+                 <italic>false</italic>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton{
+	margin: 0px;
+	border: 0px;
+	min-height: 25px;
+	max-height: 25px;
+	min-width: 25px;
+	max-width: 25px;
+	background-color: white;
+	border-radius: 8px;
+	padding: 0px;
+}
+QPushButton::hover{
+	margin: 0px;
+	border: 0px;
+	min-height: 25px;
+	max-height: 25px;
+	min-width: 25px;
+	max-width: 25px;
+	background-color: #eeeeee;	
+	border-radius: 8px;
+	padding: 0px;
+}
+QPushButton::pressed{
+	margin: 0px;
+	border: 0px;
+	min-height: 25px;
+	max-height: 25px;
+	min-width: 25px;
+	max-width: 25px;
+	background-color: gray;	
+	border-radius: 8px;
+	padding: 0px;
+}</string>
+               </property>
+               <property name="text">
+                <string>B</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="italic">
+               <property name="font">
+                <font>
+                 <family>Times New Roman</family>
+                 <pointsize>11</pointsize>
+                 <italic>true</italic>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton{
+	margin: 0px;
+	border: 0px;
+	min-height: 25px;
+	max-height: 25px;
+	min-width: 25px;
+	max-width: 25px;
+	background-color: white;
+	border-radius: 8px;
+	padding: 0px;
+}
+QPushButton::hover{
+	margin: 0px;
+	border: 0px;
+	min-height: 25px;
+	max-height: 25px;
+	min-width: 25px;
+	max-width: 25px;
+	background-color: #eeeeee;	
+	border-radius: 8px;
+	padding: 0px;
+}
+QPushButton::pressed{
+	margin: 0px;
+	border: 0px;
+	min-height: 25px;
+	max-height: 25px;
+	min-width: 25px;
+	max-width: 25px;
+	background-color: gray;	
+	border-radius: 8px;
+	padding: 0px;
+}</string>
+               </property>
+               <property name="text">
+                <string>I</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="underline">
+               <property name="font">
+                <font>
+                 <family>Times New Roman</family>
+                 <pointsize>11</pointsize>
+                 <italic>false</italic>
+                 <underline>true</underline>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton{
+	margin: 0px;
+	border: 0px;
+	min-height: 25px;
+	max-height: 25px;
+	min-width: 25px;
+	max-width: 25px;
+	background-color: white;
+	border-radius: 8px;
+	padding: 0px;
+}
+QPushButton::hover{
+	margin: 0px;
+	border: 0px;
+	min-height: 25px;
+	max-height: 25px;
+	min-width: 25px;
+	max-width: 25px;
+	background-color: #eeeeee;	
+	border-radius: 8px;
+	padding: 0px;
+}
+QPushButton::pressed{
+	margin: 0px;
+	border: 0px;
+	min-height: 25px;
+	max-height: 25px;
+	min-width: 25px;
+	max-width: 25px;
+	background-color: gray;	
+	border-radius: 8px;
+	padding: 0px;
+}</string>
+               </property>
+               <property name="text">
+                <string>U</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="increase">
+               <property name="font">
+                <font>
+                 <family>Times New Roman</family>
+                 <pointsize>11</pointsize>
+                 <weight>75</weight>
+                 <italic>false</italic>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton{
+	margin: 0px;
+	border: 0px;
+	min-height: 25px;
+	max-height: 25px;
+	min-width: 25px;
+	max-width: 25px;
+	background-color: white;
+	border-radius: 8px;
+	padding: 0px;
+}
+QPushButton::hover{
+	margin: 0px;
+	border: 0px;
+	min-height: 25px;
+	max-height: 25px;
+	min-width: 25px;
+	max-width: 25px;
+	background-color: #eeeeee;	
+	border-radius: 8px;
+	padding: 0px;
+}
+QPushButton::pressed{
+	margin: 0px;
+	border: 0px;
+	min-height: 25px;
+	max-height: 25px;
+	min-width: 25px;
+	max-width: 25px;
+	background-color: gray;	
+	border-radius: 8px;
+	padding: 0px;
+}</string>
+               </property>
+               <property name="text">
+                <string>+</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="decrease">
+               <property name="font">
+                <font>
+                 <family>Times New Roman</family>
+                 <pointsize>11</pointsize>
+                 <weight>75</weight>
+                 <italic>false</italic>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton{
+	margin: 0px;
+	border: 0px;
+	min-height: 25px;
+	max-height: 25px;
+	min-width: 25px;
+	max-width: 25px;
+	background-color: white;
+	border-radius: 8px;
+	padding: 0px;
+}
+QPushButton::hover{
+	margin: 0px;
+	border: 0px;
+	min-height: 25px;
+	max-height: 25px;
+	min-width: 25px;
+	max-width: 25px;
+	background-color: #eeeeee;	
+	border-radius: 8px;
+	padding: 0px;
+}
+QPushButton::pressed{
+	margin: 0px;
+	border: 0px;
+	min-height: 25px;
+	max-height: 25px;
+	min-width: 25px;
+	max-width: 25px;
+	background-color: gray;	
+	border-radius: 8px;
+	padding: 0px;
+}</string>
+               </property>
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget_4" native="true">
+         <property name="styleSheet">
+          <string notr="true">background-color: white;
+border: 2px solid black;
+border-radius: 20px;
+margin-top: 10px;
+margin-bottom: 10px;</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QLabel" name="image">
+            <property name="styleSheet">
+             <string notr="true">
+max-width: 200px;
+min-width: 200px;
+max-height: 200px;
+min-height: 200px;
+
+background-color: red;
+</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="choose_image">
+            <property name="font">
+             <font>
+              <family>Segoe UI</family>
+              <pointsize>11</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
+	border: 2px solid black;
+	height: 30px;
+	border-radius: 10px;
+	background-color: #FFCE41;
+	color: white;
+	max-height: 30px;
+	min-height: 30px;
+}
+
+QPushButton::hover{
+	border: 3px solid black;
+	height: 30px;
+	border-radius: 10px;
+	background-color: #FFCE41;
+	max-height: 30px;
+	min-height: 30px;
+}
+
+QPushButton::pressed{
+	border: 3px solid black;
+	height: 30px;
+	border-radius: 10px;
+	background-color: rgb(234, 188, 59);
+	max-height: 30px;
+	min-height: 30px;
+}</string>
+            </property>
+            <property name="text">
+             <string>Chọn hình ảnh</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>
