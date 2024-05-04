@@ -35,7 +35,7 @@ class Main(QMainWindow):
     def load(self):
         with open('json.json', 'r') as f:
             self.data = json.load(f)
-
+        self.listWidget_2.clear()
         for i in self.data: self.listWidget_2.addItems([i['name']])
         
     def add(self):

@@ -255,6 +255,10 @@ class Admin(QMainWindow):
     def log_out(self):
         login_ui.show()
         self.hide()
+class Add_Product(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi('GUI//addproduct.ui', self)
 
 app = QApplication(sys.argv)
 # app.setStyleSheet(qdarktheme.load_stylesheet("light"))
@@ -262,11 +266,12 @@ app = QApplication(sys.argv)
 # UI
 login_ui = Login()
 register_ui = Register()
+add_product_ui = Add_Product()
 
 user_ui = User()
 admin_ui = Admin()
 
 # Setup
-admin_ui.show()
+add_product_ui.show()
 app.exec()
 os.remove("Image//captcha.png")
