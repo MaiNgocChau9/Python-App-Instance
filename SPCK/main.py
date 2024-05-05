@@ -309,7 +309,7 @@ class Add_Product(QMainWindow):
         self.increase.clicked.connect(self.setIncrease)
         self.decrease.clicked.connect(self.setDecrease)
         self.choose_image.clicked.connect(self.chooseImage)
-        self.add.clicked.connect(self.addProduct)
+        self.add.clicked.connect(self.add_new_product)
 
     def setBold(self):
         cursor = self.textEdit.textCursor()
@@ -407,7 +407,7 @@ class Add_Product(QMainWindow):
             # Hiển thị Pixmap
             self.image.setPixmap(image_pixmap)
         
-    def addProduct(self):
+    def add_new_product(self):
         print("Add product")
         name = self.line_name.text()
         price = self.line_price.text()
@@ -420,8 +420,7 @@ class Add_Product(QMainWindow):
         print(description)
         print(image_path)
         
-        out_product_file = open("product.json", "w", encoding="utf-8")
-        inp_product_file = open("product.json", "r", encoding="utf-8")
+        product_file = open("product.json", "w", encoding="utf-8")
         product = [{
             "name": name,
             "price": price,
