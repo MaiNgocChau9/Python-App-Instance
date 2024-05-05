@@ -261,6 +261,7 @@ class Add_Product(QMainWindow):
         uic.loadUi('GUI//addproduct.ui', self)
 
         self.image.setPixmap(QPixmap("Image//add_image.png").scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
+        self.image_path = ""
 
         # Font
         label_font = QFont("Segoe UI", 18)
@@ -418,6 +419,18 @@ class Add_Product(QMainWindow):
         print(tag)
         print(description)
         print(image_path)
+        
+        out_product_file = open("product.json", "w", encoding="utf-8")
+        inp_product_file = open("product.json", "r", encoding="utf-8")
+        product = [{
+            "name": name,
+            "price": price,
+            "tag": tag,
+            "description": description,
+            "image": image_path
+        }]
+        product_file.write(json.dumps(product, indent=4, ensure_ascii=False))
+
 
 
 app = QApplication(sys.argv)

@@ -641,7 +641,7 @@ min-width: 200px;
 max-height: 200px;
 min-height: 200px;
 
-background-color: red;
+background-color: white;
 border: 0px;
 border-radius: 0px;
 margin: 5px;
