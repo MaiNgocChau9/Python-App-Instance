@@ -61,7 +61,7 @@ class Add(QMainWindow):
             self.data = json.load(f)
         self.data += [{"name": self.lineEdit.text()}]
         with open('json.json', 'w') as f:
-            json.dump(self.data, f, indent=4)
+            json.dump(self.data, f, indent=4, ensure_ascii=False)
         self.close()
         main_ui.load()
 
