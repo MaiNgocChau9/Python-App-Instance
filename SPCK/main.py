@@ -10,7 +10,7 @@ import sys
 
 # Captcha
 from captcha.image import ImageCaptcha
-from PIL import Image
+from PIL import Image, ImageOps
 from io import BytesIO
 import random
 import string
@@ -260,6 +260,7 @@ class Add_Product(QMainWindow):
         super().__init__()
         uic.loadUi('GUI//addproduct.ui', self)
 
+        self.image.setPixmap(QPixmap("Image//add_image.png").scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
 
         # Font
         label_font = QFont("Segoe UI", 18)
@@ -306,6 +307,8 @@ class Add_Product(QMainWindow):
         self.underline.clicked.connect(self.setUnderline)
         self.increase.clicked.connect(self.setIncrease)
         self.decrease.clicked.connect(self.setDecrease)
+        self.choose_image.clicked.connect(self.chooseImage)
+        self.add.clicked.connect(self.addProduct)
 
     def setBold(self):
         cursor = self.textEdit.textCursor()
@@ -314,7 +317,7 @@ class Add_Product(QMainWindow):
         if cursor.hasSelection():
             current_format = cursor.charFormat()
             if current_format.fontWeight() == QFont.Weight.Normal:
-                format_bold.setFontWeight(QFont.Weight.Bold)
+                format_bold.setFontWeight(QFont .Weight.Bold)
                 cursor.mergeCharFormat(format_bold)
             else:
                 format_bold.setFontWeight(QFont.Weight.Normal)
@@ -350,24 +353,71 @@ class Add_Product(QMainWindow):
         self.textEdit.setTextCursor(cursor)
 
     def setIncrease(self):
-        current_font = self.textEdit.currentFont()
-        font_size = current_font.pointSize()
-        if font_size < 73:
-            font_size += 1
-            new_font = QFont(current_font)
-            new_font.setPointSize(font_size)
-            self.textEdit.setFont(new_font)
+        cursor = self.textEdit.textCursor()
+        format_font = QTextCharFormat()
+
+        if cursor.hasSelection():
+            current_format = cursor.charFormat()
+            current_font = current_format.font()
+            font_size = current_font.pointSize()
+            if font_size < 73:
+                font_size += 1
+                new_font = QFont(current_font)
+                new_font.setPointSize(font_size)
+                format_font.setFont(new_font)
+                cursor.mergeCharFormat(format_font)
+
+        self.textEdit.setTextCursor(cursor)
 
     def setDecrease(self):
-        current_font = self.textEdit.currentFont()
-        font_size = current_font.pointSize()
-        if font_size > 6:
-            font_size -= 1
-            new_font = QFont(current_font)
-            new_font.setPointSize(font_size)
-            self.textEdit.setFont(new_font)
+        cursor = self.textEdit.textCursor()
+        format_font = QTextCharFormat()
 
+        if cursor.hasSelection():
+            current_format = cursor.charFormat()
+            current_font = current_format.font()
+            font_size = current_font.pointSize()
+            if font_size > 6:
+                font_size -= 1
+                new_font = QFont(current_font)
+                new_font.setPointSize(font_size)
+                format_font.setFont(new_font)
+                cursor.mergeCharFormat(format_font)
 
+        self.textEdit.setTextCursor(cursor)
+    
+    def chooseImage(self):
+        #! Lấy đường dẫn đến ảnh
+        self.image_path = QFileDialog.getOpenFileName(self, 'Add Image', "", "Images (*.png *.jpg)")[0]
+
+        if self.image_path:
+            #! Crop ảnh
+            image_pixmap = QtGui.QPixmap(self.image_path)
+            original_width = image_pixmap.width()
+            original_height = image_pixmap.height()
+            new_width = image_pixmap.height()
+            x = (original_width - new_width) // 2
+            y = 0
+            image_pixmap = image_pixmap.copy(x, y, new_width, original_height)
+
+            #! Resize ảnh (Sau khi crop)
+            image_pixmap = image_pixmap.scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+
+            # Hiển thị Pixmap
+            self.image.setPixmap(image_pixmap)
+        
+    def addProduct(self):
+        print("Add product")
+        name = self.line_name.text()
+        price = self.line_price.text()
+        description = self.textEdit.toPlainText()
+        image_path = self.image_path
+        tag = self.tag_name.currentText()
+        print(name)
+        print(price)
+        print(tag)
+        print(description)
+        print(image_path)
 
 
 app = QApplication(sys.argv)

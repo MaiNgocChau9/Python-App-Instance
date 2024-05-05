@@ -209,7 +209,7 @@ margin: 10px;</string>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="price_name">
+           <widget class="QLineEdit" name="line_price">
             <property name="styleSheet">
              <string notr="true">padding: 5px;
 border: 2px solid black;
@@ -262,7 +262,7 @@ QComboBox QAbstractItemView {
             </property>
             <item>
              <property name="text">
-              <string>Linh kiện</string>
+              <string>Thêm...</string>
              </property>
             </item>
            </widget>
@@ -344,7 +344,7 @@ border-bottom-right-radius: 12px;</string>
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="placeholderText">
              <string/>
@@ -636,14 +636,16 @@ margin-bottom: 10px;</string>
           <item>
            <widget class="QLabel" name="image">
             <property name="styleSheet">
-             <string notr="true">
-max-width: 200px;
+             <string notr="true">max-width: 200px;
 min-width: 200px;
 max-height: 200px;
 min-height: 200px;
 
 background-color: red;
-</string>
+border: 0px;
+border-radius: 0px;
+margin: 5px;
+margin-top: 15px;</string>
             </property>
             <property name="text">
              <string/>
