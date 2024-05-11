@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: white;
+color: black;</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_7">
     <item>
@@ -40,7 +44,6 @@
             <property name="font">
              <font>
               <pointsize>10</pointsize>
-              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -62,7 +65,7 @@ border-radius: 18px;</string>
              <bool>true</bool>
             </property>
             <property name="alignment">
-             <set>Qt::AlignCenter</set>
+             <set>Qt::AlignmentFlag::AlignCenter</set>
             </property>
            </widget>
           </item>
@@ -72,7 +75,6 @@ border-radius: 18px;</string>
              <font>
               <family>Segoe UI</family>
               <pointsize>13</pointsize>
-              <weight>50</weight>
               <bold>false</bold>
              </font>
             </property>
@@ -231,7 +233,7 @@ QPushButton::hover{
        <item>
         <spacer name="verticalSpacer">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -350,7 +352,6 @@ QPushButton::hover{
           <property name="font">
            <font>
             <family>Segoe UI</family>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -783,7 +784,6 @@ QPushButton:pressed{
               <font>
                <family>Segoe UI</family>
                <pointsize>14</pointsize>
-               <weight>50</weight>
                <bold>false</bold>
               </font>
              </property>
@@ -864,10 +864,10 @@ QListWidget::item::selected{
 }</string>
                 </property>
                 <property name="verticalScrollBarPolicy">
-                 <enum>Qt::ScrollBarAlwaysOff</enum>
+                 <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
                 </property>
                 <property name="horizontalScrollBarPolicy">
-                 <enum>Qt::ScrollBarAlwaysOff</enum>
+                 <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
                 </property>
                </widget>
               </item>
@@ -880,7 +880,6 @@ QListWidget::item::selected{
                     <font>
                      <family>Segoe UI</family>
                      <pointsize>10</pointsize>
-                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -928,7 +927,6 @@ QPushButton::pressed{
                     <font>
                      <family>Segoe UI</family>
                      <pointsize>10</pointsize>
-                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -998,7 +996,6 @@ QPushButton::pressed{
               <font>
                <family>Segoe UI</family>
                <pointsize>14</pointsize>
-               <weight>50</weight>
                <bold>false</bold>
               </font>
              </property>

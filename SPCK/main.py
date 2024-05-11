@@ -5,7 +5,6 @@ from PyQt6.QtGui import *
 from PyQt6.QtCore import *
 from PyQt6.QtCharts import *
 from PyQt6 import uic
-# import qdarktheme
 import sys
 
 # Captcha
@@ -17,6 +16,7 @@ import string
 import os
 
 # Data
+import shutil
 import json
 
 class Login(QMainWindow):
@@ -175,7 +175,7 @@ class Admin(QMainWindow):
 
 ############################################# PIE CHART #############################################
         # Import json
-        with open("Data//json.json", "r") as f:
+        with open("Data//tags.json", "r") as f:
             data = json.load(f)
         
         # Tạo dữ liệu cho biểu đồ Pie Chart
@@ -389,7 +389,7 @@ class Add_Product(QMainWindow):
     
     def chooseImage(self):
         #! Lấy đường dẫn đến ảnh
-        self.image_path = QFileDialog.getOpenFileName(self, 'Add Image', "", "Images (*.png *.jpg)")[0]
+        self.image_path = QFileDialog.getOpenFileName(self, 'Add Image', "", "Images (*.png *.jpg *.jpeg *.jfif *.pjpeg *.pjp *.svg *.webp)")[0]
 
         if self.image_path:
             #! Crop ảnh
@@ -420,15 +420,22 @@ class Add_Product(QMainWindow):
         print(description)
         print(image_path)
         
-        product_file = open("product.json", "w", encoding="utf-8")
-        product = [{
+        with open("product.json", "r", encoding="utf-8") as f:
+            existing_data = json.load(f)
+        
+        shutil.copyfile(image_path, f"Image//{name.lower().replace(' ', '_')}.png")
+        
+        new_product = [{
             "name": name,
             "price": price,
             "tag": tag,
             "description": description,
-            "image": image_path
+            "image": f"Image//{name.lower().replace(' ', '_')}.png"
         }]
-        product_file.write(json.dumps(product, indent=4, ensure_ascii=False))
+        
+        existing_data.append(new_product)
+        product_file = open("product.json", "w", encoding="utf-8")
+        product_file.write(json.dumps(existing_data, indent=4, ensure_ascii=False))
 
 
 
