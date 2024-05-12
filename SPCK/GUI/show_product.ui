@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>867</width>
+    <height>607</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: white;
+border: 0px;</string>
+  </property>
+  <property name="inputMethodHints">
+   <set>Qt::ImhDigitsOnly</set>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_3">
+    <item>
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="styleSheet">
+       <string notr="true">QScrollArea{
+	background-color: #f0f0f0;
+}
+/* #!VERTICAL SCROLLBAR */
+QScrollBar:vertical{
+	border: none;
+	width: 16px;
+	border-radius: 0px;
+	background: white;
+}
+
+/* #!HANDLE BAR VERTICAL */
+QScrollBar::handle:vertical {
+	border: 3px solid #f1f1f1;
+	background-color: #c1c1c1;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+QScrollBar::handle:vertical:hover {
+	border: 3px solid #f1f1f1;
+	background-color: #a8a8a8;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+QScrollBar::handle:vertical:pressed {
+	border: 3px solid #f1f1f1;
+	background-color: #787878;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+/* #!RESET ARROW */
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+	background: #f1f1f1;
+    border-left: 5px solid #f1f1f1;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: #f1f1f1;
+    border-left: 3px solid #f1f1f1;
+}
+/* #!HORIZONTAL SCROLLBAR */
+QScrollBar:horizontal{
+	border: none;
+	width: 16px;
+	border-radius: 0px;
+	background: white;
+}</string>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>832</width>
+         <height>2475</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QLabel" name="label_7">
+          <property name="styleSheet">
+           <string notr="true">min-height: 30px;
+max-height: 30px;</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="widget_2" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="image">
+             <property name="styleSheet">
+              <string notr="true">min-width: 400px;
+max-width: 400px;
+min-height: 400px;
+max-height: 400px;
+background-color: red;</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QWidget" name="widget" native="true">
+             <property name="styleSheet">
+              <string notr="true">margin: 25px;
+margin-bottom: 10px;
+margin-top: 10px;</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout">
+              <item>
+               <widget class="QLabel" name="name">
+                <property name="font">
+                 <font>
+                  <family>Segoe UI</family>
+                  <pointsize>18</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Logitech Jerry</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="Line" name="line">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="category">
+                <property name="font">
+                 <font>
+                  <family>Segoe UI</family>
+                  <pointsize>13</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Danh mục: Ẩn danh</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="price">
+                <property name="font">
+                 <font>
+                  <family>Segoe UI</family>
+                  <pointsize>17</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>000.000.000 ₫</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="add_button">
+                <property name="font">
+                 <font>
+                  <family>Segoe UI</family>
+                  <pointsize>10</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton{
+	border: 2px solid black;
+	border-radius: 10px;
+	background-color: #FFCE41;
+	color: white;
+	max-height: 30px;
+	min-height: 30px;
+	max-width: 150px;
+	margin-bottom: 0px;
+}
+
+QPushButton::hover{
+	border: 3px solid black;
+	border-radius: 10px;
+	background-color: #FFCE41;
+	max-height: 30px;
+	min-height: 30px;
+	max-width: 150px;
+	margin-bottom: 0px;
+}
+
+QPushButton::pressed{
+	border: 3px solid black;
+	border-radius: 10px;
+	background-color: rgb(234, 188, 59);
+	max-height: 30px;
+	min-height: 30px;
+	max-width: 150px;
+	margin-bottom: 0px;
+}</string>
+                </property>
+                <property name="text">
+                 <string>Thêm vào giỏ hàng</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="Description_label">
+          <property name="font">
+           <font>
+            <family>Segoe UI</family>
+            <pointsize>16</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">margin-top: 30px;</string>
+          </property>
+          <property name="text">
+           <string>Mô tả sản phẩm</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="Description">
+          <property name="font">
+           <font>
+            <family>Segoe UI</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">padding: 10px;</string>
+          </property>
+          <property name="text">
+           <string>Họp mặt, phát trực tuyến, làm chủ mọi hoạt động với Webcam Ultra HD 4K Logitech MX Brio. 
+Trải nghiệm video sắc nét, có độ phân giải ultra HD 4k với tính năng tăng cường hình ảnh bằng AI, thấu kính được thiết kế chính hãng và cảm biến webcam tiên tiến nhất với pixel lớn hơn 70%  cho khả năng hiển thị khuôn mặt tốt hơn gấp 2 lần và chi tiết hình ảnh mịn hơn trong điều kiện ánh sáng kém.
+Các nút điều khiển trên webcam cho phép bạn điều chỉnh ánh sáng và cân bằng trắng chính xác với ISO, Tốc độ màn trập, Nhiệt độ, Sắc thái màu và Độ rung. Micrô đa hướng kép làm giảm âm thanh nền để bạn có thể được nghe thấy rõ ràng với công nghệ giảm tiếng ồn. Chế độ Hiển thị (Show Mode) cho phép bạn chia sẻ công việc và ghi chú của mình trong cuộc gọi video bằng cách nghiêng camera web xuống.
+CÁC ĐẶC ĐIỂM NỔI BẬT
+- Webcam Ultra HD 4K: Họp hoặc phát livestream trực tuyến với độ phân giải 4K ở tốc độ 30 khung hình/giây hoặc 1080p ở tốc độ 60 khung hình/giây, cùng cảm biến Webcam tiên tiến nhất của Logitech, với pixel lớn hơn 70% cho chất lượng hình ảnh sắc nét.
+-  Hình ảnh được cường hóa bởi AI: Khả năng hiển thị khuôn mặt tốt hơn gấp 2 lần với chi tiết hình ảnh mịn hơn trong điều kiện ánh sáng kém, tính năng tự động phơi sáng, tự động cân bằng trắng, giảm tiếng ồn và tự động lấy nét.
+- Tùy Chính Hình Ảnh Linh Động: Các nút điều khiển trên webcam Logitech Ultra HD cho phép bạn điều chỉnh ánh sáng và cân bằng trắng như: ISO, Tốc độ màn trập, Sắc thái màu và Độ rung, hay để chế độ Tự động
+- Mirco Chống Ồn Chi Tiết Tích Hợp AI: Các micrô tạo chùm kép chống ồn tích hợp giúp giảm thiểu tiếng ồn xung quanh với sự hỗ trợ của AI để đảm bảo bạn được nghe thấy rõ ràng
+- Tương Thích Tối Đa: Webcam Ultra HD USB C Logitech MX Brio hiệu quả tốt với Windows, macOS, ChromeOS hoặc Linux. Được chứng nhận bởi Zoom, Microsoft Teams, Chromebook, Google Meet và Streamlabs
+- Tùy chỉnh Quy trình làm việc tối đa thông qua ứng dụng : Ghép cặp MX Brio với phần mềm Logitech để mở ra trải nghiệm truyền trực tiếp video dành riêng, cho phép bạn điều khiển buổi truyền phát livestream dễ dàng thông qua bàn phím và chuột MX
+- Được làm từ nhựa tái chế: Webcam Ultra HD 4K Logitech MX Brio được làm với ít nhất 34% nhựa sau tiêu dùng đã được chứng nhận giúp giảm lượng khí thải các-bon
+TÓM TẮT TÍNH NĂNG 
+- Độ phân giải Ultra HD 4k
+- Cảnh quay được trang bị HDR
+- Làm từ nhựa tái chế
+- Khả năng hiển thị khuôn mặt tốt hơn gấp 2 lần trong điều kiện ánh sáng kém (2)
+- Chi tiết hình ảnh mịn hơn gấp 2 lần trong ánh sáng yếu (2)
+- Thấu kính được thiết kế chính hãng
+- Tối ưu hóa hình ảnh bằng AI
+- Video có thể tùy chỉnh với các nút điều khiển chính xác
+- Chia sẻ hình ảnh bàn làm việc của bạn với Show Mode
+- Công nghệ giảm tiếng ồn kép
+- Màn che ống kính tích hợp.
+- Dây USB-C tới USB 3.0
+THÔNG SỐ KỸ THUẬT
+- Nhiều độ phân giải
+ + 4K/30fps (3840x2160 pixel)
+ + 1080p/60fps (1920x1080pixel)
+- Loại tiêu cự: Lấy nét tự động tiên tiến
+- Loại thấu kính: Kính
+- Loại micrô tích hợp
+ + Micrô tạo chùm kép để giảm tiếng ồn
+ + Phạm vi của mic: Lên tới 5ft (1,5m)
+- Tầm nhìn chéo (dFoV): 90°/78°/65°
+ + Thu phóng phần cứng: Thu phóng kỹ thuật số 4x
+- Màn chập bảo vệ tích hợp
+- Khả năng kết nối USB: Dây USB-C tới USB-C có thể tháo rời, hỗ trợ tiêu chuẩn USB 3.0
+- Kẹp gắn phổ dụng phù hợp với máy tính xách tay, màn hiển thị LCD hoặc các màn hình. Ren ¼” inch tiêu chuẩn để gắn trên giá ba chân
+KÍCH THƯỚC
+- Chỉ webcam
+ + Chiều cao: 44 mm
+ + Chiều rộng: 98 mm
+ + Chiều dày: 36 mm
+ + Trọng lượng không có kẹp: 137 g
+- Webcam có giá gắn (Đóng)
+ + Chiều cao: 62 mm
+ + Chiều rộng: 98 mm
+ + Chiều dày: 52 mm
+ + Trọng lượng có kẹp gắn: 176 g
+- Kẹp gắn
+ + Chiều cao: 20 mm
+ + Chiều rộng: 38 mm
+ + Chiều dày: 45 mm
+- Bao bì
+ + Chiều cao: 141 mm
+ + Chiều rộng: 136 mm
+ + Chiều dày: 68 mm
+ + Tổng trọng lượng (có sản phẩm): 362 g
+YÊU CẦU KĨ THUẬT
+- Yêu cầu:  Cổng USB-C hỗ trợ tiêu chuẩn USB 3.0
+- Hoạt động với Windows, macOS hoặc ChromeOS và hầu như bất kỳ nền tảng gọi điện video phổ biến nào.
+(Cần RAM 2GB trở lên để truyền video 4Kvà thông thường cần RAM 1GB để truyền trực tuyến 720p)
+- Tương thích với: 
+  + Windows 10 trở lên
+ + macOS 10.15 trở lên
+ + ChromeOS
+- Hoạt động với
+ + Zoom, Teams, WebEx, Skype, FaceTime, Google Meet, Streamlabs, OBS
+THÔNG TIN BẢO HÀNH 
+- Bảo hành phần cứng chính hãng Logitech trong 1 năm
+TRONG HỘP BAO GỒM 
+- Webcam Ultra HD 4K Logitech MX Brio. 
+- Kẹp gắn với bộ điều hợp có thể tháo rời
+- Dây USB-C tới C 3.0
+- Tài liệu hướng dẫn sử dụng</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -210,14 +210,19 @@ class User(QMainWindow):
             price_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
             product_information_layout.addWidget(price_label)
 
+            # Hiển thị danh mục
+            category_label = QtWidgets.QLabel(f"Category: {product['category']}")
+            category_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+            product_information_layout.addWidget(category_label)
+
             # Thêm nút "Show details"
-            show_details_button = QtWidgets.QPushButton("Show details")
+            show_details_button = QtWidgets.QPushButton("Xem sản phẩm")
             show_details_button.clicked.connect(partial(self.display_product_details, product))
             show_details_button.setStyleSheet("background-color: white; padding: 6px; border-radius: 5px; border: 2px solid #dbdbdb; max-height: 20px; min-height: 20px;")
             product_information_layout.addWidget(show_details_button)
-            product_information_widget.setStyleSheet("max-height: 150px; min-height: 50px; background-color: none;")
+            # product_information_widget.setStyleSheet("max-height: 150px; min-height: 50px; background-color: none;")
             layout_of_all.addWidget(product_information_widget)
-            widget_of_all.setStyleSheet("background-color: white; border-radius : 15px; margin: 3px;")
+            widget_of_all.setStyleSheet("background-color: white; border-radius : 15px; margin: 3px; border: 2px solid #dbdbdb;")
 
             # Thêm sản phẩm vào layout
             self.product_layout.addWidget(widget_of_all, row, col)
@@ -228,30 +233,8 @@ class User(QMainWindow):
                 row += 1
     
     def display_product_details(self, product):
-        
-        # Tạo cửa sổ nhỏ để hiển thị chi tiết sản phẩm
-        details_window = QtWidgets.QDialog(self)
-        details_window.setWindowTitle("Product Details")
-
-        # Tạo layout cho cửa sổ nhỏ
-        details_layout = QtWidgets.QVBoxLayout(details_window)
-
-        # Hiển thị chi tiết sản phẩm
-
-        product_info_label = QtWidgets.QLabel(f"Product Name: {product['product_name']}")
-        details_layout.addWidget(product_info_label)
-
-        product_info_label = QtWidgets.QLabel(f"Category: {product['category']}")
-        details_layout.addWidget(product_info_label)
-
-        product_info_label = QtWidgets.QLabel(f"Price: {product['price']}")
-        details_layout.addWidget(product_info_label)
-
-        product_info_label = QtWidgets.QLabel(f"Discription: {product['description']}")
-        details_layout.addWidget(product_info_label)
-
-        # Hiển thị cửa sổ nhỏ
-        details_window.exec()
+        show_product_ui.show_product_information(product)
+        show_product_ui.show()
     
     # Switch screen
     def go_to_home_screen(self): 
@@ -292,8 +275,6 @@ class Admin(QMainWindow):
         uic.loadUi('GUI//admin.ui', self)
         self.stackedWidget.setCurrentIndex(0)
 
-
-############################################# PIE CHART #############################################
         # Import json
         with open("Data//categorys.json", "r") as f:
             data = json.load(f)
@@ -553,7 +534,7 @@ class Add_Product(QMainWindow):
         else: 
 
             self.image_path = "Image//temp_downloaded_file.jpg"
-            
+
             #! Crop ảnh
             image_pixmap = QtGui.QPixmap(self.image_path)
             # check null image
@@ -675,6 +656,7 @@ class Add_Product(QMainWindow):
         print("Add product")
         name = self.line_name.text()
         price = self.line_price.text()
+        # No inputmask
         description = self.textEdit.toPlainText()
         image_path = self.image_path
         tag = self.tag_name.currentText()
@@ -701,6 +683,41 @@ class Add_Product(QMainWindow):
         product_file = open("product.json", "w", encoding="utf-8")
         product_file.write(json.dumps(existing_data, indent=4, ensure_ascii=False))
 
+class Show_Product(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi('GUI//show_product.ui', self)
+
+        # Font
+        name_font = QFont("Segoe UI", 18)
+        name_font.setBold(True)
+
+        category_font = QFont("Segoe UI", 13)
+
+        price_font = QFont("Segoe UI", 17)
+        price_font.setBold(True)
+
+        description_label_font = QFont("Segoe UI", 16)
+        description_label_font.setBold(True)
+
+        btn_font = QFont("Segoe UI", 11)
+        btn_font.setBold(True)
+
+        # Set font
+        self.name.setFont(name_font)
+        self.category.setFont(category_font)
+        self.price.setFont(price_font)
+        self.add_button.setFont(btn_font)
+        self.Description_label.setFont(description_label_font)
+
+    def show_product_information(self, product):
+        price_format = "{:,}".format(int(product["price"]))
+        price_format = f"{price_format} ₫"
+        self.image.setPixmap(QPixmap(product["image"]).scaled(400, 400, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
+        self.name.setText(product["product_name"])
+        self.category.setText(product["category"])
+        self.price.setText(price_format)
+        self.Description.setText(product["description"])
 
 
 app = QApplication(sys.argv)
@@ -709,12 +726,13 @@ app = QApplication(sys.argv)
 login_ui = Login()
 register_ui = Register()
 add_product_ui = Add_Product()
+show_product_ui = Show_Product()
 
 user_ui = User()
 admin_ui = Admin()
 
 # Setup
-add_product_ui.show()
+user_ui.show()
 app.exec()
 
 try:

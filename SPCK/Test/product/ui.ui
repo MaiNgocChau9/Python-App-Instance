@@ -69,10 +69,7 @@ QScrollBar:horizontal{
        <string notr="true">border: 0px;</string>
       </property>
       <property name="frameShape">
-       <enum>QFrame::Shape::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Shadow::Raised</enum>
+       <enum>QFrame::NoFrame</enum>
       </property>
      </widget>
     </item>
