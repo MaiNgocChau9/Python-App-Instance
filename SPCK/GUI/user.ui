@@ -79,7 +79,7 @@ border-radius: 18px;</string>
              </font>
             </property>
             <property name="text">
-             <string> User</string>
+             <string>Admin</string>
             </property>
            </widget>
           </item>
