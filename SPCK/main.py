@@ -155,7 +155,6 @@ class User(QMainWindow):
     def display_all_products(self):
         # Đọc dữ liệu từ file JSON
         products = json.load(open('product.json', 'r', encoding='utf-8'))
-        print(products)
 
         # Hiển thị các sản phẩm trên giao diện
         row = 0
@@ -308,7 +307,7 @@ class Admin(QMainWindow):
 
 ############################################# PIE CHART #############################################
         # Import json
-        with open("Data//tags.json", "r") as f:
+        with open("Data//categorys.json", "r") as f:
             data = json.load(f)
         
         # Tạo dữ liệu cho biểu đồ Pie Chart
@@ -369,7 +368,6 @@ class Admin(QMainWindow):
     def display_all_products(self):
         # Đọc dữ liệu từ file JSON
         products = json.load(open('product.json', 'r', encoding='utf-8'))
-        print(products)
 
         # Hiển thị các sản phẩm trên giao diện
         row = 0
