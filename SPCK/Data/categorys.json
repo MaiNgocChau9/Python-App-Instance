@@ -1,38 +1,38 @@
 [
     {
         "name": "Laptop",
-        "quantity": 20
+        "product": 20
     },
     {
         "name": "Keyboard",
-        "quantity": 15
+        "product": 15
     },
     {
         "name": "Monitor",
-        "quantity": 20
+        "product": 20
     },
     {
         "name": "CPU",
-        "quantity": 25
+        "product": 25
     },
     {
         "name": "GPU",
-        "quantity": 30
+        "product": 30
     },
     {
         "name": "Memory",
-        "quantity": 21
+        "product": 21
     },
     {
         "name": "HDD",
-        "quantity": 40
+        "product": 40
     },
     {
         "name": "SSD",
-        "quantity": 72
+        "product": 72
     },
     {
         "name": "Speaker",
-        "quantity": 68
+        "product": 68
     }
 ]

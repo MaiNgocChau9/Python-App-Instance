@@ -667,6 +667,7 @@ margin-top: 15px;</string>
 	color: white;
 	max-height: 30px;
 	min-height: 30px;
+	margin: 0px;
 }
 
 QPushButton::hover{
@@ -676,6 +677,7 @@ QPushButton::hover{
 	background-color: #FFCE41;
 	max-height: 30px;
 	min-height: 30px;
+	margin: 0px;
 }
 
 QPushButton::pressed{
@@ -685,10 +687,57 @@ QPushButton::pressed{
 	background-color: rgb(234, 188, 59);
 	max-height: 30px;
 	min-height: 30px;
+	margin: 0px;
 }</string>
             </property>
             <property name="text">
-             <string>Chọn hình ảnh</string>
+             <string>Chọn hình ảnh từ máy</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="choose_image_url">
+            <property name="font">
+             <font>
+              <family>Segoe UI</family>
+              <pointsize>11</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
+	border: 2px solid black;
+	height: 30px;
+	border-radius: 10px;
+	background-color: #FFCE41;
+	color: white;
+	max-height: 30px;
+	min-height: 30px;
+	margin: 0px;
+}
+
+QPushButton::hover{
+	border: 3px solid black;
+	height: 30px;
+	border-radius: 10px;
+	background-color: #FFCE41;
+	max-height: 30px;
+	min-height: 30px;
+	margin: 0px;
+}
+
+QPushButton::pressed{
+	border: 3px solid black;
+	height: 30px;
+	border-radius: 10px;
+	background-color: rgb(234, 188, 59);
+	max-height: 30px;
+	min-height: 30px;
+	margin: 0px;
+}</string>
+            </property>
+            <property name="text">
+             <string>Chọn hình ảnh từ URL</string>
             </property>
            </widget>
           </item>

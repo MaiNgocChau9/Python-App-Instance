@@ -16,6 +16,7 @@ import string
 import os
 
 # Data
+import urllib.request
 from functools import partial
 import shutil
 import json
@@ -208,11 +209,6 @@ class User(QMainWindow):
             price_label = QtWidgets.QLabel(f"Price: {product['price']}")
             price_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
             product_information_layout.addWidget(price_label)
-            """
-            * Get font name of price_label
-            price_label_font = price_label.font()
-            print(price_label_font.family())
-            """
 
             # Thêm nút "Show details"
             show_details_button = QtWidgets.QPushButton("Show details")
@@ -222,14 +218,6 @@ class User(QMainWindow):
             product_information_widget.setStyleSheet("max-height: 150px; min-height: 50px; background-color: none;")
             layout_of_all.addWidget(product_information_widget)
             widget_of_all.setStyleSheet("background-color: white; border-radius : 15px; margin: 3px;")
-            
-            # Shadow
-            # self.product_widget.setStyleSheet("background-color: white; color: black")
-            shadow = QtWidgets.QGraphicsDropShadowEffect()
-            shadow.setOffset(0, 0)
-            shadow.setBlurRadius(20)
-            shadow.setColor(QtGui.QColor("#e6e6e6"))
-            self.product_widget.setGraphicsEffect(shadow)
 
             # Thêm sản phẩm vào layout
             self.product_layout.addWidget(widget_of_all, row, col)
@@ -313,7 +301,7 @@ class Admin(QMainWindow):
         # Tạo dữ liệu cho biểu đồ Pie Chart
         self.series = QPieSeries()
         for item in data:
-            self.series.append(item['name'], item['quantity'])
+            self.series.append(item['name'], item['product'])
 
         # Tạo biểu đồ từ dữ liệu
         self.chart = QChart()
@@ -421,11 +409,6 @@ class Admin(QMainWindow):
             price_label = QtWidgets.QLabel(f"Price: {product['price']}")
             price_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
             product_information_layout.addWidget(price_label)
-            """
-            * Get font name of price_label
-            price_label_font = price_label.font()
-            print(price_label_font.family())
-            """
 
             # Thêm nút "Show details"
             show_details_button = QtWidgets.QPushButton("Show details")
@@ -435,14 +418,6 @@ class Admin(QMainWindow):
             product_information_widget.setStyleSheet("max-height: 150px; min-height: 50px; background-color: none;")
             layout_of_all.addWidget(product_information_widget)
             widget_of_all.setStyleSheet("background-color: white; border-radius : 15px; margin: 3px;")
-            
-            # Shadow
-            # self.product_widget.setStyleSheet("background-color: white; color: black")
-            shadow = QtWidgets.QGraphicsDropShadowEffect()
-            shadow.setOffset(0, 0)
-            shadow.setBlurRadius(20)
-            shadow.setColor(QtGui.QColor("#e6e6e6"))
-            self.product_widget.setGraphicsEffect(shadow)
 
             # Thêm sản phẩm vào layout
             self.product_layout.addWidget(widget_of_all, row, col)
@@ -557,6 +532,7 @@ class Add_Product(QMainWindow):
         self.cancel.setFont(btn_font)
         self.add.setFont(btn_font)
         self.choose_image.setFont(btn_font)
+        self.choose_image_url.setFont(btn_font)
 
         # Action
         self.bold.clicked.connect(self.setBold)
@@ -565,7 +541,36 @@ class Add_Product(QMainWindow):
         self.increase.clicked.connect(self.setIncrease)
         self.decrease.clicked.connect(self.setDecrease)
         self.choose_image.clicked.connect(self.chooseImage)
+        self.choose_image_url.clicked.connect(self.choose_image_from_url)
         self.add.clicked.connect(self.add_new_product)
+    
+
+    def choose_image_from_url(self):
+        url = QInputDialog.getText(self, "New Taks", "Enter Task")[0]
+        print(url)
+        urllib.request.urlretrieve(url, "Image//temp_downloaded_file.jpg")
+        self.image_path = "Image//temp_downloaded_file.jpg"
+        
+        #! Crop ảnh
+        image_pixmap = QtGui.QPixmap(self.image_path)
+        # check null image
+        if not image_pixmap.isNull():
+            original_width = image_pixmap.width()
+            original_height = image_pixmap.height()
+            new_width = image_pixmap.height()
+            x = (original_width - new_width) // 2
+            y = 0
+            image_pixmap = image_pixmap.copy(x, y, new_width, original_height)
+
+            #! Resize ảnh (Sau khi crop)
+            image_pixmap = image_pixmap.scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+
+            # Hiển thị Pixmap
+            self.image.setPixmap(image_pixmap)
+        else:
+            self.image.setPixmap(QPixmap("Image//add_image.png").scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
+            QMessageBox.warning(self, "Error", "Invalid URL")
+
 
     def setBold(self):
         cursor = self.textEdit.textCursor()
@@ -706,6 +711,10 @@ user_ui = User()
 admin_ui = Admin()
 
 # Setup
-admin_ui.show()
+user_ui.show()
 app.exec()
-os.remove("Image//captcha.png")
+
+try:
+    os.remove("Image//captcha.png")
+    os.remove("Image//temp_downloaded_file.jpg")
+except Exception as e: pass

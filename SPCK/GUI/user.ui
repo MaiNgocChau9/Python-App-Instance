@@ -79,7 +79,7 @@ border-radius: 18px;</string>
              </font>
             </property>
             <property name="text">
-             <string>Admin</string>
+             <string>User</string>
             </property>
            </widget>
           </item>
@@ -343,7 +343,7 @@ QPushButton::hover{
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="home_screen">
        <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -550,11 +550,7 @@ QPushButton:pressed{
             </widget>
            </item>
            <item>
-            <widget class="QWidget" name="widget_13" native="true">
-             <property name="styleSheet">
-              <string notr="true">background-color: green;</string>
-             </property>
-            </widget>
+            <widget class="QWidget" name="widget_5" native="true"/>
            </item>
           </layout>
          </widget>
