@@ -546,30 +546,33 @@ class Add_Product(QMainWindow):
     
 
     def choose_image_from_url(self):
-        url = QInputDialog.getText(self, "New Taks", "Enter Task")[0]
+        url = QInputDialog.getText(self, "Nhập URL", "Nhập liên kết hình ảnh")[0]
         print(url)
-        urllib.request.urlretrieve(url, "Image//temp_downloaded_file.jpg")
-        self.image_path = "Image//temp_downloaded_file.jpg"
-        
-        #! Crop ảnh
-        image_pixmap = QtGui.QPixmap(self.image_path)
-        # check null image
-        if not image_pixmap.isNull():
-            original_width = image_pixmap.width()
-            original_height = image_pixmap.height()
-            new_width = image_pixmap.height()
-            x = (original_width - new_width) // 2
-            y = 0
-            image_pixmap = image_pixmap.copy(x, y, new_width, original_height)
+        try: urllib.request.urlretrieve(url, "Image//temp_downloaded_file.jpg")
+        except Exception as e: pass
+        else: 
 
-            #! Resize ảnh (Sau khi crop)
-            image_pixmap = image_pixmap.scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+            self.image_path = "Image//temp_downloaded_file.jpg"
+            
+            #! Crop ảnh
+            image_pixmap = QtGui.QPixmap(self.image_path)
+            # check null image
+            if not image_pixmap.isNull():
+                original_width = image_pixmap.width()
+                original_height = image_pixmap.height()
+                new_width = image_pixmap.height()
+                x = (original_width - new_width) // 2
+                y = 0
+                image_pixmap = image_pixmap.copy(x, y, new_width, original_height)
 
-            # Hiển thị Pixmap
-            self.image.setPixmap(image_pixmap)
-        else:
-            self.image.setPixmap(QPixmap("Image//add_image.png").scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
-            QMessageBox.warning(self, "Error", "Invalid URL")
+                #! Resize ảnh (Sau khi crop)
+                image_pixmap = image_pixmap.scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+
+                # Hiển thị Pixmap
+                self.image.setPixmap(image_pixmap)
+            else:
+                self.image.setPixmap(QPixmap("Image//add_image.png").scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
+                QMessageBox.warning(self, "Lỗi", "Gặp lỗi trong quá trình lấy hình ảnh")
 
 
     def setBold(self):
@@ -711,7 +714,7 @@ user_ui = User()
 admin_ui = Admin()
 
 # Setup
-user_ui.show()
+add_product_ui.show()
 app.exec()
 
 try:
