@@ -168,16 +168,19 @@ class User(QMainWindow):
         
     #! Hiển thị tất cả các sản phẩm
         self.display_all_products_store()
-        self.display_all_products_cart()
+        self.display_all_products_cart(None)
     
-    def display_all_products_cart(self):
-        products_cart = json.load(open('cart_product.json'))
-
+    def display_all_products_cart(self, information):
+        # Lấy dữ liệu 
+        if information:
+            products_cart = information
+        else:
+            products_cart = json.load(open('cart_product.json'))
+        
         # Hiển thị các sản phẩm trên giao diện
         row = 0
         col = 0
         for product in products_cart:
-
             widget_of_all = QtWidgets.QFrame()
             layout_of_all = QtWidgets.QHBoxLayout(widget_of_all)
 
@@ -790,8 +793,12 @@ class Show_Product(QMainWindow):
     def add_to_cart(self, product):
         existing_data = json.load(open('cart_product.json'))
         existing_data.append(product)
+
         product_file = open("cart_product.json", "w", encoding="utf-8")
         product_file.write(json.dumps(existing_data, indent=4, ensure_ascii=False))
+        
+        user_ui.display_all_products_cart(existing_data)
+        self.close()
 
 
 app = QApplication(sys.argv)
