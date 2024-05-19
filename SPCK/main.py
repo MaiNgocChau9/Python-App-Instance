@@ -167,7 +167,7 @@ class User(QMainWindow):
         self.frame_3.layout().addWidget(self.scroll_area_cart)
         
     #! Hiển thị tất cả các sản phẩm
-        self.display_all_products_store()
+        self.display_all_products_store(None)
         self.display_all_products_cart(None)
     
     def display_all_products_cart(self, information):
@@ -223,12 +223,14 @@ class User(QMainWindow):
             product_information_layout.addWidget(product_name_label)
             
             # Hiển thị giá
-            price_label = QtWidgets.QLabel(f"Price: {product['price']}")
+            price_format = "{:,}".format(int(product["price"]))
+            price_format = f"{price_format}₫"
+            price_label = QtWidgets.QLabel(f"Giá: {price_format}")
             price_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
             product_information_layout.addWidget(price_label)
 
             # Hiển thị danh mục
-            category_label = QtWidgets.QLabel(f"Category: {product['category']}")
+            category_label = QtWidgets.QLabel(f"Danh mục: {product['category']}")
             category_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
             product_information_layout.addWidget(category_label)
 
@@ -237,7 +239,6 @@ class User(QMainWindow):
             show_details_button.clicked.connect(partial(self.display_product_details, product))
             show_details_button.setStyleSheet("background-color: white; padding: 6px; border-radius: 5px; border: 2px solid #dbdbdb; max-height: 20px; min-height: 20px;")
             product_information_layout.addWidget(show_details_button)
-            # product_information_widget.setStyleSheet("max-height: 150px; min-height: 50px; background-color: none;")
             layout_of_all.addWidget(product_information_widget)
             widget_of_all.setStyleSheet("background-color: white; border-radius : 15px; margin: 3px; border: 2px solid #dbdbdb;")
 
@@ -249,9 +250,12 @@ class User(QMainWindow):
                 col = 0
                 row += 1
 
-    def display_all_products_store(self):
-        # Đọc dữ liệu từ file JSON
-        products = json.load(open('product.json'))
+    def display_all_products_store(self, information):
+        # Lấy dữ liệu 
+        if information:
+            products = information
+        else:
+            products = json.load(open('product.json'))
 
         # Hiển thị các sản phẩm trên giao diện
         row = 0
@@ -299,12 +303,14 @@ class User(QMainWindow):
             product_information_layout.addWidget(product_name_label)
             
             # Hiển thị giá
-            price_label = QtWidgets.QLabel(f"Price: {product['price']}")
+            price_format = "{:,}".format(int(product["price"]))
+            price_format = f"{price_format}₫"
+            price_label = QtWidgets.QLabel(f"Giá: {price_format}")
             price_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
             product_information_layout.addWidget(price_label)
 
             # Hiển thị danh mục
-            category_label = QtWidgets.QLabel(f"Category: {product['category']}")
+            category_label = QtWidgets.QLabel(f"Danh mục: {product['category']}")
             category_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
             product_information_layout.addWidget(category_label)
 
@@ -313,7 +319,6 @@ class User(QMainWindow):
             show_details_button.clicked.connect(partial(self.display_product_details, product))
             show_details_button.setStyleSheet("background-color: white; padding: 6px; border-radius: 5px; border: 2px solid #dbdbdb; max-height: 20px; min-height: 20px;")
             product_information_layout.addWidget(show_details_button)
-            # product_information_widget.setStyleSheet("max-height: 150px; min-height: 50px; background-color: none;")
             layout_of_all.addWidget(product_information_widget)
             widget_of_all.setStyleSheet("background-color: white; border-radius : 15px; margin: 3px; border: 2px solid #dbdbdb;")
 
@@ -329,7 +334,7 @@ class User(QMainWindow):
         show_product_ui.show_product_information(product)
         show_product_ui.show()
     
-    # Switch screen
+    #! Switch screen
     def go_to_home_screen(self): 
         self.stackedWidget.setCurrentIndex(0)
         self.btn_home.setIcon(QIcon("Image//home_a.png"))
@@ -409,103 +414,8 @@ class Admin(QMainWindow):
         self.btn_statistic.clicked.connect(self.go_to_statistic_screen)
         self.btn_setting.clicked.connect(self.go_to_setting_screen)
         self.btn_log_out.clicked.connect(self.log_out)
-
-        self.product_layout = QtWidgets.QGridLayout()  # Tạo QGridLayout để chứa các sản phẩm
-        self.product_widget = QtWidgets.QWidget()  # Tạo QWidget để chứa QGridLayout
-        self.product_widget.setLayout(self.product_layout)  # Đặt QGridLayout làm layout cho QWidget
         
-        # Tạo QScrollArea và đặt QWidget làm nội dung cuộn
-        self.scroll_area = QtWidgets.QScrollArea()
-        self.scroll_area.setWidgetResizable(True)
-        self.scroll_area.setWidget(self.product_widget)
-
-
-        # Đặt QScrollArea làm giao diện chính cho QWidget
-        self.frame.setLayout(QtWidgets.QVBoxLayout())
-        self.frame.layout().addWidget(self.scroll_area)  
-        
-        # Hiển thị tất cả các sản phẩm
-        self.display_all_products()
-
-    def display_all_products(self):
-        # Đọc dữ liệu từ file JSON
-        products = json.load(open('product.json', 'r', encoding='utf-8'))
-
-        # Hiển thị các sản phẩm trên giao diện
-        row = 0
-        col = 0
-        for product in products:
-            product_widget = QtWidgets.QFrame()
-            product_layout = QtWidgets.QHBoxLayout(product_widget)
-
-            widget_of_all = QtWidgets.QFrame()
-            layout_of_all = QtWidgets.QHBoxLayout(widget_of_all)
-
-            # width = 300
-            height = 200
-            # widget_of_all.setFixedSize(width, height)
-            widget_of_all.setFixedHeight(height)
-
-            #TODO: ẢNH
-            #* Hiển thị ảnh
-            image_path = product['image']  # Đường dẫn ảnh
-            image_label = QtWidgets.QLabel()
-            image_label.setStyleSheet("border: none")
-
-            #! Lấy hình ảnh
-            image_pixmap = QtGui.QPixmap(image_path)
-
-            #! Resize ảnh
-            image_pixmap = image_pixmap.scaled(120, 120, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
-
-            #! Hiển thị ảnh
-            image_label.setPixmap(image_pixmap)
-            image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-            layout_of_all.addWidget(image_label)
-
-            #* Tạo Widget bao gồm tên và giá của sản phẩm
-            product_information_widget = QtWidgets.QWidget()
-            product_information_layout = QtWidgets.QVBoxLayout(product_information_widget)
-            product_information_widget.setStyleSheet("border: none;")
-
-            #* FONT
-            font = QFont("Segoe UI", 15)
-            font.setBold(True)
-            font.setHintingPreference(QFont.HintingPreference.PreferFullHinting)
-            
-            # Hiển thị tên sản phẩm
-            product_name_label = QtWidgets.QLabel(product['product_name'])
-            product_name_label.setFont(font)
-            product_name_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
-            product_information_layout.addWidget(product_name_label)
-            
-            # Hiển thị giá
-            price_label = QtWidgets.QLabel(f"Price: {product['price']}")
-            price_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
-            product_information_layout.addWidget(price_label)
-
-            # Thêm nút "Show details"
-            show_details_button = QtWidgets.QPushButton("Show details")
-            show_details_button.clicked.connect(partial(self.display_product_details, product))
-            show_details_button.setStyleSheet("background-color: white; padding: 6px; border-radius: 5px; border: 2px solid #dbdbdb; max-height: 20px; min-height: 20px;")
-            product_information_layout.addWidget(show_details_button)
-            product_information_widget.setStyleSheet("max-height: 150px; min-height: 50px; background-color: none;")
-            layout_of_all.addWidget(product_information_widget)
-            widget_of_all.setStyleSheet("background-color: white; border-radius : 15px; margin: 3px;")
-
-            # Thêm sản phẩm vào layout
-            self.product_layout.addWidget(widget_of_all, row, col)
-            
-            col += 1
-            if col == 2:
-                col = 0
-                row += 1
-    
-    def display_product_details(self, product):
-        show_product_ui.show_product_information(product)
-        show_product_ui.show()
-    
-######################################### SWITCH SCREEN #########################################
+    #! Switch screen
     def go_to_home_screen(self): 
         self.stackedWidget.setCurrentIndex(0)
         self.btn_home.setIcon(QIcon("Image//home_a.png"))
@@ -751,6 +661,8 @@ class Add_Product(QMainWindow):
         existing_data.append(new_product)
         product_file = open("product.json", "w", encoding="utf-8")
         product_file.write(json.dumps(existing_data, indent=4, ensure_ascii=False))
+        user_ui.display_all_products_store(existing_data)
+        self.close()
 
 class Show_Product(QMainWindow):
     def __init__(self):
@@ -813,7 +725,7 @@ user_ui = User()
 admin_ui = Admin()
 
 # Setup
-user_ui.show()
+admin_ui.show()
 app.exec()
 
 try:
