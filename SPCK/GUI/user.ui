@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1050</width>
-    <height>614</height>
+    <height>615</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -44,7 +44,6 @@ color: black;</string>
             <property name="font">
              <font>
               <pointsize>10</pointsize>
-              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -73,7 +72,6 @@ border-radius: 18px;</string>
              <font>
               <family>Segoe UI</family>
               <pointsize>13</pointsize>
-              <weight>50</weight>
               <bold>false</bold>
              </font>
             </property>
@@ -232,7 +230,7 @@ QPushButton::hover{
        <item>
         <spacer name="verticalSpacer">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -351,7 +349,6 @@ QPushButton::hover{
           <property name="font">
            <font>
             <family>Segoe UI</family>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -761,7 +758,7 @@ QScrollBar:horizontal{
 }</string>
                 </property>
                 <property name="frameShape">
-                 <enum>QFrame::NoFrame</enum>
+                 <enum>QFrame::Shape::NoFrame</enum>
                 </property>
                </widget>
               </item>
@@ -790,7 +787,6 @@ QScrollBar:horizontal{
               <font>
                <family>Segoe UI</family>
                <pointsize>14</pointsize>
-               <weight>50</weight>
                <bold>false</bold>
               </font>
              </property>
@@ -818,166 +814,61 @@ margin-left: 10px;</string>
             </widget>
            </item>
            <item>
-            <widget class="QWidget" name="widget_20" native="true">
-             <property name="styleSheet">
-              <string notr="true">border-radius: 20px;
-background-color: #F4F4F4;</string>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_10">
+            <widget class="QWidget" name="widget_7" native="true">
+             <layout class="QVBoxLayout" name="verticalLayout">
               <item>
-               <widget class="QListWidget" name="listWidget_2">
-                <property name="font">
-                 <font>
-                  <pointsize>13</pointsize>
-                 </font>
-                </property>
+               <widget class="QFrame" name="frame_3">
                 <property name="styleSheet">
-                 <string notr="true">QListWidget{
-	border: 0px;
-	margin-top: 0px;
+                 <string notr="true">QScrollArea{
+	background-color: #f0f0f0;
+}
+/* #!VERTICAL SCROLLBAR */
+QScrollBar:vertical{
+	border: none;
+	width: 16px;
+	border-radius: 0px;
+	background: white;
 }
 
-QListWidget::item {
-	background-color: white;
-	height: 60px;
-	margin: 5px;
-	margin-bottom: 10px;
-	border-radius: 15px;
-	padding-left: 15px;
-	padding-right: 15px;
+/* #!HANDLE BAR VERTICAL */
+QScrollBar::handle:vertical {	
+	border-left: 3px solid #f1f1f1;
+	background-color: #c1c1c1;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
 }
-
-QListWidget::item::hover{
-	background-color: rgb(250, 250, 250);
-	color: black;
-	height: 60px;
-	margin: 5px;
-	margin-bottom: 10px;
-	border-radius: 15px;
-	padding-left: 15px;
-	padding-right: 15px;
+QScrollBar::handle:vertical:hover {	
+	border-left: 3px solid #f1f1f1;
+	background-color: #a8a8a8;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
 }
-
-QListWidget::item::selected{
-	background-color: rgb(250, 250, 250);
-	color: black;
-	height: 60px;
-	margin: 5px;
-	margin-bottom: 10px;
-	border-radius: 15px;
-	padding-left: 15px;
-	padding-right: 15px;
-	border: 2px solid gray;
+QScrollBar::handle:vertical:pressed {
+	border-left: 3px solid #f1f1f1;
+	background-color: #787878;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+/* #!RESET ARROW */
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+	background: #f1f1f1;
+    border-left: 5px solid #f1f1f1;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: #f1f1f1;
+    border-left: 5px solid #f1f1f1;
+}
+/* #!HORIZONTAL SCROLLBAR */
+QScrollBar:horizontal{
+	border: none;
+	width: 16px;
+	border-radius: 0px;
+	background: white;
 }</string>
                 </property>
-                <property name="verticalScrollBarPolicy">
-                 <enum>Qt::ScrollBarAsNeeded</enum>
+                <property name="frameShape">
+                 <enum>QFrame::Shape::NoFrame</enum>
                 </property>
-                <property name="horizontalScrollBarPolicy">
-                 <enum>Qt::ScrollBarAsNeeded</enum>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QWidget" name="widget_21" native="true">
-                <layout class="QHBoxLayout" name="horizontalLayout_13">
-                 <item>
-                  <widget class="QPushButton" name="pushButton_27">
-                   <property name="font">
-                    <font>
-                     <family>Segoe UI</family>
-                     <pointsize>10</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QPushButton{
-	border: 1px solid black;
-	height: 30px;
-	border-radius: 10px;
-	background-color: #FFCE41;
-	color: white;
-}
-
-QPushButton::hover{
-	border: 2px solid black;
-	height: 30px;
-	border-radius: 10px;
-	background-color: #FFCE41;
-}
-
-QPushButton::pressed{
-	border: 2px solid black;
-	height: 30px;
-	border-radius: 10px;
-	background-color: rgb(234, 188, 59);
-}</string>
-                   </property>
-                   <property name="text">
-                    <string>Chi tiết</string>
-                   </property>
-                   <property name="icon">
-                    <iconset>
-                     <normaloff>../../../Python-App-A-/SPCK/Windows/Image/all_note_view.png</normaloff>../../../Python-App-A-/SPCK/Windows/Image/all_note_view.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>16</width>
-                     <height>16</height>
-                    </size>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="pushButton_29">
-                   <property name="font">
-                    <font>
-                     <family>Segoe UI</family>
-                     <pointsize>10</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QPushButton{
-	border: 1px solid black;
-	height: 30px;
-	border-radius: 10px;
-	background-color: #FFCE41;
-	color: white;
-}
-
-QPushButton::hover{
-	border: 2px solid black;
-	height: 30px;
-	border-radius: 10px;
-	background-color: #FFCE41;
-}
-
-QPushButton::pressed{
-	border: 2px solid black;
-	height: 30px;
-	border-radius: 10px;
-	background-color: rgb(234, 188, 59);
-}</string>
-                   </property>
-                   <property name="text">
-                    <string> Remove</string>
-                   </property>
-                   <property name="icon">
-                    <iconset>
-                     <normaloff>../../../Python-App-A-/SPCK/Windows/Image/remove.png</normaloff>../../../Python-App-A-/SPCK/Windows/Image/remove.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>16</width>
-                     <height>16</height>
-                    </size>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
                </widget>
               </item>
              </layout>
@@ -1005,7 +896,6 @@ QPushButton::pressed{
               <font>
                <family>Segoe UI</family>
                <pointsize>14</pointsize>
-               <weight>50</weight>
                <bold>false</bold>
               </font>
              </property>

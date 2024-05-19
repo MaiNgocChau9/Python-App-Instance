@@ -18,6 +18,7 @@ import os
 # Data
 import urllib.request
 from functools import partial
+import unidecode
 import shutil
 import json
 
@@ -136,6 +137,8 @@ class User(QMainWindow):
         self.btn_log_out.clicked.connect(self.log_out)
 
 #!########################################### PRODUCT ############################################
+
+    #! Product Store
         self.product_layout = QtWidgets.QGridLayout()  # Tạo QGridLayout để chứa các sản phẩm
         self.product_widget = QtWidgets.QWidget()  # Tạo QWidget để chứa QGridLayout
         self.product_widget.setLayout(self.product_layout)  # Đặt QGridLayout làm layout cho QWidget
@@ -145,25 +148,112 @@ class User(QMainWindow):
         self.scroll_area.setWidgetResizable(True)
         self.scroll_area.setWidget(self.product_widget)
 
-
         # Đặt QScrollArea làm giao diện chính cho QWidget
         self.frame.setLayout(QtWidgets.QVBoxLayout())
-        self.frame.layout().addWidget(self.scroll_area)  
-        
-        # Hiển thị tất cả các sản phẩm
-        self.display_all_products()
+        self.frame.layout().addWidget(self.scroll_area)
 
-    def display_all_products(self):
+    #! Product Cart
+        self.product_cart_layout = QtWidgets.QGridLayout()  # Tạo QGridLayout để chứa các san pham trong giỏ hàng
+        self.product_cart_widget = QtWidgets.QWidget()  # Tạo QWidget để chứa QGridLayout
+        self.product_cart_widget.setLayout(self.product_cart_layout)  # Đặt QGridLayout làm layout cho QWidget
+        
+        # Tạo QScrollArea và đặt QWidget làm nội dung cuộn
+        self.scroll_area_cart = QtWidgets.QScrollArea()
+        self.scroll_area_cart.setWidgetResizable(True)
+        self.scroll_area_cart.setWidget(self.product_cart_widget)
+
+        # Đặt QScrollArea làm giao diện chính cho QWidget
+        self.frame_3.setLayout(QtWidgets.QVBoxLayout())
+        self.frame_3.layout().addWidget(self.scroll_area_cart)
+        
+    #! Hiển thị tất cả các sản phẩm
+        self.display_all_products_store()
+        self.display_all_products_cart()
+    
+    def display_all_products_cart(self):
+        products_cart = json.load(open('cart_product.json'))
+
+        # Hiển thị các sản phẩm trên giao diện
+        row = 0
+        col = 0
+        for product in products_cart:
+
+            widget_of_all = QtWidgets.QFrame()
+            layout_of_all = QtWidgets.QHBoxLayout(widget_of_all)
+
+            # width = 300
+            height = 200
+            # widget_of_all.setFixedSize(width, height)
+            widget_of_all.setFixedHeight(height)
+
+            #TODO: ẢNH
+            #* Hiển thị ảnh
+            image_path = product['image']  # Đường dẫn ảnh
+            image_label = QtWidgets.QLabel()
+            image_label.setStyleSheet("border: none")
+
+            #! Lấy hình ảnh
+            image_pixmap = QtGui.QPixmap(image_path)
+
+            #! Resize ảnh
+            image_pixmap = image_pixmap.scaled(120, 120, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+
+            #! Hiển thị ảnh
+            image_label.setPixmap(image_pixmap)
+            image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            layout_of_all.addWidget(image_label)
+
+            #* Tạo Widget bao gồm tên và giá của sản phẩm
+            product_information_widget = QtWidgets.QWidget()
+            product_information_layout = QtWidgets.QVBoxLayout(product_information_widget)
+            product_information_widget.setStyleSheet("border: none;")
+
+            #* FONT
+            font = QFont("Segoe UI", 15)
+            font.setBold(True)
+            font.setHintingPreference(QFont.HintingPreference.PreferFullHinting)
+            
+            # Hiển thị tên sản phẩm
+            product_name_label = QtWidgets.QLabel(product['product_name'])
+            product_name_label.setFont(font)
+            product_name_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+            product_information_layout.addWidget(product_name_label)
+            
+            # Hiển thị giá
+            price_label = QtWidgets.QLabel(f"Price: {product['price']}")
+            price_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+            product_information_layout.addWidget(price_label)
+
+            # Hiển thị danh mục
+            category_label = QtWidgets.QLabel(f"Category: {product['category']}")
+            category_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+            product_information_layout.addWidget(category_label)
+
+            # Thêm nút "Show details"
+            show_details_button = QtWidgets.QPushButton("Xem sản phẩm")
+            show_details_button.clicked.connect(partial(self.display_product_details, product))
+            show_details_button.setStyleSheet("background-color: white; padding: 6px; border-radius: 5px; border: 2px solid #dbdbdb; max-height: 20px; min-height: 20px;")
+            product_information_layout.addWidget(show_details_button)
+            # product_information_widget.setStyleSheet("max-height: 150px; min-height: 50px; background-color: none;")
+            layout_of_all.addWidget(product_information_widget)
+            widget_of_all.setStyleSheet("background-color: white; border-radius : 15px; margin: 3px; border: 2px solid #dbdbdb;")
+
+            # Thêm sản phẩm vào layout
+            self.product_cart_layout.addWidget(widget_of_all, row, col)
+            
+            col += 1
+            if col == 2:
+                col = 0
+                row += 1
+
+    def display_all_products_store(self):
         # Đọc dữ liệu từ file JSON
-        products = json.load(open('product.json', 'r', encoding='utf-8'))
+        products = json.load(open('product.json'))
 
         # Hiển thị các sản phẩm trên giao diện
         row = 0
         col = 0
         for product in products:
-            product_widget = QtWidgets.QFrame()
-            product_layout = QtWidgets.QHBoxLayout(product_widget)
-
             widget_of_all = QtWidgets.QFrame()
             layout_of_all = QtWidgets.QHBoxLayout(widget_of_all)
 
@@ -409,30 +499,8 @@ class Admin(QMainWindow):
                 row += 1
     
     def display_product_details(self, product):
-        
-        # Tạo cửa sổ nhỏ để hiển thị chi tiết sản phẩm
-        details_window = QtWidgets.QDialog(self)
-        details_window.setWindowTitle("Product Details")
-
-        # Tạo layout cho cửa sổ nhỏ
-        details_layout = QtWidgets.QVBoxLayout(details_window)
-
-        # Hiển thị chi tiết sản phẩm
-
-        product_info_label = QtWidgets.QLabel(f"Product Name: {product['product_name']}")
-        details_layout.addWidget(product_info_label)
-
-        product_info_label = QtWidgets.QLabel(f"Category: {product['category']}")
-        details_layout.addWidget(product_info_label)
-
-        product_info_label = QtWidgets.QLabel(f"Price: {product['price']}")
-        details_layout.addWidget(product_info_label)
-
-        product_info_label = QtWidgets.QLabel(f"Discription: {product['description']}")
-        details_layout.addWidget(product_info_label)
-
-        # Hiển thị cửa sổ nhỏ
-        details_window.exec()
+        show_product_ui.show_product_information(product)
+        show_product_ui.show()
     
 ######################################### SWITCH SCREEN #########################################
     def go_to_home_screen(self): 
@@ -660,18 +728,16 @@ class Add_Product(QMainWindow):
         description = self.textEdit.toPlainText()
         image_path = self.image_path
         tag = self.tag_name.currentText()
-        print(name)
-        print(price)
-        print(tag)
-        print(description)
-        print(image_path)
+        simple_name = unidecode.unidecode(name)
+        simple_name.replace(" ", "_")
+        simple_name.lower()
         
-        with open("product.json", "r", encoding="utf-8") as f:
-            existing_data = json.load(f)
+        existing_data = json.load(open("product.json"))
         
         shutil.copyfile(image_path, f"Image//{name.lower().replace(' ', '_')}.png")
         
         new_product = {
+            "simple_name": simple_name,
             "product_name": name,
             "price": price,
             "category": tag,
@@ -687,6 +753,7 @@ class Show_Product(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('GUI//show_product.ui', self)
+        self.setStyleSheet("background-color: white; color: black")
 
         # Font
         name_font = QFont("Segoe UI", 18)
@@ -718,6 +785,13 @@ class Show_Product(QMainWindow):
         self.category.setText(product["category"])
         self.price.setText(price_format)
         self.Description.setText(product["description"])
+        self.add_button.clicked.connect(lambda: self.add_to_cart(product))
+
+    def add_to_cart(self, product):
+        existing_data = json.load(open('cart_product.json'))
+        existing_data.append(product)
+        product_file = open("cart_product.json", "w", encoding="utf-8")
+        product_file.write(json.dumps(existing_data, indent=4, ensure_ascii=False))
 
 
 app = QApplication(sys.argv)
@@ -738,4 +812,5 @@ app.exec()
 try:
     os.remove("Image//captcha.png")
     os.remove("Image//temp_downloaded_file.jpg")
-except Exception as e: pass
+except Exception as e:
+    pass
