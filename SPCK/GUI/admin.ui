@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>990</width>
+    <width>1014</width>
     <height>611</height>
    </rect>
   </property>
@@ -705,11 +705,67 @@ QPushButton:pressed{
            <item>
             <widget class="QWidget" name="widget_18" native="true">
              <property name="styleSheet">
-              <string notr="true">border-radius: 0px;</string>
+              <string notr="true">border: 0px;
+border-radius: 0px;</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout">
               <item>
-               <widget class="QTableView" name="tableView"/>
+               <widget class="QFrame" name="frame">
+                <property name="styleSheet">
+                 <string notr="true">QScrollArea{
+	background-color: #f0f0f0;
+}
+/* #!VERTICAL SCROLLBAR */
+QScrollBar:vertical{
+	border: none;
+	width: 16px;
+	border-radius: 0px;
+	background: white;
+}
+
+/* #!HANDLE BAR VERTICAL */
+QScrollBar::handle:vertical {	
+	border-left: 3px solid #f1f1f1;
+	background-color: #c1c1c1;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+QScrollBar::handle:vertical:hover {	
+	border-left: 3px solid #f1f1f1;
+	background-color: #a8a8a8;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+QScrollBar::handle:vertical:pressed {
+	border-left: 3px solid #f1f1f1;
+	background-color: #787878;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+/* #!RESET ARROW */
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+	background: #f1f1f1;
+    border-left: 5px solid #f1f1f1;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: #f1f1f1;
+    border-left: 5px solid #f1f1f1;
+}
+/* #!HORIZONTAL SCROLLBAR */
+QScrollBar:horizontal{
+	border: none;
+	width: 16px;
+	border-radius: 0px;
+	background: white;
+}</string>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::Shape::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Shadow::Raised</enum>
+                </property>
+               </widget>
               </item>
              </layout>
             </widget>

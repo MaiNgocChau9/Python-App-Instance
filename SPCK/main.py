@@ -414,6 +414,119 @@ class Admin(QMainWindow):
         self.btn_statistic.clicked.connect(self.go_to_statistic_screen)
         self.btn_setting.clicked.connect(self.go_to_setting_screen)
         self.btn_log_out.clicked.connect(self.log_out)
+
+        self.product_layout = QtWidgets.QGridLayout()  # Tạo QGridLayout để chứa các sản phẩm
+        self.product_widget = QtWidgets.QWidget()  # Tạo QWidget để chứa QGridLayout
+        self.product_widget.setLayout(self.product_layout)  # Đặt QGridLayout làm layout cho QWidget
+        
+        # Tạo QScrollArea và đặt QWidget làm nội dung cuộn
+        self.scroll_area = QtWidgets.QScrollArea()
+        self.scroll_area.setWidgetResizable(True)
+        self.scroll_area.setWidget(self.product_widget)
+
+        # Đặt QScrollArea làm giao diện chính cho QWidget
+        self.frame.setLayout(QtWidgets.QVBoxLayout())
+        self.frame.layout().addWidget(self.scroll_area)
+
+        self.display_all_products(None)
+    
+    def display_all_products(self, information):
+        # Lấy dữ liệu 
+        if information:
+            products = information
+        else:
+            products = json.load(open('product.json'))
+
+        # Hiển thị các sản phẩm trên giao diện
+        row = 0
+        col = 0
+        for product in products:
+            widget_of_all = QtWidgets.QFrame()
+            layout_of_all = QtWidgets.QHBoxLayout(widget_of_all)
+
+            # width = 300
+            height = 205
+            # widget_of_all.setFixedSize(width, height)
+            widget_of_all.setFixedHeight(height)
+
+            #TODO: ẢNH
+            #* Hiển thị ảnh
+            image_path = product['image']  # Đường dẫn ảnh
+            image_label = QtWidgets.QLabel()
+            image_label.setStyleSheet("border: none")
+
+            #! Lấy hình ảnh
+            image_pixmap = QtGui.QPixmap(image_path)
+
+            #! Resize ảnh
+            image_pixmap = image_pixmap.scaled(120, 120, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+
+            #! Hiển thị ảnh
+            image_label.setPixmap(image_pixmap)
+            image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            layout_of_all.addWidget(image_label)
+
+            #* Tạo Widget bao gồm tên và giá của sản phẩm
+            product_information_widget = QtWidgets.QWidget()
+            product_information_layout = QtWidgets.QVBoxLayout(product_information_widget)
+            product_information_widget.setStyleSheet("border: none;")
+
+            #* FONT
+            font = QFont("Segoe UI", 15)
+            font.setBold(True)
+            font.setHintingPreference(QFont.HintingPreference.PreferFullHinting)
+            
+            # Hiển thị tên sản phẩm
+            product_name_label = QtWidgets.QLabel(product['product_name'])
+            product_name_label.setFont(font)
+            product_name_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+            product_information_layout.addWidget(product_name_label)
+            
+            # Hiển thị giá
+            price_format = "{:,}".format(int(product["price"]))
+            price_format = f"{price_format}₫"
+            price_label = QtWidgets.QLabel(f"Giá: {price_format}")
+            price_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+            product_information_layout.addWidget(price_label)
+
+            # Hiển thị danh mục
+            category_label = QtWidgets.QLabel(f"Danh mục: {product['category']}")
+            category_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+            product_information_layout.addWidget(category_label)
+
+            # Thêm nút "Chỉnh sửa"
+            show_edit_button = QtWidgets.QPushButton("Chỉnh sửa")
+            show_edit_button.clicked.connect(partial(self.display_product_edit, product))
+            show_edit_button.setStyleSheet("background-color: yellow; padding: 6px; border-radius: 5px; border: 2px solid white; max-height: 20px; min-height: 20px;")
+            product_information_layout.addWidget(show_edit_button)
+
+            # Thêm nút "Xóa"
+            show_delete_button = QtWidgets.QPushButton("Xóa")
+            show_delete_button.clicked.connect(partial(self.display_product_details, product))
+            show_delete_button.setStyleSheet("background-color: red; padding: 6px; border-radius: 5px; border: 2px solid white; max-height: 20px; min-height: 20px;")
+            product_information_layout.addWidget(show_delete_button)
+            
+            # Thêm widget vào layout
+            layout_of_all.addWidget(product_information_widget)
+            
+            # Đặt Stylesheet cho widget
+            widget_of_all.setStyleSheet("background-color: white; border-radius: 15px; margin: 3px; border: 2px solid #dbdbdb;")
+
+            # Thêm sản phẩm vào layout
+            self.product_layout.addWidget(widget_of_all, row, col)
+            
+            col += 1
+            if col == 2:
+                col = 0
+                row += 1
+    
+    def display_product_details(self, product):
+        show_product_ui.show_product_information(product)
+        show_product_ui.show()
+    
+    def display_product_edit(self, product):
+        edit_product_ui.edit_product(product)
+        information_product_ui.show()
         
     #! Switch screen
     def go_to_home_screen(self): 
@@ -635,6 +748,9 @@ class Add_Product(QMainWindow):
         
     def add_new_product(self):
         print("Add product")
+        self.l_title.setText("Thêm sản phẩm")
+        self.add.setText("Thêm")
+
         name = self.line_name.text()
         price = self.line_price.text()
         # No inputmask
@@ -663,6 +779,247 @@ class Add_Product(QMainWindow):
         product_file.write(json.dumps(existing_data, indent=4, ensure_ascii=False))
         user_ui.display_all_products_store(existing_data)
         self.close()
+
+    def edit_product(self, product):
+        print("Edit product")
+        self.l_title.setText("Sửa sản phẩm")
+        self.add.setText("Hoàn thành")
+
+        self.line_name.setText(product["product_name"])
+        self.line_price.setText(str(product["price"]))
+        self.textEdit.setText(product["description"])
+        self.image.setPixmap(QPixmap(product["image"]).scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
+        self.tag_name.setCurrentText(product["category"])
+
+class Edit_product(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi('GUI//editproduct.ui', self)
+        self.image.setPixmap(QPixmap("Image//add_image.png").scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
+        self.image_path = ""
+
+        # Font
+        label_font = QFont("Segoe UI", 18)
+        label_font.setBold(True)
+
+        title_font = QFont("Segoe UI", 14)
+        title_font.setBold(True)
+
+        btn_font = QFont("Segoe UI", 11)
+        btn_font.setBold(True)
+
+        bold = QFont("Times New Roman", 11)
+        bold.setBold(True)
+
+        italic = QFont("Times New Roman", 11)
+        italic.setItalic(True)
+
+        underline = QFont("Times New Roman", 11)
+        underline.setUnderline(True)
+
+        increase_and_decrease = QFont("Times New Roman", 11)
+        increase_and_decrease.setBold(True)
+
+        # UI set font
+        self.l_title.setFont(label_font)
+        self.name.setFont(title_font)
+        self.price.setFont(title_font)
+        self.tag.setFont(title_font)
+        self.discription.setFont(title_font)
+
+        self.bold.setFont(bold)
+        self.italic.setFont(italic)
+        self.underline.setFont(underline)
+        self.increase.setFont(increase_and_decrease)
+        self.decrease.setFont(increase_and_decrease)
+
+        self.cancel.setFont(btn_font)
+        self.add.setFont(btn_font)
+        self.choose_image.setFont(btn_font)
+        self.choose_image_url.setFont(btn_font)
+
+        # Action
+        self.bold.clicked.connect(self.setBold)
+        self.italic.clicked.connect(self.setItalic)
+        self.underline.clicked.connect(self.setUnderline)
+        self.increase.clicked.connect(self.setIncrease)
+        self.decrease.clicked.connect(self.setDecrease)
+        self.choose_image.clicked.connect(self.chooseImage)
+        self.choose_image_url.clicked.connect(self.choose_image_from_url)
+        self.add.clicked.connect(self.add_new_product)
+    
+
+    def choose_image_from_url(self):
+        url = QInputDialog.getText(self, "Nhập URL", "Nhập liên kết hình ảnh")[0]
+        print(url)
+        try: urllib.request.urlretrieve(url, "Image//temp_downloaded_file.jpg")
+        except Exception as e: pass
+        else: 
+
+            self.image_path = "Image//temp_downloaded_file.jpg"
+
+            #! Crop ảnh
+            image_pixmap = QtGui.QPixmap(self.image_path)
+            # check null image
+            if not image_pixmap.isNull():
+                original_width = image_pixmap.width()
+                original_height = image_pixmap.height()
+                new_width = image_pixmap.height()
+                x = (original_width - new_width) // 2
+                y = 0
+                image_pixmap = image_pixmap.copy(x, y, new_width, original_height)
+
+                #! Resize ảnh (Sau khi crop)
+                image_pixmap = image_pixmap.scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+
+                # Hiển thị Pixmap
+                self.image.setPixmap(image_pixmap)
+            else:
+                self.image.setPixmap(QPixmap("Image//add_image.png").scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
+                QMessageBox.warning(self, "Lỗi", "Gặp lỗi trong quá trình lấy hình ảnh")
+
+
+    def setBold(self):
+        cursor = self.textEdit.textCursor()
+        format_bold = QTextCharFormat()
+
+        if cursor.hasSelection():
+            current_format = cursor.charFormat()
+            if current_format.fontWeight() == QFont.Weight.Normal:
+                format_bold.setFontWeight(QFont .Weight.Bold)
+                cursor.mergeCharFormat(format_bold)
+            else:
+                format_bold.setFontWeight(QFont.Weight.Normal)
+                cursor.mergeCharFormat(format_bold)
+        self.textEdit.setTextCursor(cursor)
+        
+    def setItalic(self):
+        cursor = self.textEdit.textCursor() # Lấy chuỗi đang được chọn
+        format_italic = QTextCharFormat() # QTextCharFormat để thay đổi độ dày, in đậm, nghiêng chữ
+
+        if cursor.hasSelection():
+            current_format = cursor.charFormat()
+            if current_format.fontItalic() == False:
+                format_italic.setFontItalic(True)
+                cursor.mergeCharFormat(format_italic) # Thay đổi chuỗi đang được chọn
+            elif current_format.fontItalic() == True:
+                format_italic.setFontItalic(False)
+                cursor.mergeCharFormat(format_italic) # Thay đổi chuỗi đang được chọn
+        self.textEdit.setTextCursor(cursor)
+
+    def setUnderline(self):
+        cursor = self.textEdit.textCursor()
+        format_underline = QTextCharFormat()
+
+        if cursor.hasSelection():
+            current_format = cursor.charFormat()
+            if not current_format.fontUnderline():
+                format_underline.setFontUnderline(True)
+                cursor.mergeCharFormat(format_underline)
+            else:
+                format_underline.setFontUnderline(False)
+                cursor.mergeCharFormat(format_underline)
+        self.textEdit.setTextCursor(cursor)
+
+    def setIncrease(self):
+        cursor = self.textEdit.textCursor()
+        format_font = QTextCharFormat()
+
+        if cursor.hasSelection():
+            current_format = cursor.charFormat()
+            current_font = current_format.font()
+            font_size = current_font.pointSize()
+            if font_size < 73:
+                font_size += 1
+                new_font = QFont(current_font)
+                new_font.setPointSize(font_size)
+                format_font.setFont(new_font)
+                cursor.mergeCharFormat(format_font)
+
+        self.textEdit.setTextCursor(cursor)
+
+    def setDecrease(self):
+        cursor = self.textEdit.textCursor()
+        format_font = QTextCharFormat()
+
+        if cursor.hasSelection():
+            current_format = cursor.charFormat()
+            current_font = current_format.font()
+            font_size = current_font.pointSize()
+            if font_size > 6:
+                font_size -= 1
+                new_font = QFont(current_font)
+                new_font.setPointSize(font_size)
+                format_font.setFont(new_font)
+                cursor.mergeCharFormat(format_font)
+
+        self.textEdit.setTextCursor(cursor)
+    
+    def chooseImage(self):
+        #! Lấy đường dẫn đến ảnh
+        self.image_path = QFileDialog.getOpenFileName(self, 'Add Image', "", "Images (*.png *.jpg *.jpeg *.jfif *.pjpeg *.pjp *.svg *.webp)")[0]
+
+        if self.image_path:
+            #! Crop ảnh
+            image_pixmap = QtGui.QPixmap(self.image_path)
+            original_width = image_pixmap.width()
+            original_height = image_pixmap.height()
+            new_width = image_pixmap.height()
+            x = (original_width - new_width) // 2
+            y = 0
+            image_pixmap = image_pixmap.copy(x, y, new_width, original_height)
+
+            #! Resize ảnh (Sau khi crop)
+            image_pixmap = image_pixmap.scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+
+            # Hiển thị Pixmap
+            self.image.setPixmap(image_pixmap)
+        
+    def add_new_product(self):
+        print("Add product")
+        self.l_title.setText("Thêm sản phẩm")
+        self.add.setText("Thêm")
+
+        name = self.line_name.text()
+        price = self.line_price.text()
+        # No inputmask
+        description = self.textEdit.toPlainText()
+        image_path = self.image_path
+        tag = self.tag_name.currentText()
+        simple_name = unidecode.unidecode(name)
+        simple_name.replace(" ", "_")
+        simple_name.lower()
+        
+        existing_data = json.load(open("product.json"))
+        
+        shutil.copyfile(image_path, f"Image//{name.lower().replace(' ', '_')}.png")
+        
+        new_product = {
+            "simple_name": simple_name,
+            "product_name": name,
+            "price": price,
+            "category": tag,
+            "description": description,
+            "image": f"Image//{name.lower().replace(' ', '_')}.png"
+        }
+        
+        existing_data.append(new_product)
+        product_file = open("product.json", "w", encoding="utf-8")
+        product_file.write(json.dumps(existing_data, indent=4, ensure_ascii=False))
+        user_ui.display_all_products_store(existing_data)
+        self.close()
+
+    def edit_product(self, product):
+        print("Edit product")
+        self.l_title.setText("Sửa sản phẩm")
+        self.add.setText("Hoàn thành")
+
+        self.line_name.setText(product["product_name"])
+        self.line_price.setText(str(product["price"]))
+        self.textEdit.setText(product["description"])
+        self.image.setPixmap(QPixmap(product["image"]).scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
+        self.tag_name.setCurrentText(product["category"])
+
 
 class Show_Product(QMainWindow):
     def __init__(self):
@@ -718,8 +1075,10 @@ app = QApplication(sys.argv)
 # UI
 login_ui = Login()
 register_ui = Register()
-add_product_ui = Add_Product()
 show_product_ui = Show_Product()
+
+information_product_ui = Add_Product()
+edit_product_ui = Edit_product()
 
 user_ui = User()
 admin_ui = Admin()

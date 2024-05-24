@@ -1,1 +1,1 @@
-product_cart_layout
+product_layout

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1050</width>
+    <width>1065</width>
     <height>615</height>
    </rect>
   </property>
@@ -815,6 +815,10 @@ margin-left: 10px;</string>
            </item>
            <item>
             <widget class="QWidget" name="widget_7" native="true">
+             <property name="styleSheet">
+              <string notr="true">border: 0px;
+border-radius: 0px;</string>
+             </property>
              <layout class="QVBoxLayout" name="verticalLayout">
               <item>
                <widget class="QFrame" name="frame_3">

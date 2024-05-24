@@ -35,7 +35,7 @@ color: black;</string>
           </font>
          </property>
          <property name="text">
-          <string>  Thêm sản phẩm</string>
+          <string>  Chỉnh sửa thông tin sản phẩm</string>
          </property>
         </widget>
        </item>
@@ -121,7 +121,7 @@ QPushButton::pressed{
 }</string>
          </property>
          <property name="text">
-          <string>Thêm</string>
+          <string>Hoàn thành</string>
          </property>
         </widget>
        </item>
