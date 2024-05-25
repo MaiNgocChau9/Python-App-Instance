@@ -699,6 +699,56 @@ QPushButton:pressed{
                 </layout>
                </widget>
               </item>
+              <item>
+               <widget class="QPushButton" name="add_btn">
+                <property name="font">
+                 <font>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton{
+	border: 2px solid black;
+	border-radius: 10px;
+	background-color: #FFCE41;
+	color: white;
+	max-height: 30px;
+	min-height: 30px;
+	max-width: 120px;
+	min-width: 120px;
+	margin-bottom: 0px;
+	margin-top: 5px;
+}
+
+QPushButton::hover{
+	border: 3px solid black;
+	border-radius: 10px;
+	background-color: #FFCE41;
+	max-height: 30px;
+	min-height: 30px;
+	max-width: 120px;
+	min-width: 120px;
+	margin-bottom: 0px;
+	margin-top: 5px;
+}
+
+QPushButton::pressed{
+	border: 3px solid black;
+	border-radius: 10px;
+	background-color: rgb(234, 188, 59);
+	max-height: 30px;
+	min-height: 30px;
+	max-width: 120px;
+	min-width: 120px;
+	margin-bottom: 0px;
+	margin-top: 5px;
+}</string>
+                </property>
+                <property name="text">
+                 <string>Add Product</string>
+                </property>
+               </widget>
+              </item>
              </layout>
             </widget>
            </item>

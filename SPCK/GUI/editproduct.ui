@@ -83,7 +83,7 @@ QPushButton::pressed{
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="add">
+        <widget class="QPushButton" name="save">
          <property name="font">
           <font>
            <family>Segoe UI</family>
@@ -121,7 +121,7 @@ QPushButton::pressed{
 }</string>
          </property>
          <property name="text">
-          <string>Hoàn thành</string>
+          <string>Lưu</string>
          </property>
         </widget>
        </item>

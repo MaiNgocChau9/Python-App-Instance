@@ -24,11 +24,12 @@ import json
 
 class Login(QMainWindow):
     # Setup
-    image = ImageCaptcha(width=280, height=90, fonts=[])
+    font_path = "Image/FiraMonoNerdFont-Regular.otf"
+    image = ImageCaptcha(width=280, height=90, fonts=[font_path])
     captcha_text = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
     image.write(captcha_text, 'Image//captcha.png')
-    image = Image.open('Image//captcha.png')
-    pixel_color = '#%02x%02x%02x' % image.getpixel((0, 0))
+    the_image = Image.open('Image//captcha.png')
+    pixel_color = '#%02x%02x%02x' % the_image.getpixel((0, 0))
 
     def __init__(self):
         super().__init__()
@@ -414,6 +415,7 @@ class Admin(QMainWindow):
         self.btn_statistic.clicked.connect(self.go_to_statistic_screen)
         self.btn_setting.clicked.connect(self.go_to_setting_screen)
         self.btn_log_out.clicked.connect(self.log_out)
+        self.add_btn.clicked.connect(self.add_product)
 
         self.product_layout = QtWidgets.QGridLayout()  # Tạo QGridLayout để chứa các sản phẩm
         self.product_widget = QtWidgets.QWidget()  # Tạo QWidget để chứa QGridLayout
@@ -430,7 +432,18 @@ class Admin(QMainWindow):
 
         self.display_all_products(None)
     
+    def reload_interface(self):
+        # Xóa tất cả các widget con của product_layout
+        while self.product_layout.count():
+            child = self.product_layout.takeAt(0)
+            if child.widget():
+                child.widget().deleteLater()
+
+        # Hiển thị lại tất cả các sản phẩm
+        self.display_all_products(None)
+    
     def display_all_products(self, information):
+
         # Lấy dữ liệu 
         if information:
             products = information
@@ -502,7 +515,7 @@ class Admin(QMainWindow):
 
             # Thêm nút "Xóa"
             show_delete_button = QtWidgets.QPushButton("Xóa")
-            show_delete_button.clicked.connect(partial(self.display_product_details, product))
+            show_delete_button.clicked.connect(partial(self.remove_product, product))
             show_delete_button.setStyleSheet("background-color: red; padding: 6px; border-radius: 5px; border: 2px solid white; max-height: 20px; min-height: 20px;")
             product_information_layout.addWidget(show_delete_button)
             
@@ -519,6 +532,9 @@ class Admin(QMainWindow):
             if col == 2:
                 col = 0
                 row += 1
+
+    def add_product(self):
+        add_product_ui.show()
     
     def display_product_details(self, product):
         show_product_ui.show_product_information(product)
@@ -526,7 +542,15 @@ class Admin(QMainWindow):
     
     def display_product_edit(self, product):
         edit_product_ui.edit_product(product)
-        information_product_ui.show()
+        edit_product_ui.show()
+
+    def remove_product(self, product):
+        data = json.load(open("product.json"))
+        data.remove(product)
+        print(data)
+        json.dump(data, open("product.json", "w"), indent=4, ensure_ascii=False)
+        os.remove(product["image"])
+        self.reload_interface()
         
     #! Switch screen
     def go_to_home_screen(self): 
@@ -778,25 +802,17 @@ class Add_Product(QMainWindow):
         product_file = open("product.json", "w", encoding="utf-8")
         product_file.write(json.dumps(existing_data, indent=4, ensure_ascii=False))
         user_ui.display_all_products_store(existing_data)
+        admin_ui.display_all_products(existing_data)
         self.close()
-
-    def edit_product(self, product):
-        print("Edit product")
-        self.l_title.setText("Sửa sản phẩm")
-        self.add.setText("Hoàn thành")
-
-        self.line_name.setText(product["product_name"])
-        self.line_price.setText(str(product["price"]))
-        self.textEdit.setText(product["description"])
-        self.image.setPixmap(QPixmap(product["image"]).scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
-        self.tag_name.setCurrentText(product["category"])
 
 class Edit_product(QMainWindow):
     def __init__(self):
         super().__init__()
+
+        self.product_edit = []
+        self.product_input = []
+
         uic.loadUi('GUI//editproduct.ui', self)
-        self.image.setPixmap(QPixmap("Image//add_image.png").scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
-        self.image_path = ""
 
         # Font
         label_font = QFont("Segoe UI", 18)
@@ -834,7 +850,7 @@ class Edit_product(QMainWindow):
         self.decrease.setFont(increase_and_decrease)
 
         self.cancel.setFont(btn_font)
-        self.add.setFont(btn_font)
+        self.save.setFont(btn_font)
         self.choose_image.setFont(btn_font)
         self.choose_image_url.setFont(btn_font)
 
@@ -846,21 +862,25 @@ class Edit_product(QMainWindow):
         self.decrease.clicked.connect(self.setDecrease)
         self.choose_image.clicked.connect(self.chooseImage)
         self.choose_image_url.clicked.connect(self.choose_image_from_url)
-        self.add.clicked.connect(self.add_new_product)
+        self.save.clicked.connect(self.save_product)
+        self.cancel.clicked.connect(self.close)
     
 
     def choose_image_from_url(self):
         url = QInputDialog.getText(self, "Nhập URL", "Nhập liên kết hình ảnh")[0]
         print(url)
-        try: urllib.request.urlretrieve(url, "Image//temp_downloaded_file.jpg")
-        except Exception as e: pass
-        else: 
-
-            self.image_path = "Image//temp_downloaded_file.jpg"
+        try:
+            urllib.request.urlretrieve(url, "Image//new_edit_file.jpg")
+        
+        except Exception as e: 
+            print(e)
+        
+        else:
+            self.product_edit["image"] = "Image//new_edit_file.jpg"
 
             #! Crop ảnh
-            image_pixmap = QtGui.QPixmap(self.image_path)
-            # check null image
+            image_pixmap = QtGui.QPixmap(self.product_edit["image"])
+            # Check null image
             if not image_pixmap.isNull():
                 original_width = image_pixmap.width()
                 original_height = image_pixmap.height()
@@ -877,7 +897,6 @@ class Edit_product(QMainWindow):
             else:
                 self.image.setPixmap(QPixmap("Image//add_image.png").scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
                 QMessageBox.warning(self, "Lỗi", "Gặp lỗi trong quá trình lấy hình ảnh")
-
 
     def setBold(self):
         cursor = self.textEdit.textCursor()
@@ -960,6 +979,9 @@ class Edit_product(QMainWindow):
         self.image_path = QFileDialog.getOpenFileName(self, 'Add Image', "", "Images (*.png *.jpg *.jpeg *.jfif *.pjpeg *.pjp *.svg *.webp)")[0]
 
         if self.image_path:
+
+            self.product_edit["image"] = self.image_path
+
             #! Crop ảnh
             image_pixmap = QtGui.QPixmap(self.image_path)
             original_width = image_pixmap.width()
@@ -975,50 +997,46 @@ class Edit_product(QMainWindow):
             # Hiển thị Pixmap
             self.image.setPixmap(image_pixmap)
         
-    def add_new_product(self):
-        print("Add product")
-        self.l_title.setText("Thêm sản phẩm")
-        self.add.setText("Thêm")
+    def save_product(self):
+        print("Save product")
 
-        name = self.line_name.text()
-        price = self.line_price.text()
-        # No inputmask
-        description = self.textEdit.toPlainText()
-        image_path = self.image_path
-        tag = self.tag_name.currentText()
-        simple_name = unidecode.unidecode(name)
-        simple_name.replace(" ", "_")
-        simple_name.lower()
-        
-        existing_data = json.load(open("product.json"))
-        
-        shutil.copyfile(image_path, f"Image//{name.lower().replace(' ', '_')}.png")
-        
-        new_product = {
-            "simple_name": simple_name,
-            "product_name": name,
-            "price": price,
-            "category": tag,
-            "description": description,
-            "image": f"Image//{name.lower().replace(' ', '_')}.png"
-        }
-        
-        existing_data.append(new_product)
-        product_file = open("product.json", "w", encoding="utf-8")
-        product_file.write(json.dumps(existing_data, indent=4, ensure_ascii=False))
-        user_ui.display_all_products_store(existing_data)
-        self.close()
+        data = json.load(open("product.json"))
+        for product in data:
+            if product["simple_name"] == self.product_input["simple_name"]:
+                simple_name = unidecode.unidecode(self.line_name.text())
+                simple_name.replace(" ", "_")
+                simple_name.lower()
+                product["simple_name"] = simple_name
+                product["product_name"] = self.line_name.text()
+                product["price"] = self.line_price.text()
+                product["category"] = self.tag_name.currentText()
+                product["description"] = self.textEdit.toPlainText()
+                try:
+                    shutil.copyfile(self.product_edit["image"], f"Image//{self.line_name.text().lower().replace(' ', '_')}.png")
+                except shutil.SameFileError:
+                    pass
+                else:
+                    os.remove(self.product_input["image"])
+                    product["image"] = f"Image//{self.line_name.text().lower().replace(' ', '_')}.png"
+                with open("product.json", "w") as f: json.dump(data, f, indent=4, ensure_ascii=False)
+                print("Saved")
+                admin_ui.display_all_products(None)
+                self.close()
 
     def edit_product(self, product):
         print("Edit product")
-        self.l_title.setText("Sửa sản phẩm")
-        self.add.setText("Hoàn thành")
+        print(product)
 
+        self.product_edit = product
+        self.product_input = product
+
+        print(self.product_edit)
         self.line_name.setText(product["product_name"])
         self.line_price.setText(str(product["price"]))
         self.textEdit.setText(product["description"])
         self.image.setPixmap(QPixmap(product["image"]).scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
         self.tag_name.setCurrentText(product["category"])
+        self.image_path = product["image"]
 
 
 class Show_Product(QMainWindow):
@@ -1079,6 +1097,7 @@ show_product_ui = Show_Product()
 
 information_product_ui = Add_Product()
 edit_product_ui = Edit_product()
+add_product_ui = Add_Product()
 
 user_ui = User()
 admin_ui = Admin()
