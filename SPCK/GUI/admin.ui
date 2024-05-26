@@ -388,7 +388,7 @@ QPushButton::hover{
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="home_screen">
        <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -762,8 +762,8 @@ QPushButton:pressed{
 	color: white;
 	max-height: 30px;
 	min-height: 30px;
-	max-width: 120px;
-	min-width: 120px;
+	max-width: 140px;
+	min-width: 140px;
 	margin-bottom: 0px;
 	margin-top: 5px;
 }
@@ -774,8 +774,8 @@ QPushButton::hover{
 	background-color: #FFCE41;
 	max-height: 30px;
 	min-height: 30px;
-	max-width: 120px;
-	min-width: 120px;
+	max-width: 140px;
+	min-width: 140px;
 	margin-bottom: 0px;
 	margin-top: 5px;
 }
@@ -786,14 +786,14 @@ QPushButton::pressed{
 	background-color: rgb(234, 188, 59);
 	max-height: 30px;
 	min-height: 30px;
-	max-width: 120px;
-	min-width: 120px;
+	max-width: 140px;
+	min-width: 140px;
 	margin-bottom: 0px;
 	margin-top: 5px;
 }</string>
                 </property>
                 <property name="text">
-                 <string>Add Product</string>
+                 <string>Thêm sản phẩm</string>
                 </property>
                </widget>
               </item>
@@ -1122,10 +1122,6 @@ QPushButton::pressed{
                    <property name="text">
                     <string>Thêm danh mục</string>
                    </property>
-                   <property name="icon">
-                    <iconset>
-                     <normaloff>../Image/new.png</normaloff>../Image/new.png</iconset>
-                   </property>
                    <property name="iconSize">
                     <size>
                      <width>16</width>
@@ -1168,10 +1164,6 @@ QPushButton::pressed{
                    </property>
                    <property name="text">
                     <string>Xóa danh mục</string>
-                   </property>
-                   <property name="icon">
-                    <iconset>
-                     <normaloff>../Image/remove.png</normaloff>../Image/remove.png</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
