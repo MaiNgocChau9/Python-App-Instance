@@ -1,10 +1,42 @@
 [
     {
-        "simple_name": "logitech_keyboard",
-        "product_name": "Chuột Logitech",
+        "simple_name": "Ban phim Logitech",
+        "product_name": "Bàn phím Logitech",
         "price": "100000",
+        "category": "Thêm...",
+        "description": "Bàn phím Logitech",
+        "image": "Image//bàn_phím_logitech.png"
+    },
+    {
+        "simple_name": "Chuot Logitech",
+        "product_name": "Chuột Logitech",
+        "price": "10000000",
         "category": "Thêm...",
         "description": "Chuột Logitech",
         "image": "Image//chuột_logitech.png"
+    },
+    {
+        "simple_name": "Ban phim Logitech",
+        "product_name": "Bàn phím Logitech",
+        "price": "100000",
+        "category": "Thêm...",
+        "description": "Bàn phím Logitech",
+        "image": "Image//bàn_phím_logitech.png"
+    },
+    {
+        "simple_name": "Ban phim Logitech",
+        "product_name": "Bàn phím Logitech",
+        "price": "100000",
+        "category": "Thêm...",
+        "description": "Bàn phím Logitech",
+        "image": "Image//bàn_phím_logitech.png"
+    },
+    {
+        "simple_name": "Ban phim Logitech",
+        "product_name": "Bàn phím Logitech",
+        "price": "100000",
+        "category": "Thêm...",
+        "description": "Bàn phím Logitech",
+        "image": "Image//bàn_phím_logitech.png"
     }
 ]

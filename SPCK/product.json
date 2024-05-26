@@ -14,5 +14,13 @@
         "category": "Thêm...",
         "description": "Chuột Logitech",
         "image": "Image//chuột_logitech.png"
+    },
+    {
+        "simple_name": "Tai nghe",
+        "product_name": "Tai nghe",
+        "price": "3990000",
+        "category": "Thêm...",
+        "description": "Tai nghe",
+        "image": "Image//tai_nghe.png"
     }
 ]

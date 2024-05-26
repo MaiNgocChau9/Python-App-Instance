@@ -137,8 +137,6 @@ class User(QMainWindow):
         self.btn_setting.clicked.connect(self.go_to_setting_screen)
         self.btn_log_out.clicked.connect(self.log_out)
 
-#!########################################### PRODUCT ############################################
-
     #! Product Store
         self.product_layout = QtWidgets.QGridLayout()  # Tạo QGridLayout để chứa các sản phẩm
         self.product_widget = QtWidgets.QWidget()  # Tạo QWidget để chứa QGridLayout
@@ -168,15 +166,22 @@ class User(QMainWindow):
         self.frame_3.layout().addWidget(self.scroll_area_cart)
         
     #! Hiển thị tất cả các sản phẩm
-        self.display_all_products_store(None)
-        self.display_all_products_cart(None)
+        self.display_all_products_store()
+        self.display_all_products_cart()
+
+    def reload_cart_interface(self):
+        # Xóa tất cả các widget con của product_cart_layout
+        while self.product_cart_layout.count():
+            child = self.product_cart_layout.takeAt(0)
+            if child.widget():
+                child.widget().deleteLater()
+
+        # Hiển thị lại tất cả các sản phẩm
+        self.display_all_products_cart()
     
-    def display_all_products_cart(self, information):
+    def display_all_products_cart(self):
         # Lấy dữ liệu 
-        if information:
-            products_cart = information
-        else:
-            products_cart = json.load(open('cart_product.json'))
+        products_cart = json.load(open('cart_product.json'))
         
         # Hiển thị các sản phẩm trên giao diện
         row = 0
@@ -236,9 +241,9 @@ class User(QMainWindow):
             product_information_layout.addWidget(category_label)
 
             # Thêm nút "Show details"
-            show_details_button = QtWidgets.QPushButton("Xem sản phẩm")
+            show_details_button = QtWidgets.QPushButton("Xóa")
             show_details_button.clicked.connect(partial(self.display_product_details, product))
-            show_details_button.setStyleSheet("background-color: white; padding: 6px; border-radius: 5px; border: 2px solid #dbdbdb; max-height: 20px; min-height: 20px;")
+            show_details_button.setStyleSheet("background-color: #FF320E; color: white; padding: 6px; border-radius: 5px; border: 2px solid black; max-height: 20px; min-height: 20px;")
             product_information_layout.addWidget(show_details_button)
             layout_of_all.addWidget(product_information_widget)
             widget_of_all.setStyleSheet("background-color: white; border-radius : 15px; margin: 3px; border: 2px solid #dbdbdb;")
@@ -251,12 +256,9 @@ class User(QMainWindow):
                 col = 0
                 row += 1
 
-    def display_all_products_store(self, information):
+    def display_all_products_store(self):
         # Lấy dữ liệu 
-        if information:
-            products = information
-        else:
-            products = json.load(open('product.json'))
+        products = json.load(open('product.json'))
 
         # Hiển thị các sản phẩm trên giao diện
         row = 0
@@ -430,7 +432,7 @@ class Admin(QMainWindow):
         self.frame.setLayout(QtWidgets.QVBoxLayout())
         self.frame.layout().addWidget(self.scroll_area)
 
-        self.display_all_products(None)
+        self.display_all_products()
     
     def reload_interface(self):
         # Xóa tất cả các widget con của product_layout
@@ -440,15 +442,12 @@ class Admin(QMainWindow):
                 child.widget().deleteLater()
 
         # Hiển thị lại tất cả các sản phẩm
-        self.display_all_products(None)
+        self.display_all_products()
     
-    def display_all_products(self, information):
+    def display_all_products(self):
 
-        # Lấy dữ liệu 
-        if information:
-            products = information
-        else:
-            products = json.load(open('product.json'))
+        # Lấy dữ liệu
+        products = json.load(open('product.json'))
 
         # Hiển thị các sản phẩm trên giao diện
         row = 0
@@ -641,17 +640,16 @@ class Add_Product(QMainWindow):
         self.decrease.clicked.connect(self.setDecrease)
         self.choose_image.clicked.connect(self.chooseImage)
         self.choose_image_url.clicked.connect(self.choose_image_from_url)
-        self.add.clicked.connect(self.add_new_product)
-    
+        self.add.clicked.connect(self.add_new_product)   
 
     def choose_image_from_url(self):
         url = QInputDialog.getText(self, "Nhập URL", "Nhập liên kết hình ảnh")[0]
         print(url)
-        try: urllib.request.urlretrieve(url, "Image//temp_downloaded_file.jpg")
+        try: urllib.request.urlretrieve(url, "Image//temp_downloaded_file.png")
         except Exception as e: pass
         else: 
 
-            self.image_path = "Image//temp_downloaded_file.jpg"
+            self.image_path = "Image//temp_downloaded_file.png"
 
             #! Crop ảnh
             image_pixmap = QtGui.QPixmap(self.image_path)
@@ -672,7 +670,6 @@ class Add_Product(QMainWindow):
             else:
                 self.image.setPixmap(QPixmap("Image//add_image.png").scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
                 QMessageBox.warning(self, "Lỗi", "Gặp lỗi trong quá trình lấy hình ảnh")
-
 
     def setBold(self):
         cursor = self.textEdit.textCursor()
@@ -777,6 +774,7 @@ class Add_Product(QMainWindow):
 
         name = self.line_name.text()
         price = self.line_price.text()
+        
         # No inputmask
         description = self.textEdit.toPlainText()
         image_path = self.image_path
@@ -801,8 +799,8 @@ class Add_Product(QMainWindow):
         existing_data.append(new_product)
         product_file = open("product.json", "w", encoding="utf-8")
         product_file.write(json.dumps(existing_data, indent=4, ensure_ascii=False))
-        user_ui.display_all_products_store(existing_data)
-        admin_ui.display_all_products(existing_data)
+        user_ui.display_all_products_store()
+        admin_ui.reload_interface()
         self.close()
 
 class Edit_product(QMainWindow):
@@ -1020,7 +1018,7 @@ class Edit_product(QMainWindow):
                     product["image"] = f"Image//{self.line_name.text().lower().replace(' ', '_')}.png"
                 with open("product.json", "w") as f: json.dump(data, f, indent=4, ensure_ascii=False)
                 print("Saved")
-                admin_ui.display_all_products(None)
+                admin_ui.display_all_products()
                 self.close()
 
     def edit_product(self, product):
@@ -1037,7 +1035,6 @@ class Edit_product(QMainWindow):
         self.image.setPixmap(QPixmap(product["image"]).scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
         self.tag_name.setCurrentText(product["category"])
         self.image_path = product["image"]
-
 
 class Show_Product(QMainWindow):
     def __init__(self):
@@ -1075,16 +1072,32 @@ class Show_Product(QMainWindow):
         self.category.setText(product["category"])
         self.price.setText(price_format)
         self.Description.setText(product["description"])
+
+        try:
+            self.add_button.clicked.disconnect()
+        except TypeError:
+            pass
+        
         self.add_button.clicked.connect(lambda: self.add_to_cart(product))
 
-    def add_to_cart(self, product):
-        existing_data = json.load(open('cart_product.json'))
-        existing_data.append(product)
+    def add_to_cart(self, product_add):
+        print("Product Add:")
+        print(product_add)
+        print()
+        with open('cart_product.json', 'r') as f:
+            data = json.load(f)
+            print("import:")
+            print(data)
+        data.append(product_add)
 
-        product_file = open("cart_product.json", "w", encoding="utf-8")
-        product_file.write(json.dumps(existing_data, indent=4, ensure_ascii=False))
+        print("export:")
+        print(data)
+        print()
+
+        with open('cart_product.json', 'w') as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
         
-        user_ui.display_all_products_cart(existing_data)
+        user_ui.reload_cart_interface()
         self.close()
 
 
@@ -1103,11 +1116,11 @@ user_ui = User()
 admin_ui = Admin()
 
 # Setup
-admin_ui.show()
+user_ui.show()
 app.exec()
 
 try:
     os.remove("Image//captcha.png")
-    os.remove("Image//temp_downloaded_file.jpg")
+    os.remove("Image//temp_downloaded_file.png")
 except Exception as e:
     pass
