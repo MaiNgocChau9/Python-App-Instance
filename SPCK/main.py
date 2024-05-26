@@ -375,6 +375,11 @@ class Admin(QMainWindow):
         super().__init__()
         uic.loadUi('GUI//admin.ui', self)
         self.stackedWidget.setCurrentIndex(0)
+        self.btn_home.setIcon(QIcon("Image//home_a.png"))
+        self.btn_product.setIcon(QIcon("Image//shopping_d.png"))
+        self.btn_statistic.setIcon(QIcon("Image//chart_bar_d.png"))
+        self.btn_setting.setIcon(QIcon("Image//setting_d.png"))
+        self.btn_catgory.setIcon(QIcon("Image//category_d.png"))
 
         # Import json
         with open("Data//categorys.json", "r") as f:
@@ -415,6 +420,7 @@ class Admin(QMainWindow):
         self.btn_home.clicked.connect(self.go_to_home_screen)
         self.btn_product.clicked.connect(self.go_to_product_screen)
         self.btn_statistic.clicked.connect(self.go_to_statistic_screen)
+        self.btn_catgory.clicked.connect(self.go_to_category_screen)
         self.btn_setting.clicked.connect(self.go_to_setting_screen)
         self.btn_log_out.clicked.connect(self.log_out)
         self.add_btn.clicked.connect(self.add_product)
@@ -557,6 +563,7 @@ class Admin(QMainWindow):
         self.btn_home.setIcon(QIcon("Image//home_a.png"))
         self.btn_product.setIcon(QIcon("Image//shopping_d.png"))
         self.btn_statistic.setIcon(QIcon("Image//chart_bar_d.png"))
+        self.btn_catgory.setIcon(QIcon("Image//category_d.png"))
         self.btn_setting.setIcon(QIcon("Image//setting_d.png"))
 
     def go_to_product_screen(self): 
@@ -564,6 +571,7 @@ class Admin(QMainWindow):
         self.btn_home.setIcon(QIcon("Image//home_d.png"))
         self.btn_product.setIcon(QIcon("Image//shopping_a.png"))
         self.btn_statistic.setIcon(QIcon("Image//chart_bar_d.png"))
+        self.btn_catgory.setIcon(QIcon("Image//category_d.png"))
         self.btn_setting.setIcon(QIcon("Image//setting_d.png"))
 
     def go_to_statistic_screen(self): 
@@ -571,18 +579,28 @@ class Admin(QMainWindow):
         self.btn_home.setIcon(QIcon("Image//home_d.png"))
         self.btn_product.setIcon(QIcon("Image//shopping_d.png"))
         self.btn_statistic.setIcon(QIcon("Image//chart_bar_a.png"))
+        self.btn_catgory.setIcon(QIcon("Image//category_d.png"))
         self.btn_setting.setIcon(QIcon("Image//setting_d.png"))
-
-    def go_to_setting_screen(self): 
+    
+    def go_to_category_screen(self): 
         self.stackedWidget.setCurrentIndex(3)
         self.btn_home.setIcon(QIcon("Image//home_d.png"))
         self.btn_product.setIcon(QIcon("Image//shopping_d.png"))
         self.btn_statistic.setIcon(QIcon("Image//chart_bar_d.png"))
+        self.btn_catgory.setIcon(QIcon("Image//category_a.png"))
+        self.btn_setting.setIcon(QIcon("Image//setting_d.png"))
+
+    def go_to_setting_screen(self): 
+        self.stackedWidget.setCurrentIndex(4)
+        self.btn_home.setIcon(QIcon("Image//home_d.png"))
+        self.btn_product.setIcon(QIcon("Image//shopping_d.png"))
+        self.btn_statistic.setIcon(QIcon("Image//chart_bar_d.png"))
+        self.btn_catgory.setIcon(QIcon("Image//category_d.png"))
         self.btn_setting.setIcon(QIcon("Image//setting_a.png"))
 
     def log_out(self):
         login_ui.show()
-        self.hide()
+        self.close()
 
 class Add_Product(QMainWindow):
     def __init__(self):
@@ -1116,7 +1134,7 @@ user_ui = User()
 admin_ui = Admin()
 
 # Setup
-user_ui.show()
+admin_ui.show()
 app.exec()
 
 try:
