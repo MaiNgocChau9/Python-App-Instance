@@ -16,8 +16,9 @@ import string
 import os
 
 # Data
-import urllib.request
+from countdown import countdown
 from functools import partial
+import urllib.request
 import unidecode
 import shutil
 import json
@@ -566,6 +567,7 @@ class Admin(QMainWindow):
         print(data)
         json.dump(data, open("product.json", "w"), indent=4, ensure_ascii=False)
         os.remove(product["image"])
+        admin_ui.fix_category()
         self.reload_interface()
 
     def add_category(self):
@@ -585,10 +587,29 @@ class Admin(QMainWindow):
 
     def show_more_info(self):
         inp_data = json.load(open("Data/categorys.json"))
-        msg = f"Tên danh mục: {inp_data[self.cg_list.currentRow()]['name']}\nSố sản phẩm: {inp_data[self.cg_list.currentRow()]['product']}"
-        QMessageBox.information(self, "Thông tin", msg)
-        msg.show()
+        msg_box = QMessageBox()
+        msg_box.setWindowTitle("Thông tin")
+        msg_box.setText(f"Tên danh mục: {inp_data[self.cg_list.currentRow()]['name']}\nSố sản phẩm: {inp_data[self.cg_list.currentRow()]['product']}")
+        msg_box.exec()
+        self.close()
     
+    def fix_category(self):
+        json_product = json.load(open("product.json"))
+        json_category = json.load(open("Data/categorys.json"))
+
+        # Khởi tạo số lượng sản phẩm cho mỗi danh mục là 0
+        for category in json_category:
+            category["product"] = 0
+
+        # Đếm số lượng sản phẩm cho mỗi danh mục
+        for product in json_product:
+            for category in json_category:
+                if category["name"] == product["category"]:
+                    category["product"] += 1
+
+        # Ghi đồi file JSON
+        json.dump(json_category, open("Data/categorys.json", "w"), indent=4, ensure_ascii=False)
+
     #! Switch screen
     def go_to_home_screen(self): 
         self.stackedWidget.setCurrentIndex(0)
@@ -638,7 +659,7 @@ class Add_Product(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('GUI//addproduct.ui', self)
-
+        self.tag_name.addItems([item['name'] for item in json.load(open("Data/categorys.json"))])
         self.image.setPixmap(QPixmap("Image//add_image.png").scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
         self.image_path = ""
 
@@ -849,7 +870,9 @@ class Add_Product(QMainWindow):
         existing_data.append(new_product)
         product_file = open("product.json", "w", encoding="utf-8")
         product_file.write(json.dumps(existing_data, indent=4, ensure_ascii=False))
-        user_ui.display_all_products_store()
+        print("Added")
+        countdown(mins=0, secs=1)
+        admin_ui.fix_category()
         admin_ui.reload_interface()
         self.close()
 
@@ -861,6 +884,7 @@ class Edit_product(QMainWindow):
         self.product_input = []
 
         uic.loadUi('GUI//editproduct.ui', self)
+        self.tag_name.addItems([item['name'] for item in json.load(open("Data/categorys.json"))])
 
         # Font
         label_font = QFont("Segoe UI", 18)
@@ -1068,8 +1092,11 @@ class Edit_product(QMainWindow):
                     product["image"] = f"Image//{self.line_name.text().lower().replace(' ', '_')}.png"
                 with open("product.json", "w") as f: json.dump(data, f, indent=4, ensure_ascii=False)
                 print("Saved")
-                admin_ui.display_all_products()
-                self.close()
+                break
+
+        admin_ui.fix_category()
+        admin_ui.display_all_products()
+        self.close()
 
     def edit_product(self, product):
         print("Edit product")
@@ -1158,7 +1185,6 @@ login_ui = Login()
 register_ui = Register()
 show_product_ui = Show_Product()
 
-information_product_ui = Add_Product()
 edit_product_ui = Edit_product()
 add_product_ui = Add_Product()
 

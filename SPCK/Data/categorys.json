@@ -1,38 +1,18 @@
 [
     {
-        "name": "Laptop",
+        "name": "Loa",
         "product": 0
     },
     {
-        "name": "Keyboard",
-        "product": 15
+        "name": "Chuột",
+        "product": 1
     },
     {
-        "name": "Monitor",
-        "product": 20
+        "name": "Bàn phím",
+        "product": 1
     },
     {
-        "name": "CPU",
-        "product": 25
-    },
-    {
-        "name": "GPU",
-        "product": 30
-    },
-    {
-        "name": "Memory",
-        "product": 21
-    },
-    {
-        "name": "HDD",
-        "product": 40
-    },
-    {
-        "name": "SSD",
-        "product": 72
-    },
-    {
-        "name": "Laptop",
-        "product": 0
+        "name": "Tai nghe",
+        "product": 1
     }
 ]

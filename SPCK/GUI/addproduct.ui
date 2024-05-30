@@ -267,11 +267,6 @@ QComboBox QAbstractItemView {
 	margin: 0px;
 }</string>
             </property>
-            <item>
-             <property name="text">
-              <string>Thêm...</string>
-             </property>
-            </item>
            </widget>
           </item>
           <item>
