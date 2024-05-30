@@ -381,6 +381,7 @@ class Admin(QMainWindow):
         self.btn_setting.setIcon(QIcon("Image//setting_d.png"))
         self.btn_catgory.setIcon(QIcon("Image//category_d.png"))
 
+        #! Pie Chart
         # Import json
         with open("Data//categorys.json", "r") as f:
             data = json.load(f)
@@ -417,6 +418,7 @@ class Admin(QMainWindow):
             # slice.setExploded(True)
             slice.setLabelVisible(True)
 
+        #! Action
         self.btn_home.clicked.connect(self.go_to_home_screen)
         self.btn_product.clicked.connect(self.go_to_product_screen)
         self.btn_statistic.clicked.connect(self.go_to_statistic_screen)
@@ -424,7 +426,10 @@ class Admin(QMainWindow):
         self.btn_setting.clicked.connect(self.go_to_setting_screen)
         self.btn_log_out.clicked.connect(self.log_out)
         self.add_btn.clicked.connect(self.add_product)
+        self.add_cg.clicked.connect(self.add_category)
+        self.del_cg.clicked.connect(self.remove_category)
 
+        #! Show product
         self.product_layout = QtWidgets.QGridLayout()  # Tạo QGridLayout để chứa các sản phẩm
         self.product_widget = QtWidgets.QWidget()  # Tạo QWidget để chứa QGridLayout
         self.product_widget.setLayout(self.product_layout)  # Đặt QGridLayout làm layout cho QWidget
@@ -439,6 +444,12 @@ class Admin(QMainWindow):
         self.frame.layout().addWidget(self.scroll_area)
 
         self.display_all_products()
+
+        #! Category
+        self.categore_list = json.load(open('Data/categorys.json'))
+        for categore in self.categore_list:
+            self.cg_list.addItem(categore['name'])
+        self.more_info.clicked.connect(self.show_more_info)
     
     def reload_interface(self):
         # Xóa tất cả các widget con của product_layout
@@ -556,7 +567,28 @@ class Admin(QMainWindow):
         json.dump(data, open("product.json", "w"), indent=4, ensure_ascii=False)
         os.remove(product["image"])
         self.reload_interface()
-        
+
+    def add_category(self):
+        # Get name of category with message box
+        new_category,_ = QInputDialog.getText(self, "Thêm danh mục", "Nhập tên danh mục:")
+        if new_category:
+            self.cg_list.addItem(new_category)
+            inp_data = json.load(open("Data/categorys.json"))
+            inp_data.insert(0, {"name": new_category, "product": 0})
+            json.dump(inp_data, open("Data/categorys.json", "w"), indent=4, ensure_ascii=False)
+    
+    def remove_category(self):
+        self.cg_list.takeItem(self.cg_list.currentRow())
+        inp_data = json.load(open("Data/categorys.json"))
+        inp_data.pop(self.cg_list.currentRow())
+        json.dump(inp_data, open("Data/categorys.json", "w"), indent=4, ensure_ascii=False)
+
+    def show_more_info(self):
+        inp_data = json.load(open("Data/categorys.json"))
+        msg = f"Tên danh mục: {inp_data[self.cg_list.currentRow()]['name']}\nSố sản phẩm: {inp_data[self.cg_list.currentRow()]['product']}"
+        QMessageBox.information(self, "Thông tin", msg)
+        msg.show()
+    
     #! Switch screen
     def go_to_home_screen(self): 
         self.stackedWidget.setCurrentIndex(0)

@@ -1,7 +1,7 @@
 [
     {
         "name": "Laptop",
-        "product": 20
+        "product": 0
     },
     {
         "name": "Keyboard",
@@ -32,7 +32,7 @@
         "product": 72
     },
     {
-        "name": "Speaker",
-        "product": 68
+        "name": "Laptop",
+        "product": 0
     }
 ]

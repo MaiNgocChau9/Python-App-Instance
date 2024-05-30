@@ -388,7 +388,7 @@ QPushButton::hover{
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="home_screen">
        <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -973,9 +973,62 @@ margin-left: 10px;</string>
            </item>
            <item>
             <widget class="QWidget" name="widget" native="true">
+             <property name="styleSheet">
+              <string notr="true">QScrollArea{
+	background-color: #f0f0f0;
+}
+/* #!VERTICAL SCROLLBAR */
+QScrollBar:vertical{
+	border: none;
+	width: 16px;
+	border-radius: 0px;
+	background: white;
+}
+
+/* #!HANDLE BAR VERTICAL */
+QScrollBar::handle:vertical {	
+	border-left: 3px solid #f1f1f1;
+	background-color: #c1c1c1;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+QScrollBar::handle:vertical:hover {	
+	border-left: 3px solid #f1f1f1;
+	background-color: #a8a8a8;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+QScrollBar::handle:vertical:pressed {
+	border-left: 3px solid #f1f1f1;
+	background-color: #787878;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+/* #!RESET ARROW */
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+	background: #f1f1f1;
+    border-left: 5px solid #f1f1f1;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: #f1f1f1;
+    border-left: 5px solid #f1f1f1;
+}
+/* #!HORIZONTAL SCROLLBAR */
+QScrollBar:horizontal{
+	border: none;
+	width: 16px;
+	border-radius: 0px;
+	background: white;
+}</string>
+             </property>
              <layout class="QVBoxLayout" name="verticalLayout_4">
               <item>
-               <widget class="QListWidget" name="listWidget">
+               <widget class="QListWidget" name="cg_list">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
                 <property name="styleSheet">
                  <string notr="true">QListWidget{
 	border: 0px;
@@ -1015,33 +1068,13 @@ QListWidget::item::selected{
 	border: 2px solid gray;
 }</string>
                 </property>
-                <item>
-                 <property name="text">
-                  <string>New Item</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>New Item</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>New Item</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>New Item</string>
-                 </property>
-                </item>
                </widget>
               </item>
               <item>
                <widget class="QWidget" name="widget_5" native="true">
                 <layout class="QHBoxLayout" name="horizontalLayout_5">
                  <item>
-                  <widget class="QPushButton" name="pushButton_4">
+                  <widget class="QPushButton" name="more_info">
                    <property name="font">
                     <font>
                      <family>Segoe UI</family>
@@ -1088,7 +1121,7 @@ QPushButton::pressed{
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="pushButton_3">
+                  <widget class="QPushButton" name="add_cg">
                    <property name="font">
                     <font>
                      <family>Segoe UI</family>
@@ -1131,7 +1164,7 @@ QPushButton::pressed{
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="pushButton_5">
+                  <widget class="QPushButton" name="del_cg">
                    <property name="font">
                     <font>
                      <family>Segoe UI</family>
