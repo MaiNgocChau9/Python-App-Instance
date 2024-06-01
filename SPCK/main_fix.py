@@ -16,7 +16,6 @@ import string
 import os
 
 # Data
-from countdown import countdown
 from functools import partial
 import urllib.request
 import unidecode
@@ -259,7 +258,7 @@ class User(QMainWindow):
 
     def display_all_products_store(self):
         # Lấy dữ liệu 
-        products = json.load(open('product.json'))
+        products = json.load(open('product.json', encoding='utf-8'))
 
         # Hiển thị các sản phẩm trên giao diện
         row = 0
@@ -382,7 +381,54 @@ class Admin(QMainWindow):
         self.btn_setting.setIcon(QIcon("Image//setting_d.png"))
         self.btn_catgory.setIcon(QIcon("Image//category_d.png"))
 
-        #! Pie Chart
+        #! Action
+        self.btn_home.clicked.connect(self.go_to_home_screen)
+        self.btn_product.clicked.connect(self.go_to_product_screen)
+        self.btn_statistic.clicked.connect(self.go_to_statistic_screen)
+        self.btn_catgory.clicked.connect(self.go_to_category_screen)
+        self.btn_setting.clicked.connect(self.go_to_setting_screen)
+        self.btn_log_out.clicked.connect(self.log_out)
+        self.add_btn.clicked.connect(self.add_product)
+        self.add_cg.clicked.connect(self.add_category)
+        self.del_cg.clicked.connect(self.remove_category)
+
+        #! Show product
+        self.product_layout = QtWidgets.QGridLayout()  # Tạo QGridLayout để chứa các sản phẩm
+        self.product_widget = QtWidgets.QWidget()  # Tạo QWidget để chứa QGridLayout
+        self.product_widget.setLayout(self.product_layout)  # Đặt QGridLayout làm layout cho QWidget
+        
+        # Tạo QScrollArea và đặt QWidget làm nội dung cuộn
+        self.scroll_area = QtWidgets.QScrollArea()
+        self.scroll_area.setWidgetResizable(True)
+        self.scroll_area.setWidget(self.product_widget)
+
+        # Đặt QScrollArea làm giao diện chính cho QWidget
+        self.frame.setLayout(QtWidgets.QVBoxLayout())
+        self.frame.layout().addWidget(self.scroll_area)
+
+        # Hiện sản phẩm
+        self.display_all_products()
+
+        #! Category
+        self.categore_list = json.load(open('Data/categorys.json'))
+        for categore in self.categore_list:
+            self.cg_list.addItem(categore['name'])
+        self.more_info.clicked.connect(self.show_more_info)
+
+        # Create Pie Chart
+        self.create_pie_chart()
+    
+    def create_pie_chart(self):
+        
+        # Xóa tất cả các widget con của layout hiện tại
+        if self.pie_chart.layout() is not None:
+            old_layout = self.pie_chart.layout()
+            while old_layout.count():
+                child = old_layout.takeAt(0)
+                if child.widget():
+                    child.widget().deleteLater()
+            sip.delete(old_layout)  # Xóa layout cũ
+
         # Import json
         with open("Data//categorys.json", "r") as f:
             data = json.load(f)
@@ -419,39 +465,6 @@ class Admin(QMainWindow):
             # slice.setExploded(True)
             slice.setLabelVisible(True)
 
-        #! Action
-        self.btn_home.clicked.connect(self.go_to_home_screen)
-        self.btn_product.clicked.connect(self.go_to_product_screen)
-        self.btn_statistic.clicked.connect(self.go_to_statistic_screen)
-        self.btn_catgory.clicked.connect(self.go_to_category_screen)
-        self.btn_setting.clicked.connect(self.go_to_setting_screen)
-        self.btn_log_out.clicked.connect(self.log_out)
-        self.add_btn.clicked.connect(self.add_product)
-        self.add_cg.clicked.connect(self.add_category)
-        self.del_cg.clicked.connect(self.remove_category)
-
-        #! Show product
-        self.product_layout = QtWidgets.QGridLayout()  # Tạo QGridLayout để chứa các sản phẩm
-        self.product_widget = QtWidgets.QWidget()  # Tạo QWidget để chứa QGridLayout
-        self.product_widget.setLayout(self.product_layout)  # Đặt QGridLayout làm layout cho QWidget
-        
-        # Tạo QScrollArea và đặt QWidget làm nội dung cuộn
-        self.scroll_area = QtWidgets.QScrollArea()
-        self.scroll_area.setWidgetResizable(True)
-        self.scroll_area.setWidget(self.product_widget)
-
-        # Đặt QScrollArea làm giao diện chính cho QWidget
-        self.frame.setLayout(QtWidgets.QVBoxLayout())
-        self.frame.layout().addWidget(self.scroll_area)
-
-        self.display_all_products()
-
-        #! Category
-        self.categore_list = json.load(open('Data/categorys.json'))
-        for categore in self.categore_list:
-            self.cg_list.addItem(categore['name'])
-        self.more_info.clicked.connect(self.show_more_info)
-    
     def reload_interface(self):
         # Xóa tất cả các widget con của product_layout
         while self.product_layout.count():
@@ -465,7 +478,7 @@ class Admin(QMainWindow):
     def display_all_products(self):
 
         # Lấy dữ liệu
-        products = json.load(open('product.json'))
+        products = json.load(open('product.json', encoding='utf-8'))
 
         # Hiển thị các sản phẩm trên giao diện
         row = 0
@@ -578,12 +591,14 @@ class Admin(QMainWindow):
             inp_data = json.load(open("Data/categorys.json"))
             inp_data.insert(0, {"name": new_category, "product": 0})
             json.dump(inp_data, open("Data/categorys.json", "w"), indent=4, ensure_ascii=False)
+            self.create_pie_chart()
     
     def remove_category(self):
         self.cg_list.takeItem(self.cg_list.currentRow())
         inp_data = json.load(open("Data/categorys.json"))
         inp_data.pop(self.cg_list.currentRow())
         json.dump(inp_data, open("Data/categorys.json", "w"), indent=4, ensure_ascii=False)
+        self.create_pie_chart()
 
     def show_more_info(self):
         inp_data = json.load(open("Data/categorys.json"))
@@ -591,11 +606,36 @@ class Admin(QMainWindow):
         msg_box.setWindowTitle("Thông tin")
         msg_box.setText(f"Tên danh mục: {inp_data[self.cg_list.currentRow()]['name']}\nSố sản phẩm: {inp_data[self.cg_list.currentRow()]['product']}")
         msg_box.exec()
-        self.close()
+    
+    # def fix_category(self):
+    #     json_product = json.load(open("product.json"))
+    #     json_category = json.load(open("Data/categorys.json"))
+
+    #     # Khởi tạo số lượng sản phẩm cho mỗi danh mục là 0
+    #     for category in json_category:
+    #         category["product"] = 0
+
+    #     # Đếm số lượng sản phẩm cho mỗi danh mục
+    #     for product in json_product:
+    #         for category in json_category:
+    #             if category["name"] == product["category"]:
+    #                 category["product"] += 1
+
+    #     # Ghi đồi file JSON
+    #     json.dump(json_category, open("Data/categorys.json", "w"), indent=4, ensure_ascii=False)
     
     def fix_category(self):
-        json_product = json.load(open("product.json"))
-        json_category = json.load(open("Data/categorys.json"))
+        try:
+            with open("product.json", "r", encoding="utf-8") as product_file:
+                json_product = json.load(product_file)
+            with open("Data/categorys.json", "r", encoding="utf-8") as category_file:
+                json_category = json.load(category_file)
+        except FileNotFoundError as e:
+            print(f"File not found: {e.filename}")
+            return
+        except json.JSONDecodeError as e:
+            print(f"Error decoding JSON: {e}")
+            return
 
         # Khởi tạo số lượng sản phẩm cho mỗi danh mục là 0
         for category in json_category:
@@ -608,7 +648,14 @@ class Admin(QMainWindow):
                     category["product"] += 1
 
         # Ghi đồi file JSON
-        json.dump(json_category, open("Data/categorys.json", "w"), indent=4, ensure_ascii=False)
+        try:
+            with open("Data/categorys.json", "w", encoding="utf-8") as category_file:
+                json.dump(json_category, category_file, indent=4, ensure_ascii=False)
+        except Exception as e:
+            print(f"Error writing to category file: {e}")
+        
+        # Sửa bảng Pie Chart
+        self.create_pie_chart()
 
     #! Switch screen
     def go_to_home_screen(self): 
@@ -840,8 +887,8 @@ class Add_Product(QMainWindow):
         
     def add_new_product(self):
         print("Add product")
-        self.l_title.setText("Thêm sản phẩm")
-        self.add.setText("Thêm")
+        self.l_title.setText("Thêm sản phẩm")
+        self.add.setText("Thêm")
 
         name = self.line_name.text()
         price = self.line_price.text()
@@ -850,26 +897,45 @@ class Add_Product(QMainWindow):
         description = self.textEdit.toPlainText()
         image_path = self.image_path
         tag = self.tag_name.currentText()
-        simple_name = unidecode.unidecode(name)
-        simple_name.replace(" ", "_")
-        simple_name.lower()
-        
-        existing_data = json.load(open("product.json"))
-        
-        shutil.copyfile(image_path, f"Image//{name.lower().replace(' ', '_')}.png")
-        
+        simple_name = unidecode.unidecode(name).replace(" ", "_").lower()
+
+        try:
+            with open("product.json", "r", encoding="utf-8") as product_file:
+                existing_data = json.load(product_file)
+        except FileNotFoundError:
+            existing_data = []
+        except json.JSONDecodeError:
+            print("Error decoding JSON from product.json. Initializing with empty list.")
+            existing_data = []
+
+        # Sao chép tệp ảnh
+        try:
+            shutil.copyfile(image_path, f"Image//{simple_name}.png")
+        except FileNotFoundError as e:
+            print(f"Image file not found: {e.filename}")
+            return
+        except Exception as e:
+            print(f"Error copying image file: {e}")
+            return
+
         new_product = {
             "simple_name": simple_name,
             "product_name": name,
             "price": price,
             "category": tag,
             "description": description,
-            "image": f"Image//{name.lower().replace(' ', '_')}.png"
+            "image": f"Image//{simple_name}.png"
         }
-        
+
         existing_data.append(new_product)
-        product_file = open("product.json", "w", encoding="utf-8")
-        product_file.write(json.dumps(existing_data, indent=4, ensure_ascii=False))
+
+        try:
+            with open("product.json", "w", encoding="utf-8") as product_file:
+                json.dump(existing_data, product_file, indent=4, ensure_ascii=False)
+        except Exception as e:
+            print(f"Error writing to product.json: {e}")
+            return
+
         print("Added")
         admin_ui.fix_category()
         admin_ui.reload_interface()
