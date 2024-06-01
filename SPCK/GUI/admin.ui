@@ -388,7 +388,7 @@ QPushButton::hover{
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="home_screen">
        <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -597,7 +597,7 @@ QPushButton:pressed{
            <item>
             <widget class="QWidget" name="widget_13" native="true">
              <property name="styleSheet">
-              <string notr="true">background-color: green;</string>
+              <string notr="true">border-radius: 0px;</string>
              </property>
             </widget>
            </item>

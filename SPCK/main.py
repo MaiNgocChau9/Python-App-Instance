@@ -1191,7 +1191,7 @@ user_ui = User()
 admin_ui = Admin()
 
 # Setup
-admin_ui.show()
+user_ui.show()
 app.exec()
 
 try:

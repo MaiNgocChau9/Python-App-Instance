@@ -169,6 +169,13 @@ class User(QMainWindow):
         self.display_all_products_store()
         self.display_all_products_cart()
 
+    def remove_cart_product(self, product):
+        data = json.load(open("cart_product.json"))
+        data.remove(product)
+        print(data)
+        json.dump(data, open("cart_product.json", "w"), indent=4, ensure_ascii=False)
+        self.reload_cart_interface()
+
     def reload_cart_interface(self):
         # Xóa tất cả các widget con của product_cart_layout
         while self.product_cart_layout.count():
@@ -242,7 +249,7 @@ class User(QMainWindow):
 
             # Thêm nút "Show details"
             show_details_button = QtWidgets.QPushButton("Xóa")
-            show_details_button.clicked.connect(partial(self.display_product_details, product))
+            show_details_button.clicked.connect(lambda: self.remove_cart_product(product))
             show_details_button.setStyleSheet("background-color: #FF320E; color: white; padding: 6px; border-radius: 5px; border: 2px solid black; max-height: 20px; min-height: 20px;")
             product_information_layout.addWidget(show_details_button)
             layout_of_all.addWidget(product_information_widget)
@@ -1257,7 +1264,7 @@ user_ui = User()
 admin_ui = Admin()
 
 # Setup
-admin_ui.show()
+user_ui.show()
 app.exec()
 
 try:

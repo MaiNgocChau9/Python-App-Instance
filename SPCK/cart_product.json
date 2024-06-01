@@ -1,42 +1,26 @@
 [
     {
-        "simple_name": "Ban phim Logitech",
-        "product_name": "Bàn phím Logitech",
-        "price": "100000",
-        "category": "Thêm...",
-        "description": "Bàn phím Logitech",
-        "image": "Image//bàn_phím_logitech.png"
+        "simple_name": "JBL Charge 5",
+        "product_name": "JBL Charge 5",
+        "price": "3790000",
+        "category": "Loa",
+        "description": "🛠 General specification\n- Màng loa: Loa trầm 52mm x 90mm, Loa tweeter 20mm\n- Công suất: 30W RMS cho loa trầm, 10W RMS cho loa tweeter\n- Đáp ứng tần số: 60Hz - 20kHz\n- Tỷ lệ tín hiệu trên nhiễu: >80dB\n- Loại pin: Li-ion polymer 27 Wh (tương đương 3.6 V/7500 mAh)\n- Thời gian sạc pin: 4 giờ (5V/3A)\n- Thời gian phát nhạc: lên đến 20 giờ (phụ thuộc vào mức âm lượng và nội dung âm thanh)\n- Cổng sạc USB: Loại C\n- Nguồn cấp USB: 5V/2A (tối đa)\n- Phiên bản Bluetooth®: 5.1\n- Cấu hình Bluetooth®: A2DP 1.3, AVRCP 1.6\n- Dải tần số phát Bluetooth®: 2400MHz - 2483.5MHz\n- Công suất phát Bluetooth®: ≤20dBm (EIRP)\n- Module phát Bluetooth®: GFSK, π/4 DQPSK, 8DPSK",
+        "image": "Image//jbl_charge_5.png"
+    },
+    {
+        "simple_name": "Tai nghe",
+        "product_name": "Tai nghe",
+        "price": "3990000",
+        "category": "Tai nghe",
+        "description": "Tai nghe",
+        "image": "Image//tai_nghe.png"
     },
     {
         "simple_name": "Chuot Logitech",
         "product_name": "Chuột Logitech",
         "price": "10000000",
-        "category": "Thêm...",
+        "category": "Chuột",
         "description": "Chuột Logitech",
         "image": "Image//chuột_logitech.png"
-    },
-    {
-        "simple_name": "Ban phim Logitech",
-        "product_name": "Bàn phím Logitech",
-        "price": "100000",
-        "category": "Thêm...",
-        "description": "Bàn phím Logitech",
-        "image": "Image//bàn_phím_logitech.png"
-    },
-    {
-        "simple_name": "Ban phim Logitech",
-        "product_name": "Bàn phím Logitech",
-        "price": "100000",
-        "category": "Thêm...",
-        "description": "Bàn phím Logitech",
-        "image": "Image//bàn_phím_logitech.png"
-    },
-    {
-        "simple_name": "Ban phim Logitech",
-        "product_name": "Bàn phím Logitech",
-        "price": "100000",
-        "category": "Thêm...",
-        "description": "Bàn phím Logitech",
-        "image": "Image//bàn_phím_logitech.png"
     }
 ]
