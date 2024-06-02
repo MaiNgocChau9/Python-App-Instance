@@ -79,26 +79,30 @@ class Login(QMainWindow):
 
         else:
             if self.captcha.text() == self.captcha_text:
-                for idx in range(len(self.accounts)):
-                    if self.email.text() == self.accounts[idx]["email"] and self.password.text() == self.accounts[idx]["password"]:
-                        a = self.accounts[idx]["user_name"]
-                        print(f"Data/Cart_product/{a}.json")
-                        user_ui.json_product_file = f"Data/Cart_product/{a}.json"
-                        user_ui.reload_cart_interface()
-                        msg_box = QMessageBox()
-                        msg_box.setWindowTitle("Thành công")
-                        msg_box.setText("Đăng nhập thành công")
-                        msg_box.exec()
-                        self.close()
-                        user_ui.show()
-                        break
+                if self.email.text() == "admin@example.com" and self.password.text() == "admin":
+                    self.close()
+                    admin_ui.show()
+                else:
+                    for idx in range(len(self.accounts)):
+                        if self.email.text() == self.accounts[idx]["email"] and self.password.text() == self.accounts[idx]["password"]:
+                            a = self.accounts[idx]["user_name"]
+                            print(f"Data/Cart_product/{a}.json")
+                            user_ui.json_product_file = f"Data/Cart_product/{a}.json"
+                            user_ui.reload_cart_interface()
+                            msg_box = QMessageBox()
+                            msg_box.setWindowTitle("Thành công")
+                            msg_box.setText("Đăng nhập thành công")
+                            msg_box.exec()
+                            self.close()
+                            user_ui.show()
+                            break
 
-                    elif idx == len(self.accounts)-1:
-                        msg_box = QMessageBox()
-                        msg_box.setWindowTitle("Cảnh báo")
-                        msg_box.setIcon(QMessageBox.Icon.Warning)
-                        msg_box.setText("Thông tin tài khoản không chính xác")
-                        msg_box.exec()
+                        elif idx == len(self.accounts)-1:
+                            msg_box = QMessageBox()
+                            msg_box.setWindowTitle("Cảnh báo")
+                            msg_box.setIcon(QMessageBox.Icon.Warning)
+                            msg_box.setText("Thông tin tài khoản không chính xác")
+                            msg_box.exec()
             else:
                 msg_box = QMessageBox()
                 msg_box.setWindowTitle("Cảnh báo")
