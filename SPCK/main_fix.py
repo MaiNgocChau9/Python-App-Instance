@@ -21,6 +21,7 @@ import urllib.request
 import unidecode
 import shutil
 import json
+import re
 
 class Login(QMainWindow):
     # Setup
@@ -34,6 +35,7 @@ class Login(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('GUI//login.ui', self)
+        self.accounts = []
 
         # Font
         font = QFont("Segoe UI", 10)
@@ -49,10 +51,14 @@ class Login(QMainWindow):
         self.pushButton.clicked.connect(self.the_button_was_clicked)
         self.pushButton.clicked.connect(self.the_button_was_clicked)
         self.label_7.mousePressEvent = lambda event: self.register()
+        self.load_account()
     
     def register(self):
         register_ui.show()
         login_ui.hide()
+    
+    def load_account(self):
+        self.accounts = json.load(open("Data/account.json"))
 
     def regenerate_captcha(self):
         self.image = ImageCaptcha(width=280, height=90, fonts=['times'])
@@ -64,19 +70,41 @@ class Login(QMainWindow):
         self.label.setStyleSheet(f"background-color: {self.pixel_color}; padding: 5px; border-radius: 20px; border: 1px solid gray;")
     
     def the_button_was_clicked(self):
-        if self.lineEdit_3.text() == "admin@example.com" and self.lineEdit_2.text() == "admin" and self.lineEdit_4.text() == self.captcha_text:
-            msg_box = QMessageBox()
-            msg_box.setWindowTitle("Thành công")
-            msg_box.setText("Đăng nhập thành công")
-            msg_box.exec()
-            self.close()
-            user_ui.show()
-        else:
+        if self.email.text().replace(" ", "") == "" or self.password.text().replace(" ", "") == "" or self.captcha.text().replace(" ", "") == "":
             msg_box = QMessageBox()
             msg_box.setWindowTitle("Cảnh báo")
             msg_box.setIcon(QMessageBox.Icon.Warning)
-            msg_box.setText("Thông tin tài khoảng không chính xác")
+            msg_box.setText("Vui lòng nhập đầy đủ thông tin!")
             msg_box.exec()
+
+        else:
+            if self.captcha.text() == self.captcha_text:
+                for idx in range(len(self.accounts)):
+                    if self.email.text() == self.accounts[idx]["email"] and self.password.text() == self.accounts[idx]["password"]:
+                        a = self.accounts[idx]["user_name"]
+                        print(f"Data/Cart_product/{a}.json")
+                        user_ui.json_product_file = f"Data/Cart_product/{a}.json"
+                        user_ui.reload_cart_interface()
+                        msg_box = QMessageBox()
+                        msg_box.setWindowTitle("Thành công")
+                        msg_box.setText("Đăng nhập thành công")
+                        msg_box.exec()
+                        self.close()
+                        user_ui.show()
+                        break
+
+                    elif idx == len(self.accounts)-1:
+                        msg_box = QMessageBox()
+                        msg_box.setWindowTitle("Cảnh báo")
+                        msg_box.setIcon(QMessageBox.Icon.Warning)
+                        msg_box.setText("Thông tin tài khoản không chính xác")
+                        msg_box.exec()
+            else:
+                msg_box = QMessageBox()
+                msg_box.setWindowTitle("Cảnh báo")
+                msg_box.setIcon(QMessageBox.Icon.Warning)
+                msg_box.setText("Mã Captcha không chính xác")
+                msg_box.exec()
 
 class Register(QMainWindow):
     def __init__(self):
@@ -89,12 +117,22 @@ class Register(QMainWindow):
         self.label_7.setFont(font)
         self.label_7.mousePressEvent = lambda event: self.login()
     
+    def check_string(self, string):
+        print(string)
+        has_digit = any(char.isdigit() for char in string)
+        has_upper = any(char.isupper() for char in string)
+        has_special = bool(re.search(r'[^\w\s]', string))
+        if True in [has_digit, has_upper, has_special]:
+            return True
+        else:
+            return False
+    
     def login(self):
         login_ui.show()
         register_ui.hide()
     
     def the_button_was_clicked(self):
-        if self.lineEdit.text().replace(" ", "") == "" or self.lineEdit_2.text().replace(" ", "") == "" or self.lineEdit_3.text().replace(" ", "") == "" or self.lineEdit_4.text().replace(" ", "") == "":
+        if self.name.text().replace(" ", "") == "" or self.email.text().replace(" ", "") == "" or self.user_name.text().replace(" ", "") == "" or self.password.text().replace(" ", "") == "":
             msg_box = QMessageBox()
             msg_box.setWindowTitle("Lỗi")
             msg_box.setIcon(QMessageBox.Icon.Warning)
@@ -102,26 +140,53 @@ class Register(QMainWindow):
             msg_box.setText(msg_text)
             msg_box.exec()
         else:
-            if self.lineEdit_2.text() == self.lineEdit_4.text():
+            if self.check_string(self.user_name.text()):
+                msg_box = QMessageBox()
+                msg_box.setWindowTitle("Cảnh báo")
+                msg_box.setIcon(QMessageBox.Icon.Warning)
+                msg_box.setText("Tên đăng nhập chỉ không được viết hoa,\nkhông được có kí tự đặc biệt và số")
+                msg_box.exec()
+            
+            else:
                 if self.checkBox.isChecked():
-                    msg_box = QMessageBox()
-                    msg_box.setWindowTitle("Thành công")
-                    msg_text = "Tài khoản của bạn đã được tạo:\n" + f"Tên: {self.lineEdit.text()}\nEmail: {self.lineEdit_3.text()}\nMật khẩu: {self.lineEdit_2.text()}"
-                    msg_box.setText(msg_text)
-                    msg_box.exec()
-                    self.close()
-                    user_ui.show()
+                    account = json.load(open("Data/account.json"))
+                    if not any(acc["user_name"] == str(self.user_name.text()) for acc in account):
+                        if not any(acc["email"] == str(self.email.text()) for acc in account):
+                            account.append(
+                                {
+                                    "user_name": str(self.user_name.text()),
+                                    "password": str(self.password.text()),
+                                    "email": str(self.email.text()),
+                                    "name": str(self.name.text())
+                                })
+                            json.dump(account, open("Data/account.json", "w"), indent=4, ensure_ascii=False)
+                            json.dump([], open(f"Data/Cart_product/{self.user_name.text()}.json", "w"), indent=4, ensure_ascii=False)
+                            login_ui.load_account()
+                            msg_box = QMessageBox()
+                            msg_box.setWindowTitle("Thành công")
+                            msg_box.setIcon(QMessageBox.Icon.Information)
+                            msg_text = "Tài khoản của bạn đã được tạo!"
+                            msg_box.setText(msg_text)
+                            msg_box.exec()
+                        else:
+                            msg_box = QMessageBox()
+                            msg_box.setWindowTitle("Cảnh báo")
+                            msg_box.setIcon(QMessageBox.Icon.Warning)
+                            msg_text = "Email đã được sử dụng"
+                            msg_box.setText(msg_text)
+                            msg_box.exec()
+                    else:
+                        msg_box = QMessageBox()
+                        msg_box.setWindowTitle("Cảnh báo")
+                        msg_box.setIcon(QMessageBox.Icon.Warning)
+                        msg_text = "Tên đăng nhập đã tồn tại"
+                        msg_box.setText(msg_text)
+                        msg_box.exec()
                 else:
                     msg_box = QMessageBox()
                     msg_box.setWindowTitle("Cảnh báo")
                     msg_box.setIcon(QMessageBox.Icon.Warning)
                     msg_box.setText("Vui lòng đồng ý các điều khoản")
-                    msg_box.exec()
-            else:
-                    msg_box = QMessageBox()
-                    msg_box.setWindowTitle("Caution")
-                    msg_box.setIcon(QMessageBox.Icon.Warning)
-                    msg_box.setText("Mật khẩu không trùng khớp")
                     msg_box.exec()
 
 class User(QMainWindow):
@@ -129,6 +194,7 @@ class User(QMainWindow):
         super().__init__()
         uic.loadUi('GUI//user.ui', self)
         self.stackedWidget.setCurrentIndex(0)
+        self.json_product_file = "empty_cart_product.json"
 
         # Action
         self.btn_home.clicked.connect(self.go_to_home_screen)
@@ -136,6 +202,9 @@ class User(QMainWindow):
         self.btn_cart.clicked.connect(self.go_to_cart_screen)
         self.btn_setting.clicked.connect(self.go_to_setting_screen)
         self.btn_log_out.clicked.connect(self.log_out)
+        self.search_btn.clicked.connect(lambda: self.search_product(self.search_line.text()))
+        self.pushButton_23.clicked.connect(self.go_to_shopping_screen)
+        self.pushButton_2.clicked.connect(lambda: self.search_product(self.lineEdit.text()))
 
     #! Product Store
         self.product_layout = QtWidgets.QGridLayout()  # Tạo QGridLayout để chứa các sản phẩm
@@ -169,11 +238,12 @@ class User(QMainWindow):
         self.display_all_products_store()
         self.display_all_products_cart()
 
+    #! Các phương thức quản lí sản phẩm
     def remove_cart_product(self, product):
-        data = json.load(open("cart_product.json"))
+        data = json.load(open(self.json_product_file))
         data.remove(product)
         print(data)
-        json.dump(data, open("cart_product.json", "w"), indent=4, ensure_ascii=False)
+        json.dump(data, open(self.json_product_file, "w"), indent=4, ensure_ascii=False)
         self.reload_cart_interface()
 
     def reload_cart_interface(self):
@@ -188,7 +258,7 @@ class User(QMainWindow):
     
     def display_all_products_cart(self):
         # Lấy dữ liệu 
-        products_cart = json.load(open('cart_product.json'))
+        products_cart = json.load(open(self.json_product_file))
         
         # Hiển thị các sản phẩm trên giao diện
         row = 0
@@ -262,6 +332,16 @@ class User(QMainWindow):
             if col == 2:
                 col = 0
                 row += 1
+    
+    def reload_store_interface(self):
+        # Xóa tất cả các widget con của product_layout
+        while self.product_layout.count():
+            child = self.product_layout.takeAt(0)
+            if child.widget():
+                child.widget().deleteLater()
+
+        # Hiển thị lại tất cả các sản phẩm
+        self.display_all_products_store()
 
     def display_all_products_store(self):
         # Lấy dữ liệu 
@@ -343,8 +423,96 @@ class User(QMainWindow):
     def display_product_details(self, product):
         show_product_ui.show_product_information(product)
         show_product_ui.show()
-    
-    #! Switch screen
+
+    def search_product(self, key_word):
+        # Chuyển sang trang tìm kiếm với giao diện được đảm bảo
+        self.go_to_shopping_screen()
+        self.search_line.setText(key_word)
+
+        # Xóa tất cả các widget con của product_cart_layout
+        while self.product_layout.count():
+            child = self.product_layout.takeAt(0)
+            if child.widget():
+                child.widget().deleteLater()
+
+        # Lấy dữ liệu
+        products = json.load(open('product.json', encoding='utf-8'))
+
+        # Tìm kiếm sản phẩm theo từ khóa
+        row = 0
+        col = 0
+        for product in products:
+            if unidecode.unidecode(key_word.lower()) in unidecode.unidecode(product['product_name']).lower():
+                widget_of_all = QtWidgets.QFrame()
+                layout_of_all = QtWidgets.QHBoxLayout(widget_of_all)
+
+                # width = 300
+                height = 200
+                # widget_of_all.setFixedSize(width, height)
+                widget_of_all.setFixedHeight(height)
+
+                #TODO: ẢNH
+                #* Hiển thị ảnh
+                image_path = product['image']  # Đường dẫn ảnh
+                image_label = QtWidgets.QLabel()
+                image_label.setStyleSheet("border: none")
+
+                #! Lấy hình ảnh
+                image_pixmap = QtGui.QPixmap(image_path)
+
+                #! Resize ảnh
+                image_pixmap = image_pixmap.scaled(120, 120, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+
+                #! Hiển thị ảnh
+                image_label.setPixmap(image_pixmap)
+                image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+                layout_of_all.addWidget(image_label)
+
+                #* Tạo Widget bao gồm tên và giá của sản phẩm
+                product_information_widget = QtWidgets.QWidget()
+                product_information_layout = QtWidgets.QVBoxLayout(product_information_widget)
+                product_information_widget.setStyleSheet("border: none;")
+
+                #* FONT
+                font = QFont("Segoe UI", 15)
+                font.setBold(True)
+                font.setHintingPreference(QFont.HintingPreference.PreferFullHinting)
+                
+                # Hiển thị tên sản phẩm
+                product_name_label = QtWidgets.QLabel(product['product_name'])
+                product_name_label.setFont(font)
+                product_name_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+                product_information_layout.addWidget(product_name_label)
+                
+                # Hiển thị giá
+                price_format = "{:,}".format(int(product["price"]))
+                price_format = f"{price_format}₫"
+                price_label = QtWidgets.QLabel(f"Giá: {price_format}")
+                price_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+                product_information_layout.addWidget(price_label)
+
+                # Hiển thị danh mục
+                category_label = QtWidgets.QLabel(f"Danh mục: {product['category']}")
+                category_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+                product_information_layout.addWidget(category_label)
+
+                # Thêm nút "Show details"
+                show_details_button = QtWidgets.QPushButton("Xem sản phẩm")
+                show_details_button.clicked.connect(partial(self.display_product_details, product))
+                show_details_button.setStyleSheet("background-color: white; padding: 6px; border-radius: 5px; border: 2px solid #dbdbdb; max-height: 20px; min-height: 20px;")
+                product_information_layout.addWidget(show_details_button)
+                layout_of_all.addWidget(product_information_widget)
+                widget_of_all.setStyleSheet("background-color: white; border-radius : 15px; margin: 3px; border: 2px solid #dbdbdb;")
+
+                # Thêm sản phẩm vào layout
+                self.product_layout.addWidget(widget_of_all, row, col)
+                
+                col += 1
+                if col == 2:
+                    col = 0
+                    row += 1
+
+    #! Thay đổi màn hình
     def go_to_home_screen(self): 
         self.stackedWidget.setCurrentIndex(0)
         self.btn_home.setIcon(QIcon("Image//home_a.png"))
@@ -358,6 +526,7 @@ class User(QMainWindow):
         self.btn_shopping.setIcon(QIcon("Image//shopping_a.png"))
         self.btn_cart.setIcon(QIcon("Image//cart_d.png"))
         self.btn_setting.setIcon(QIcon("Image//setting_d.png"))
+        self.reload_store_interface()
 
     def go_to_cart_screen(self): 
         self.stackedWidget.setCurrentIndex(2)
@@ -372,7 +541,6 @@ class User(QMainWindow):
         self.btn_shopping.setIcon(QIcon("Image//shopping_d.png"))
         self.btn_cart.setIcon(QIcon("Image//cart_d.png"))
         self.btn_setting.setIcon(QIcon("Image//setting_a.png"))
-
     def log_out(self):
         login_ui.show()
         self.hide()
@@ -926,7 +1094,6 @@ class Add_Product(QMainWindow):
             return
 
         new_product = {
-            "simple_name": simple_name,
             "product_name": name,
             "price": price,
             "category": tag,
@@ -1146,11 +1313,10 @@ class Edit_product(QMainWindow):
 
         data = json.load(open("product.json"))
         for product in data:
-            if product["simple_name"] == self.product_input["simple_name"]:
+            if product["product_name"] == self.product_input["product_name"]:
                 simple_name = unidecode.unidecode(self.line_name.text())
                 simple_name.replace(" ", "_")
                 simple_name.lower()
-                product["simple_name"] = simple_name
                 product["product_name"] = self.line_name.text()
                 product["price"] = self.line_price.text()
                 product["category"] = self.tag_name.currentText()
@@ -1233,7 +1399,7 @@ class Show_Product(QMainWindow):
         print("Product Add:")
         print(product_add)
         print()
-        with open('cart_product.json', 'r') as f:
+        with open(user_ui.json_product_file, 'r') as f:
             data = json.load(f)
             print("import:")
             print(data)
@@ -1243,7 +1409,7 @@ class Show_Product(QMainWindow):
         print(data)
         print()
 
-        with open('cart_product.json', 'w') as f:
+        with open(user_ui.json_product_file, 'w') as f:
             json.dump(data, f, indent=4, ensure_ascii=False)
         
         user_ui.reload_cart_interface()
@@ -1264,7 +1430,7 @@ user_ui = User()
 admin_ui = Admin()
 
 # Setup
-user_ui.show()
+login_ui.show()
 app.exec()
 
 try:

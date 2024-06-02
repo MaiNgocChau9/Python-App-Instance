@@ -1,7 +1,16 @@
-import unidecode
+import json
 
-# Chuỗi có dấu tiếng Việt
-chuoi_co_dau = "Đây là ví dụ về chuỗi có dấu tiếng Việt."
+a = {"user_name": "maingocchau"}
+json_f = [
+    {
+        "user_name": "maingocchau",
+        "password": "123456789",
+        "email": "chauaurora9@gmail.com",
+        "name": "Mai Ngọc Châu"
+    }
+]
 
-# Sử dụng unidecode để loại bỏ dấu
-chuoi_khong_dau = unidecode.unidecode(chuoi_co_dau)
+# Kiểm tra xem a có trong json_f hay không
+user_exists = any(user["user_name"] == a["user_name"] for user in json_f)
+
+print("User exists:", user_exists)

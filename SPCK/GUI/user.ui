@@ -340,7 +340,7 @@ QPushButton::hover{
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="home_screen">
        <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -620,7 +620,7 @@ QWidget:pressed{
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_12">
                  <item>
-                  <widget class="QLineEdit" name="lineEdit_2">
+                  <widget class="QLineEdit" name="search_line">
                    <property name="font">
                     <font>
                      <pointsize>10</pointsize>
@@ -639,7 +639,7 @@ background-color: transparent;</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="pushButton_24">
+                  <widget class="QPushButton" name="search_btn">
                    <property name="styleSheet">
                     <string notr="true">QPushButton{
 	background-color: white;

@@ -26,10 +26,11 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">background-color: white;
+color: black;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="name">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -64,10 +65,10 @@ QLineEdit:focus{
      <string/>
     </property>
     <property name="placeholderText">
-     <string>Name</string>
+     <string>Tên người dùng</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_2">
+   <widget class="QLineEdit" name="user_name">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -102,10 +103,10 @@ QLineEdit:focus{
      <string/>
     </property>
     <property name="echoMode">
-     <enum>QLineEdit::Password</enum>
+     <enum>QLineEdit::EchoMode::Normal</enum>
     </property>
     <property name="placeholderText">
-     <string>Password</string>
+     <string>Tên đăng nhập</string>
     </property>
    </widget>
    <widget class="QLabel" name="label">
@@ -113,20 +114,19 @@ QLineEdit:focus{
      <rect>
       <x>20</x>
       <y>150</y>
-      <width>41</width>
+      <width>101</width>
       <height>21</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <pointsize>10</pointsize>
-      <weight>50</weight>
       <bold>false</bold>
       <kerning>false</kerning>
      </font>
     </property>
     <property name="text">
-     <string>Name</string>
+     <string>Tên người dùng</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
@@ -134,20 +134,19 @@ QLineEdit:focus{
      <rect>
       <x>20</x>
       <y>260</y>
-      <width>61</width>
+      <width>101</width>
       <height>21</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <pointsize>10</pointsize>
-      <weight>50</weight>
       <bold>false</bold>
       <kerning>false</kerning>
      </font>
     </property>
     <property name="text">
-     <string>Password</string>
+     <string>Tên đăng nhập</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_5">
@@ -165,10 +164,10 @@ QLineEdit:focus{
      </font>
     </property>
     <property name="text">
-     <string>Welcome</string>
+     <string>Đăng ký</string>
     </property>
     <property name="alignment">
-     <set>Qt::AlignCenter</set>
+     <set>Qt::AlignmentFlag::AlignCenter</set>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton">
@@ -199,7 +198,7 @@ QPushButton:hover{
 }</string>
     </property>
     <property name="text">
-     <string>Register</string>
+     <string>Đăng ký</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_6">
@@ -217,10 +216,10 @@ QPushButton:hover{
      </font>
     </property>
     <property name="text">
-     <string>Already have an account?</string>
+     <string>Đã có sẵn tài khoản?</string>
     </property>
     <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="label_7">
@@ -235,7 +234,6 @@ QPushButton:hover{
     <property name="font">
      <font>
       <pointsize>9</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -243,15 +241,15 @@ QPushButton:hover{
      <string notr="true">color: rgb(3, 148, 252);</string>
     </property>
     <property name="text">
-     <string>Login now</string>
+     <string>Đăng nhập</string>
     </property>
    </widget>
    <widget class="QCheckBox" name="checkBox">
     <property name="geometry">
      <rect>
-      <x>240</x>
+      <x>190</x>
       <y>380</y>
-      <width>201</width>
+      <width>291</width>
       <height>17</height>
      </rect>
     </property>
@@ -261,10 +259,10 @@ QPushButton:hover{
      </font>
     </property>
     <property name="text">
-     <string>I agree to Eclahtee's terms</string>
+     <string>Tôi đồng ý với các điểu khoản của DigiByte</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_3">
+   <widget class="QLineEdit" name="email">
     <property name="geometry">
      <rect>
       <x>340</x>
@@ -314,16 +312,15 @@ QLineEdit:focus{
     <property name="font">
      <font>
       <pointsize>10</pointsize>
-      <weight>50</weight>
       <bold>false</bold>
       <kerning>false</kerning>
      </font>
     </property>
     <property name="text">
-     <string>Confirm Password</string>
+     <string>Mật khẩu</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_4">
+   <widget class="QLineEdit" name="password">
     <property name="geometry">
      <rect>
       <x>340</x>
@@ -358,10 +355,10 @@ QLineEdit:focus{
      <string/>
     </property>
     <property name="echoMode">
-     <enum>QLineEdit::Password</enum>
+     <enum>QLineEdit::EchoMode::Password</enum>
     </property>
     <property name="placeholderText">
-     <string>Confirm Password</string>
+     <string>Mật khẩu</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_8">
@@ -376,7 +373,6 @@ QLineEdit:focus{
     <property name="font">
      <font>
       <pointsize>10</pointsize>
-      <weight>50</weight>
       <bold>false</bold>
       <kerning>false</kerning>
      </font>
@@ -387,8 +383,6 @@ QLineEdit:focus{
    </widget>
   </widget>
  </widget>
- <resources>
-  <include location="../Buổi 6/resource2.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
