@@ -52,7 +52,7 @@ class Login(QMainWindow):
         self.pushButton.clicked.connect(self.the_button_was_clicked)
         self.label_7.mousePressEvent = lambda event: self.register()
         self.load_account()
-    
+
     def register(self):
         register_ui.show()
         login_ui.hide()
@@ -80,6 +80,22 @@ class Login(QMainWindow):
         else:
             if self.captcha.text() == self.captcha_text:
                 if self.email.text() == "admin@example.com" and self.password.text() == "admin":
+                    if self.checkBox.isChecked():
+                        data = [
+                                    {
+                                        "last_account_login": "admin@example.com",
+                                        "keep_login": 1
+                                    }
+                                ]
+                    elif not self.checkBox.isChecked():
+                        data = [
+                                    {
+                                        "last_account_login": "admin@example.com",
+                                        "keep_login": 0
+                                    }
+                                ]
+                    json.dump(data, open("Data/account_login.json", "w"), indent=4, ensure_ascii=False)
+
                     self.close()
                     admin_ui.show()
                 else:
@@ -89,6 +105,26 @@ class Login(QMainWindow):
                             print(f"Data/Cart_product/{a}.json")
                             user_ui.json_product_file = f"Data/Cart_product/{a}.json"
                             user_ui.reload_cart_interface()
+
+                            data = []
+                            if self.checkBox.isChecked():
+                                data = [
+                                    {
+                                        "last_account_login": self.email.text(),
+                                        "keep_login": 1
+                                    }
+                                ]
+
+                            elif not self.checkBox.isChecked():
+                                data = [
+                                    {
+                                        "last_account_login": "",
+                                        "keep_login": 0
+                                    }
+                                ]
+                            print(data)
+                            json.dump(data, open("Data/account_login.json", "w"), indent=4, ensure_ascii=False)
+                            
                             msg_box = QMessageBox()
                             msg_box.setWindowTitle("Thành công")
                             msg_box.setText("Đăng nhập thành công")
@@ -545,9 +581,18 @@ class User(QMainWindow):
         self.btn_shopping.setIcon(QIcon("Image//shopping_d.png"))
         self.btn_cart.setIcon(QIcon("Image//cart_d.png"))
         self.btn_setting.setIcon(QIcon("Image//setting_a.png"))
+
     def log_out(self):
+        data = [
+            {
+                "last_account_login": "",
+                "keep_login": 0
+            }
+        ]
+        json.dump(data, open("Data/account_login.json", "w"), indent=4, ensure_ascii=False)
+        
         login_ui.show()
-        self.hide()
+        self.close()
     
 class Admin(QMainWindow):
     def __init__(self):
@@ -878,6 +923,16 @@ class Admin(QMainWindow):
         self.btn_setting.setIcon(QIcon("Image//setting_a.png"))
 
     def log_out(self):
+        data = [
+            {
+                "last_account_login": "",
+                "keep_login": 0
+            }
+        ]
+        json.dump(data, open("Data/account_login.json", "w"), indent=4, ensure_ascii=False)
+        
+        login_ui.show()
+        self.close()
         login_ui.show()
         self.close()
 
@@ -1423,8 +1478,6 @@ class Show_Product(QMainWindow):
 app = QApplication(sys.argv)
 
 # UI
-login_ui = Login()
-register_ui = Register()
 show_product_ui = Show_Product()
 
 edit_product_ui = Edit_product()
@@ -1433,8 +1486,24 @@ add_product_ui = Add_Product()
 user_ui = User()
 admin_ui = Admin()
 
+login_ui = Login()
+register_ui = Register()
+
+account_login = json.load(open("Data/account_login.json"))
+if account_login[0]["keep_login"] == 1:
+    if account_login[0]["last_account_login"] == "admin@example.com":
+        admin_ui.show()
+    else:
+        accounts = json.load(open("Data/account.json"))
+        for account in accounts:
+            if account["email"] == account_login[0]["last_account_login"]:
+                user_ui.label.setText(account["name"].split()[-1])
+                break
+        user_ui.show()
+elif account_login[0]["keep_login"] == 0:
+    login_ui.show()
+
 # Setup
-login_ui.show()
 app.exec()
 
 try:
