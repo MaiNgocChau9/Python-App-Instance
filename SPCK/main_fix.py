@@ -79,7 +79,7 @@ class Login(QMainWindow):
             msg_box.exec()
 
         else:
-            if unidecode.unidecode(self.captcha.text()) == unidecode.unidecode(self.captcha_text):
+            if self.captcha.text().lower() == self.captcha_text.lower():
                 if self.email.text() == "admin@example.com" and self.password.text() == "admin":
                     if self.checkBox.isChecked():
                         data = [

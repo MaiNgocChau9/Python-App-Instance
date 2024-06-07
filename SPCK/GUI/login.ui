@@ -68,7 +68,7 @@ QLineEdit:focus{
      <enum>QLineEdit::EchoMode::Password</enum>
     </property>
     <property name="placeholderText">
-     <string>Password</string>
+     <string>Mật khẩu</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
@@ -76,7 +76,7 @@ QLineEdit:focus{
      <rect>
       <x>350</x>
       <y>150</y>
-      <width>61</width>
+      <width>71</width>
       <height>21</height>
      </rect>
     </property>
@@ -89,7 +89,7 @@ QLineEdit:focus{
      </font>
     </property>
     <property name="text">
-     <string>Password</string>
+     <string>Mật khẩu</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_5">
@@ -108,7 +108,7 @@ QLineEdit:focus{
      </font>
     </property>
     <property name="text">
-     <string>Welcome back</string>
+     <string>Đăng nhập</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -143,7 +143,7 @@ QPushButton:hover{
 }</string>
     </property>
     <property name="text">
-     <string>Login</string>
+     <string>Đăng nhập</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_6">
@@ -161,7 +161,7 @@ QPushButton:hover{
      </font>
     </property>
     <property name="text">
-     <string>Do not have an account?</string>
+     <string>Chưa có tài khoản?</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
@@ -186,16 +186,16 @@ QPushButton:hover{
      <string notr="true">color: rgb(3, 148, 252);</string>
     </property>
     <property name="text">
-     <string>Register now</string>
+     <string>Đăng ký</string>
     </property>
    </widget>
    <widget class="QCheckBox" name="checkBox">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>380</y>
-      <width>111</width>
-      <height>17</height>
+      <x>260</x>
+      <y>377</y>
+      <width>151</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="font">
@@ -205,7 +205,7 @@ QPushButton:hover{
      </font>
     </property>
     <property name="text">
-     <string>Keep me login</string>
+     <string>Hãy giữ tôi đăng nhập</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="email">
