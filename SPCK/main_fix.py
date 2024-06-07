@@ -35,6 +35,7 @@ class Login(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('GUI//login.ui', self)
+        self.setWindowIcon(QtGui.QIcon('icon.ico'))
         self.accounts = []
 
         # Font
@@ -78,7 +79,7 @@ class Login(QMainWindow):
             msg_box.exec()
 
         else:
-            if self.captcha.text() == self.captcha_text:
+            if unidecode.unidecode(self.captcha.text()) == unidecode.unidecode(self.captcha_text):
                 if self.email.text() == "admin@example.com" and self.password.text() == "admin":
                     if self.checkBox.isChecked():
                         data = [
@@ -150,6 +151,7 @@ class Register(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('GUI//register.ui', self)
+        self.setWindowIcon(QtGui.QIcon('icon.ico'))
     
         font = QFont("Segoe UI", 10)
         font.setBold(True)
@@ -233,6 +235,7 @@ class User(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('GUI//user.ui', self)
+        self.setWindowIcon(QtGui.QIcon('icon.ico'))
         self.stackedWidget.setCurrentIndex(0)
         self.json_product_file = "empty_cart_product.json"
         font_btn = QFont("Segoe UI", 11)
@@ -250,6 +253,7 @@ class User(QMainWindow):
         self.sp.clicked.connect(self.go_to_shopping_screen)
         self.search_btn.clicked.connect(lambda: self.search_product(self.search_line.text()))
         self.pushButton_2.clicked.connect(lambda: self.search_product(self.lineEdit.text()))
+        self.pushButton_3.clicked.connect(self.buy)
 
         #! Product Store
         self.product_layout = QtWidgets.QGridLayout()  # Tạo QGridLayout để chứa các sản phẩm
@@ -289,6 +293,14 @@ class User(QMainWindow):
         data.remove(product)
         print(data)
         json.dump(data, open(self.json_product_file, "w"), indent=4, ensure_ascii=False)
+        self.reload_cart_interface()
+    
+    def buy(self):
+        msg_box = QMessageBox()
+        msg_box.setWindowTitle("Thông tin")
+        msg_box.setText("Hoàn tất mua hàng")
+        msg_box.exec()
+        json.dump([], open(self.json_product_file, "w"), indent=4, ensure_ascii=False)
         self.reload_cart_interface()
 
     def reload_cart_interface(self):
@@ -587,6 +599,11 @@ class User(QMainWindow):
         ]
         json.dump(data, open("Data/account_login.json", "w"), indent=4, ensure_ascii=False)
         
+        login_ui.email.setText("")
+        login_ui.password.setText("")
+        login_ui.captcha.setText("")
+        login_ui.regenerate_captcha()
+        login_ui.checkBox.setChecked(False)
         login_ui.show()
         self.close()
     
@@ -594,6 +611,7 @@ class Admin(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('GUI//admin.ui', self)
+        self.setWindowIcon(QtGui.QIcon('icon.ico'))
         self.stackedWidget.setCurrentIndex(0)
         self.btn_home.setIcon(QIcon("Image//home_a.png"))
         self.btn_product.setIcon(QIcon("Image//shopping_d.png"))
@@ -1011,6 +1029,11 @@ class Admin(QMainWindow):
         ]
         json.dump(data, open("Data/account_login.json", "w", encoding='utf-8'), indent=4, ensure_ascii=False)
         
+        login_ui.email.setText("")
+        login_ui.password.setText("")
+        login_ui.captcha.setText("")
+        login_ui.regenerate_captcha()
+        login_ui.checkBox.setChecked(False)
         login_ui.show()
         self.close()
         login_ui.show()
@@ -1020,6 +1043,7 @@ class Add_Product(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('GUI//addproduct.ui', self)
+        self.setWindowIcon(QtGui.QIcon('icon.ico'))
         self.tag_name.addItems([item['name'] for item in json.load(open("Data/categorys.json", encoding='utf-8'))])
         self.image.setPixmap(QPixmap("Image//add_image.png").scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
         self.image_path = ""
@@ -1284,6 +1308,7 @@ class Edit_product(QMainWindow):
         self.product_input = []
 
         uic.loadUi('GUI//editproduct.ui', self)
+        self.setWindowIcon(QtGui.QIcon('icon.ico'))
         self.tag_name.addItems([item['name'] for item in json.load(open("Data/categorys.json", encoding='utf-8'))])
 
         # Font
@@ -1516,6 +1541,7 @@ class Show_Product(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('GUI//show_product.ui', self)
+        self.setWindowIcon(QtGui.QIcon('icon.ico'))
         self.setStyleSheet("background-color: white; color: black")
 
         # Font

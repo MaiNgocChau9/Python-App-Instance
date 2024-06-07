@@ -18,7 +18,7 @@
 border: 0px;</string>
   </property>
   <property name="inputMethodHints">
-   <set>Qt::InputMethodHint::ImhDigitsOnly</set>
+   <set>Qt::ImhNone</set>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -80,8 +80,8 @@ QScrollBar:horizontal{
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>833</width>
-         <height>593</height>
+         <width>832</width>
+         <height>594</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -132,7 +132,7 @@ max-height: 30px;</string>
 max-width: 400px;
 min-height: 400px;
 max-height: 400px;
-background-color: red;</string>
+background-color: white;</string>
              </property>
              <property name="text">
               <string/>
@@ -166,6 +166,7 @@ margin-top: 10px;</string>
                  <font>
                   <family>Segoe UI</family>
                   <pointsize>18</pointsize>
+                  <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
@@ -200,6 +201,7 @@ margin-top: 10px;</string>
                  <font>
                   <family>Segoe UI</family>
                   <pointsize>17</pointsize>
+                  <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
@@ -227,6 +229,7 @@ margin-top: 10px;</string>
                  <font>
                   <family>Segoe UI</family>
                   <pointsize>10</pointsize>
+                  <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
@@ -312,6 +315,7 @@ QPushButton::pressed{
            <font>
             <family>Segoe UI</family>
             <pointsize>16</pointsize>
+            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
