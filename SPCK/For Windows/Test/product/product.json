@@ -1,0 +1,161 @@
+[
+{
+    "product_id": "SP001",
+    "product_name": "T-shirt",
+    "category": "Clothing",
+    "quantity": 10,
+    "price": 100000,
+    "import_date": "01/01/2023"
+},
+{
+    "product_id": "SP002",
+    "product_name": "Leather wallet",
+    "category": "Accessories",
+    "quantity": 5,
+    "price": 500000,
+    "import_date": "02/01/2023"
+},
+{
+    "product_id": "SP003",
+    "product_name": "Jeans",
+    "category": "Clothing",
+    "quantity": 8,
+    "price": 250000,
+    "import_date": "03/01/2023"
+},
+{
+    "product_id": "SP004",
+    "product_name": "Sneakers",
+    "category": "Accessories",
+    "quantity": 12,
+    "price": 800000,
+    "import_date": "04/01/2023"
+},
+{
+    "product_id": "SP005",
+    "product_name": "Backpack",
+    "category": "Accessories",
+    "quantity": 3,
+    "price": 700000,
+    "import_date": "05/01/2023"
+},
+{
+    "product_id": "SP006",
+    "product_name": "Dress",
+    "category": "Clothing",
+    "quantity": 6,
+    "price": 350000,
+    "import_date": "06/01/2023"
+},
+{
+    "product_id": "SP007",
+    "product_name": "Watch",
+    "category": "Accessories",
+    "quantity": 2,
+    "price": 1200000,
+    "import_date": "07/01/2023"
+},
+{
+    "product_id": "SP008",
+    "product_name": "Hat",
+    "category": "Accessories",
+    "quantity": 4,
+    "price": 150000,
+    "import_date": "08/01/2023"
+},
+{
+    "product_id": "SP009",
+    "product_name": "Shirt",
+    "category": "Clothing",
+    "quantity": 7,
+    "price": 180000,
+    "import_date": "09/01/2023"
+},
+{
+    "product_id": "SP010",
+    "product_name": "Running shoes",
+    "category": "Accessories",
+    "quantity": 9,
+    "price": 600000,
+    "import_date": "10/01/2023"
+},
+{
+    "product_id": "SP011",
+    "product_name": "Skirt",
+    "category": "Clothing",
+    "quantity": 4,
+    "price": 200000,
+    "import_date": "11/01/2023"
+},
+{
+    "product_id": "SP012",
+    "product_name": "Necklace",
+    "category": "Accessories",
+    "quantity": 1,
+    "price": 900000,
+    "import_date": "12/01/2023"
+},
+{
+    "product_id": "SP013",
+    "product_name": "Sunglasses",
+    "category": "Accessories",
+    "quantity": 6,
+    "price": 300000,
+    "import_date": "13/01/2023"
+},
+{
+    "product_id": "SP014",
+    "product_name": "Jacket",
+    "category": "Clothing",
+    "quantity": 3,
+    "price": 450000,
+    "import_date": "14/01/2023"
+},
+{
+    "product_id": "SP015",
+    "product_name": "Sandals",
+    "category": "Accessories",
+    "quantity": 7,
+    "price": 400000,
+    "import_date": "15/01/2023"
+},
+{
+    "product_id": "SP016",
+    "product_name": "Shorts",
+    "category": "Clothing",
+    "quantity": 5,
+    "price": 150000,
+    "import_date": "16/01/2023"
+},
+{
+    "product_id": "SP017",
+    "product_name": "Bracelet",
+    "category": "Accessories",
+    "quantity": 2,
+    "price": 750000,
+    "import_date": "17/01/2023"
+},
+{
+    "product_id": "SP018",
+    "product_name": "Sweater",
+    "category": "Clothing",
+    "quantity": 4,
+    "price": 300000,
+    "import_date": "18/01/2023"
+},
+{
+    "product_id": "SP019",
+    "product_name": "Belt",
+    "category": "Accessories",
+    "quantity": 3,
+    "price": 200000,
+    "import_date": "19/01/2023"
+},
+{
+    "product_id": "SP020",
+    "product_name": "Loafers",
+    "category": "Accessories",
+    "quantity": 6,
+    "price": 900000,
+    "import_date": "20/01/2023"
+}]
