@@ -1,5 +1,0 @@
-a = float(input("Nhập số tự nhiên a: "))
-b = float(input("Nhập số tự nhiên b: "))
-c = float(input("Nhập số tự nhiên c: "))
-print("Số nhỏ nhât trong các số a b c:", min(a, b, c))
-print("Số lớn nhất trong các số a b c:", max(a, b, c))
