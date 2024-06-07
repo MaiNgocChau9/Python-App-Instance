@@ -58,7 +58,7 @@ class Login(QMainWindow):
         login_ui.hide()
     
     def load_account(self):
-        self.accounts = json.load(open("Data/account.json"))
+        self.accounts = json.load(open("Data/account.json", encoding="utf-8"))
 
     def regenerate_captcha(self):
         self.image = ImageCaptcha(width=280, height=90, fonts=['times'])
@@ -235,18 +235,23 @@ class User(QMainWindow):
         uic.loadUi('GUI//user.ui', self)
         self.stackedWidget.setCurrentIndex(0)
         self.json_product_file = "empty_cart_product.json"
+        font_btn = QFont("Segoe UI", 11)
+        font_btn.setBold(True)
+        self.label.setFont(QFont("Segoe UI", 12))
+        self.pushButton_3.setFont(font_btn)
+        self.sp.setFont(font_btn)
 
-        # Action
+        #! Action
         self.btn_home.clicked.connect(self.go_to_home_screen)
         self.btn_shopping.clicked.connect(self.go_to_shopping_screen)
         self.btn_cart.clicked.connect(self.go_to_cart_screen)
-        self.btn_setting.clicked.connect(self.go_to_setting_screen)
         self.btn_log_out.clicked.connect(self.log_out)
-        self.search_btn.clicked.connect(lambda: self.search_product(self.search_line.text()))
         self.pushButton_23.clicked.connect(self.go_to_shopping_screen)
+        self.sp.clicked.connect(self.go_to_shopping_screen)
+        self.search_btn.clicked.connect(lambda: self.search_product(self.search_line.text()))
         self.pushButton_2.clicked.connect(lambda: self.search_product(self.lineEdit.text()))
 
-    #! Product Store
+        #! Product Store
         self.product_layout = QtWidgets.QGridLayout()  # Tạo QGridLayout để chứa các sản phẩm
         self.product_widget = QtWidgets.QWidget()  # Tạo QWidget để chứa QGridLayout
         self.product_widget.setLayout(self.product_layout)  # Đặt QGridLayout làm layout cho QWidget
@@ -558,14 +563,13 @@ class User(QMainWindow):
         self.btn_home.setIcon(QIcon("Image//home_a.png"))
         self.btn_shopping.setIcon(QIcon("Image//shopping_d.png"))
         self.btn_cart.setIcon(QIcon("Image//cart_d.png"))
-        self.btn_setting.setIcon(QIcon("Image//setting_d.png"))
 
     def go_to_shopping_screen(self): 
         self.stackedWidget.setCurrentIndex(1)
         self.btn_home.setIcon(QIcon("Image//home_d.png"))
         self.btn_shopping.setIcon(QIcon("Image//shopping_a.png"))
         self.btn_cart.setIcon(QIcon("Image//cart_d.png"))
-        self.btn_setting.setIcon(QIcon("Image//setting_d.png"))
+        
         self.reload_store_interface()
 
     def go_to_cart_screen(self): 
@@ -573,14 +577,6 @@ class User(QMainWindow):
         self.btn_home.setIcon(QIcon("Image//home_d.png"))
         self.btn_shopping.setIcon(QIcon("Image//shopping_d.png"))
         self.btn_cart.setIcon(QIcon("Image//cart_a.png"))
-        self.btn_setting.setIcon(QIcon("Image//setting_d.png"))
-
-    def go_to_setting_screen(self): 
-        self.stackedWidget.setCurrentIndex(3)
-        self.btn_home.setIcon(QIcon("Image//home_d.png"))
-        self.btn_shopping.setIcon(QIcon("Image//shopping_d.png"))
-        self.btn_cart.setIcon(QIcon("Image//cart_d.png"))
-        self.btn_setting.setIcon(QIcon("Image//setting_a.png"))
 
     def log_out(self):
         data = [
@@ -602,19 +598,33 @@ class Admin(QMainWindow):
         self.btn_home.setIcon(QIcon("Image//home_a.png"))
         self.btn_product.setIcon(QIcon("Image//shopping_d.png"))
         self.btn_statistic.setIcon(QIcon("Image//chart_bar_d.png"))
-        self.btn_setting.setIcon(QIcon("Image//setting_d.png"))
         self.btn_catgory.setIcon(QIcon("Image//category_d.png"))
+        font_btn = QFont("Segoe UI", 11)
+        font_btn.setBold(True)
+        self.qlsp.setFont(font_btn)
+        self.qldm.setFont(font_btn)
+        self.tk.setFont(font_btn)
+        self.label.setFont(QFont("Segoe UI", 12))
+        self.add_btn.setFont(font_btn)
+        self.more_info.setFont(font_btn)
+        self.add_cg.setFont(font_btn)
+        self.del_cg.setFont(font_btn)
 
         #! Action
         self.btn_home.clicked.connect(self.go_to_home_screen)
         self.btn_product.clicked.connect(self.go_to_product_screen)
         self.btn_statistic.clicked.connect(self.go_to_statistic_screen)
         self.btn_catgory.clicked.connect(self.go_to_category_screen)
-        self.btn_setting.clicked.connect(self.go_to_setting_screen)
         self.btn_log_out.clicked.connect(self.log_out)
         self.add_btn.clicked.connect(self.add_product)
         self.add_cg.clicked.connect(self.add_category)
         self.del_cg.clicked.connect(self.remove_category)
+        self.qlsp.clicked.connect(self.go_to_product_screen)
+        self.qldm.clicked.connect(self.go_to_category_screen)
+        self.tk.clicked.connect(self.go_to_statistic_screen)
+        self.pushButton_23.clicked.connect(self.go_to_product_screen)
+        self.search.clicked.connect(lambda: self.search_product(self.search_line.text()))
+        self.pushButton_2.clicked.connect(lambda: self.search_product(self.lineEdit.text()))
 
         #! Show product
         self.product_layout = QtWidgets.QGridLayout()  # Tạo QGridLayout để chứa các sản phẩm
@@ -634,7 +644,7 @@ class Admin(QMainWindow):
         self.display_all_products()
 
         #! Category
-        self.categore_list = json.load(open('Data/categorys.json'))
+        self.categore_list = json.load(open('Data/categorys.json', encoding='utf-8'))
         for categore in self.categore_list:
             self.cg_list.addItem(categore['name'])
         self.more_info.clicked.connect(self.show_more_info)
@@ -642,8 +652,105 @@ class Admin(QMainWindow):
         # Create Pie Chart
         self.create_pie_chart()
     
+    def search_product(self, key_word):
+        # Chuyển sang trang tìm kiếm với giao diện được đảm bảo
+        self.go_to_product_screen()
+        self.search_line.setText(key_word)
+
+        # Xóa tất cả các widget con của product_cart_layout
+        while self.product_layout.count():
+            child = self.product_layout.takeAt(0)
+            if child.widget():
+                child.widget().deleteLater()
+
+        # Lấy dữ liệu
+        products = json.load(open('product.json', encoding='utf-8'))
+
+        # Tìm kiếm sản phẩm theo từ khóa
+        row = 0
+        col = 0
+        for product in products:
+            if unidecode.unidecode(key_word.lower()) in unidecode.unidecode(product['product_name']).lower():
+                widget_of_all = QtWidgets.QFrame()
+                layout_of_all = QtWidgets.QHBoxLayout(widget_of_all)
+
+                # width = 300
+                height = 205
+                # widget_of_all.setFixedSize(width, height)
+                widget_of_all.setFixedHeight(height)
+
+                #TODO: ẢNH
+                #* Hiển thị ảnh
+                image_path = product['image']  # Đường dẫn ảnh
+                image_label = QtWidgets.QLabel()
+                image_label.setStyleSheet("border: none")
+
+                #! Lấy hình ảnh
+                image_pixmap = QtGui.QPixmap(image_path)
+
+                #! Resize ảnh
+                image_pixmap = image_pixmap.scaled(120, 120, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+
+                #! Hiển thị ảnh
+                image_label.setPixmap(image_pixmap)
+                image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+                layout_of_all.addWidget(image_label)
+
+                #* Tạo Widget bao gồm tên và giá của sản phẩm
+                product_information_widget = QtWidgets.QWidget()
+                product_information_layout = QtWidgets.QVBoxLayout(product_information_widget)
+                product_information_widget.setStyleSheet("border: none;")
+
+                #* FONT
+                font = QFont("Segoe UI", 15)
+                font.setBold(True)
+                font.setHintingPreference(QFont.HintingPreference.PreferFullHinting)
+                
+                # Hiển thị tên sản phẩm
+                product_name_label = QtWidgets.QLabel(product['product_name'])
+                product_name_label.setFont(font)
+                product_name_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+                product_information_layout.addWidget(product_name_label)
+                
+                # Hiển thị giá
+                price_format = "{:,}".format(int(product["price"]))
+                price_format = f"{price_format}₫"
+                price_label = QtWidgets.QLabel(f"Giá: {price_format}")
+                price_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+                product_information_layout.addWidget(price_label)
+
+                # Hiển thị danh mục
+                category_label = QtWidgets.QLabel(f"Danh mục: {product['category']}")
+                category_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+                product_information_layout.addWidget(category_label)
+
+                # Thêm nút "Chỉnh sửa"
+                show_edit_button = QtWidgets.QPushButton("Chỉnh sửa")
+                show_edit_button.clicked.connect(partial(self.display_product_edit, product))
+                show_edit_button.setStyleSheet("background-color: yellow; padding: 6px; border-radius: 5px; border: 2px solid white; max-height: 20px; min-height: 20px;")
+                product_information_layout.addWidget(show_edit_button)
+
+                # Thêm nút "Xóa"
+                show_delete_button = QtWidgets.QPushButton("Xóa")
+                show_delete_button.clicked.connect(partial(self.remove_product, product))
+                show_delete_button.setStyleSheet("background-color: red; padding: 6px; border-radius: 5px; border: 2px solid white; max-height: 20px; min-height: 20px;")
+                product_information_layout.addWidget(show_delete_button)
+                
+                # Thêm widget vào layout
+                layout_of_all.addWidget(product_information_widget)
+                
+                # Đặt Stylesheet cho widget
+                widget_of_all.setStyleSheet("background-color: white; border-radius: 15px; margin: 3px; border: 2px solid #dbdbdb;")
+
+                # Thêm sản phẩm vào layout
+                self.product_layout.addWidget(widget_of_all, row, col)
+            
+            col += 1
+            if col == 2:
+                col = 0
+                row += 1
+    
     def create_pie_chart(self):
-        
         # Xóa tất cả các widget con của layout hiện tại
         if self.pie_chart.layout() is not None:
             old_layout = self.pie_chart.layout()
@@ -654,8 +761,7 @@ class Admin(QMainWindow):
             sip.delete(old_layout)  # Xóa layout cũ
 
         # Import json
-        with open("Data//categorys.json", "r") as f:
-            data = json.load(f)
+        data = json.load(open('Data//categorys.json', encoding='utf-8'))
         
         # Tạo dữ liệu cho biểu đồ Pie Chart
         self.series = QPieSeries()
@@ -799,10 +905,10 @@ class Admin(QMainWindow):
         edit_product_ui.show()
 
     def remove_product(self, product):
-        data = json.load(open("product.json"))
+        data = json.load(open("product.json", encoding='utf-8'))
         data.remove(product)
         print(data)
-        json.dump(data, open("product.json", "w"), indent=4, ensure_ascii=False)
+        json.dump(data, open("product.json", "w", encoding='utf-8'), indent=4, ensure_ascii=False)
         os.remove(product["image"])
         admin_ui.fix_category()
         self.reload_interface()
@@ -812,41 +918,24 @@ class Admin(QMainWindow):
         new_category,_ = QInputDialog.getText(self, "Thêm danh mục", "Nhập tên danh mục:")
         if new_category:
             self.cg_list.addItem(new_category)
-            inp_data = json.load(open("Data/categorys.json"))
+            inp_data = json.load(open("Data/categorys.json", encoding='utf-8'))
             inp_data.insert(0, {"name": new_category, "product": 0})
-            json.dump(inp_data, open("Data/categorys.json", "w"), indent=4, ensure_ascii=False)
+            json.dump(inp_data, open("Data/categorys.json", "w", encoding='utf-8'), indent=4, ensure_ascii=False)
             self.create_pie_chart()
     
     def remove_category(self):
         self.cg_list.takeItem(self.cg_list.currentRow())
-        inp_data = json.load(open("Data/categorys.json"))
+        inp_data = json.load(open("Data/categorys.json", encoding='utf-8'))
         inp_data.pop(self.cg_list.currentRow())
-        json.dump(inp_data, open("Data/categorys.json", "w"), indent=4, ensure_ascii=False)
+        json.dump(inp_data, open("Data/categorys.json", "w", encoding='utf-8'), indent=4, ensure_ascii=False)
         self.create_pie_chart()
 
     def show_more_info(self):
-        inp_data = json.load(open("Data/categorys.json"))
+        inp_data = json.load(open("Data/categorys.json", encoding='utf-8'))
         msg_box = QMessageBox()
         msg_box.setWindowTitle("Thông tin")
         msg_box.setText(f"Tên danh mục: {inp_data[self.cg_list.currentRow()]['name']}\nSố sản phẩm: {inp_data[self.cg_list.currentRow()]['product']}")
         msg_box.exec()
-    
-    # def fix_category(self):
-    #     json_product = json.load(open("product.json"))
-    #     json_category = json.load(open("Data/categorys.json"))
-
-    #     # Khởi tạo số lượng sản phẩm cho mỗi danh mục là 0
-    #     for category in json_category:
-    #         category["product"] = 0
-
-    #     # Đếm số lượng sản phẩm cho mỗi danh mục
-    #     for product in json_product:
-    #         for category in json_category:
-    #             if category["name"] == product["category"]:
-    #                 category["product"] += 1
-
-    #     # Ghi đồi file JSON
-    #     json.dump(json_category, open("Data/categorys.json", "w"), indent=4, ensure_ascii=False)
     
     def fix_category(self):
         try:
@@ -888,7 +977,7 @@ class Admin(QMainWindow):
         self.btn_product.setIcon(QIcon("Image//shopping_d.png"))
         self.btn_statistic.setIcon(QIcon("Image//chart_bar_d.png"))
         self.btn_catgory.setIcon(QIcon("Image//category_d.png"))
-        self.btn_setting.setIcon(QIcon("Image//setting_d.png"))
+        
 
     def go_to_product_screen(self): 
         self.stackedWidget.setCurrentIndex(1)
@@ -896,7 +985,7 @@ class Admin(QMainWindow):
         self.btn_product.setIcon(QIcon("Image//shopping_a.png"))
         self.btn_statistic.setIcon(QIcon("Image//chart_bar_d.png"))
         self.btn_catgory.setIcon(QIcon("Image//category_d.png"))
-        self.btn_setting.setIcon(QIcon("Image//setting_d.png"))
+        self.reload_interface()
 
     def go_to_statistic_screen(self): 
         self.stackedWidget.setCurrentIndex(2)
@@ -904,7 +993,6 @@ class Admin(QMainWindow):
         self.btn_product.setIcon(QIcon("Image//shopping_d.png"))
         self.btn_statistic.setIcon(QIcon("Image//chart_bar_a.png"))
         self.btn_catgory.setIcon(QIcon("Image//category_d.png"))
-        self.btn_setting.setIcon(QIcon("Image//setting_d.png"))
     
     def go_to_category_screen(self): 
         self.stackedWidget.setCurrentIndex(3)
@@ -912,15 +1000,7 @@ class Admin(QMainWindow):
         self.btn_product.setIcon(QIcon("Image//shopping_d.png"))
         self.btn_statistic.setIcon(QIcon("Image//chart_bar_d.png"))
         self.btn_catgory.setIcon(QIcon("Image//category_a.png"))
-        self.btn_setting.setIcon(QIcon("Image//setting_d.png"))
-
-    def go_to_setting_screen(self): 
-        self.stackedWidget.setCurrentIndex(4)
-        self.btn_home.setIcon(QIcon("Image//home_d.png"))
-        self.btn_product.setIcon(QIcon("Image//shopping_d.png"))
-        self.btn_statistic.setIcon(QIcon("Image//chart_bar_d.png"))
-        self.btn_catgory.setIcon(QIcon("Image//category_d.png"))
-        self.btn_setting.setIcon(QIcon("Image//setting_a.png"))
+        
 
     def log_out(self):
         data = [
@@ -929,7 +1009,7 @@ class Admin(QMainWindow):
                 "keep_login": 0
             }
         ]
-        json.dump(data, open("Data/account_login.json", "w"), indent=4, ensure_ascii=False)
+        json.dump(data, open("Data/account_login.json", "w", encoding='utf-8'), indent=4, ensure_ascii=False)
         
         login_ui.show()
         self.close()
@@ -940,7 +1020,7 @@ class Add_Product(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('GUI//addproduct.ui', self)
-        self.tag_name.addItems([item['name'] for item in json.load(open("Data/categorys.json"))])
+        self.tag_name.addItems([item['name'] for item in json.load(open("Data/categorys.json", encoding='utf-8'))])
         self.image.setPixmap(QPixmap("Image//add_image.png").scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
         self.image_path = ""
 
@@ -1120,22 +1200,18 @@ class Add_Product(QMainWindow):
             self.image.setPixmap(image_pixmap)
         
     def add_new_product(self):
-        print("Add product")
-        self.l_title.setText("Thêm sản phẩm")
-        self.add.setText("Thêm")
-
+        # Lấy dữ liệu
         name = self.line_name.text()
         price = self.line_price.text()
         
         # No inputmask
-        description = self.textEdit.toPlainText()
+        description = self.textEdit.toHtml()
         image_path = self.image_path
         tag = self.tag_name.currentText()
         simple_name = unidecode.unidecode(name).replace(" ", "_").lower()
 
         try:
-            with open("product.json", "r", encoding="utf-8") as product_file:
-                existing_data = json.load(product_file)
+            existing_data = json.load(open("product.json", "r", encoding="utf-8"))
         except FileNotFoundError:
             existing_data = []
         except json.JSONDecodeError:
@@ -1146,33 +1222,59 @@ class Add_Product(QMainWindow):
         try:
             shutil.copyfile(image_path, f"Image//{simple_name}.png")
         except FileNotFoundError as e:
-            print(f"Image file not found: {e.filename}")
-            return
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle("Cảnh báo")
+            msg_box.setIcon(QMessageBox.Icon.Warning)
+            msg_box.setText("Vui lòng thêm hình ảnh sản phẩm!")
+            msg_box.exec()
         except Exception as e:
-            print(f"Error copying image file: {e}")
-            return
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle("Cảnh báo")
+            msg_box.setIcon(QMessageBox.Icon.Warning)
+            msg_box.setText("Vui lòng thêm hình ảnh sản phẩm!")
+            msg_box.exec()
 
-        new_product = {
-            "product_name": name,
-            "price": price,
-            "category": tag,
-            "description": description,
-            "image": f"Image//{simple_name}.png"
-        }
+        will_continue = True
+        for product in existing_data:
+            if unidecode.unidecode(product["product_name"]).replace(" ", "_").lower() == simple_name:
+                msg_box = QMessageBox()
+                msg_box.setWindowTitle("Cảnh báo")
+                msg_box.setIcon(QMessageBox.Icon.Warning)
+                msg_box.setText("Sản phẩm đã tồn tại!")
+                msg_box.exec()
+                will_continue = False
+                break
+            
+        if will_continue:
+            if price:
+                new_product = {
+                    "product_name": name,
+                    "price": price,
+                    "category": tag,
+                    "description": description,
+                    "image": f"Image//{simple_name}.png"
+                }
+                existing_data.append(new_product)
 
-        existing_data.append(new_product)
+                try:
+                    json.dump(existing_data, open("product.json", "w", encoding="utf-8"), indent=4, ensure_ascii=False)
+                except Exception as e:
+                    msg_box = QMessageBox()
+                    msg_box.setWindowTitle("Cảnh báo")
+                    msg_box.setIcon(QMessageBox.Icon.Warning)
+                    msg_box.setText("Có lỗi đã xảy ra, vui lòng thử lại!")
+                    msg_box.exec()
 
-        try:
-            with open("product.json", "w", encoding="utf-8") as product_file:
-                json.dump(existing_data, product_file, indent=4, ensure_ascii=False)
-        except Exception as e:
-            print(f"Error writing to product.json: {e}")
-            return
-
-        print("Added")
-        admin_ui.fix_category()
-        admin_ui.reload_interface()
-        self.close()
+                print("Added")
+                admin_ui.fix_category()
+                admin_ui.reload_interface()
+                self.close()
+            else:
+                msg_box = QMessageBox()
+                msg_box.setWindowTitle("Cảnh báo")
+                msg_box.setIcon(QMessageBox.Icon.Warning)
+                msg_box.setText("Vui lòng điền giá sản phẩm!")
+                msg_box.exec()
 
 class Edit_product(QMainWindow):
     def __init__(self):
@@ -1182,7 +1284,7 @@ class Edit_product(QMainWindow):
         self.product_input = []
 
         uic.loadUi('GUI//editproduct.ui', self)
-        self.tag_name.addItems([item['name'] for item in json.load(open("Data/categorys.json"))])
+        self.tag_name.addItems([item['name'] for item in json.load(open("Data/categorys.json", encoding='utf-8'))])
 
         # Font
         label_font = QFont("Segoe UI", 18)
@@ -1370,7 +1472,7 @@ class Edit_product(QMainWindow):
     def save_product(self):
         print("Save product")
 
-        data = json.load(open("product.json"))
+        data = json.load(open("product.json", encoding='utf-8'))
         for product in data:
             if product["product_name"] == self.product_input["product_name"]:
                 simple_name = unidecode.unidecode(self.line_name.text())
@@ -1387,7 +1489,7 @@ class Edit_product(QMainWindow):
                 else:
                     os.remove(self.product_input["image"])
                     product["image"] = f"Image//{self.line_name.text().lower().replace(' ', '_')}.png"
-                with open("product.json", "w") as f: json.dump(data, f, indent=4, ensure_ascii=False)
+                with open("product.json", "w", encoding='utf-8') as f: json.dump(data, f, indent=4, ensure_ascii=False)
                 print("Saved")
                 break
 
@@ -1458,18 +1560,14 @@ class Show_Product(QMainWindow):
         print("Product Add:")
         print(product_add)
         print()
-        with open(user_ui.json_product_file, 'r') as f:
-            data = json.load(f)
-            print("import:")
-            print(data)
+        data = json.load(open(user_ui.json_product_file, 'r', encoding='utf-8'))
         data.append(product_add)
 
         print("export:")
         print(data)
         print()
 
-        with open(user_ui.json_product_file, 'w') as f:
-            json.dump(data, f, indent=4, ensure_ascii=False)
+        json.dump(data, open(user_ui.json_product_file, 'w', encoding='utf-8'), indent=4, ensure_ascii=False)
         
         user_ui.reload_cart_interface()
         self.close()
@@ -1489,12 +1587,12 @@ admin_ui = Admin()
 login_ui = Login()
 register_ui = Register()
 
-account_login = json.load(open("Data/account_login.json"))
+account_login = json.load(open("Data/account_login.json", encoding='utf-8'))
 if account_login[0]["keep_login"] == 1:
     if account_login[0]["last_account_login"] == "admin@example.com":
         admin_ui.show()
     else:
-        accounts = json.load(open("Data/account.json"))
+        accounts = json.load(open("Data/account.json", encoding='utf-8'))
         for account in accounts:
             if account["email"] == account_login[0]["last_account_login"]:
                 user_ui.label.setText(account["name"].split()[-1])
