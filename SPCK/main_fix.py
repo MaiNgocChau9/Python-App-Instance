@@ -201,8 +201,8 @@ class Register(QMainWindow):
                                     "email": str(self.email.text()),
                                     "name": str(self.name.text())
                                 })
-                            json.dump(account, open("Data/account.json", "w"), indent=4, ensure_ascii=False)
-                            json.dump([], open(f"Data/Cart_product/{self.user_name.text()}.json", "w"), indent=4, ensure_ascii=False)
+                            json.dump(account, open("Data/account.json", "w", encoding='utf-8'), indent=4, ensure_ascii=False)
+                            json.dump([], open(f"Data/Cart_product/{self.user_name.text()}.json", "w", encoding='utf-8'), indent=4, ensure_ascii=False)
                             login_ui.load_account()
                             msg_box = QMessageBox()
                             msg_box.setWindowTitle("Thành công")
@@ -289,10 +289,10 @@ class User(QMainWindow):
 
     #! Các phương thức quản lí sản phẩm
     def remove_cart_product(self, product):
-        data = json.load(open(self.json_product_file))
+        data = json.load(open(self.json_product_file, encoding='utf-8'))
         data.remove(product)
         print(data)
-        json.dump(data, open(self.json_product_file, "w"), indent=4, ensure_ascii=False)
+        json.dump(data, open(self.json_product_file, "w", encoding='utf-8'), indent=4, ensure_ascii=False)
         self.reload_cart_interface()
     
     def buy(self):
@@ -300,7 +300,7 @@ class User(QMainWindow):
         msg_box.setWindowTitle("Thông tin")
         msg_box.setText("Hoàn tất mua hàng")
         msg_box.exec()
-        json.dump([], open(self.json_product_file, "w"), indent=4, ensure_ascii=False)
+        json.dump([], open(self.json_product_file, "w", encoding='utf-8'), indent=4, ensure_ascii=False)
         self.reload_cart_interface()
 
     def reload_cart_interface(self):
@@ -315,7 +315,7 @@ class User(QMainWindow):
     
     def display_all_products_cart(self):
         # Lấy dữ liệu 
-        products_cart = json.load(open(self.json_product_file))
+        products_cart = json.load(open(self.json_product_file, encoding='utf-8'))
         
         # Hiển thị các sản phẩm trên giao diện
         row = 0
@@ -597,7 +597,7 @@ class User(QMainWindow):
                 "keep_login": 0
             }
         ]
-        json.dump(data, open("Data/account_login.json", "w"), indent=4, ensure_ascii=False)
+        json.dump(data, open("Data/account_login.json", "w", encoding='utf-8'), indent=4, ensure_ascii=False)
         
         login_ui.email.setText("")
         login_ui.password.setText("")
