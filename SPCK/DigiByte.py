@@ -789,7 +789,7 @@ class Admin(QMainWindow):
         # Tạo biểu đồ từ dữ liệu
         self.chart = QChart()
         self.chart.addSeries(self.series)
-        self.chart.setTitle("Bảng thống kê tỷ lệ sản phẩm bán ra theo từng nhóm")
+        self.chart.setTitle("Biểu đồ thống kê số lượng sản phẩm theo danh mục")
         self.chart.legend().setFont(QFont("Arial", 12))
         self.chart.setTitleFont(QFont("Arial", 15))
         self.chart.legend().setVisible(True)
